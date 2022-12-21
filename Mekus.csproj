@@ -77,6 +77,12 @@
     <Compile Include="forms\models\crud_models.Designer.cs">
       <DependentUpon>crud_models.cs</DependentUpon>
     </Compile>
+    <Compile Include="forms\travelings\create_traveling.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\travelings\create_traveling.Designer.cs">
+      <DependentUpon>create_traveling.cs</DependentUpon>
+    </Compile>
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -96,6 +102,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="forms\models\crud_models.resx">
       <DependentUpon>crud_models.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="forms\travelings\create_traveling.resx">
+      <DependentUpon>create_traveling.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
