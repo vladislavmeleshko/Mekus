@@ -53,6 +53,18 @@
     <Compile Include="classes\Gasstation.cs" />
     <Compile Include="classes\Model.cs" />
     <Compile Include="classes\Traveling.cs" />
+    <Compile Include="forms\cars\crud_cars.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\cars\crud_cars.Designer.cs">
+      <DependentUpon>crud_cars.cs</DependentUpon>
+    </Compile>
+    <Compile Include="forms\couriers\crud_courier.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\couriers\crud_courier.Designer.cs">
+      <DependentUpon>crud_courier.cs</DependentUpon>
+    </Compile>
     <Compile Include="forms\gases\crud_gases.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -73,6 +85,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="forms\cars\crud_cars.resx">
+      <DependentUpon>crud_cars.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="forms\couriers\crud_courier.resx">
+      <DependentUpon>crud_courier.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="forms\gases\crud_gases.resx">
       <DependentUpon>crud_gases.cs</DependentUpon>
     </EmbeddedResource>
