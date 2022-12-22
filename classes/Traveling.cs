@@ -135,8 +135,8 @@ namespace Mekus.classes
                                                     "s_gas_1=@s_gas_1, e_gas_1=@e_gas_1, t_gas_1=@t_gas_1, r_gas_1=@r_gas_1, z_gas_1=@z_gas_1, p_gas_1=@p_gas_1," +
                                                     "s_gas_2=@s_gas_2, e_gas_2=@e_gas_2, t_gas_2=@t_gas_2, r_gas_2=@r_gas_2, z_gas_2=@z_gas_2, p_gas_2=@p_gas_2," +
                                                     "t_gas_all=@t_gas_all, p_traveling_1=@p_traveling_1, p_traveling_2=@p_traveling_2, p_traveling_all=@p_traveling_all," +
-                                                    "status_traveling={7}, status_inRf={8} where id={9}", s_probeg_1, e_probeg_1, t_probeg_1, s_probeg_2, e_probeg_2, t_probeg_2, t_probeg_all,
-                                                    status_traveling, status_inRf, id);
+                                                    "status_traveling=1, status_inRf={8} where id={9}", s_probeg_1, e_probeg_1, t_probeg_1, s_probeg_2, e_probeg_2, t_probeg_2, t_probeg_all,
+                                                    status_inRf, id);
                     SqlCommand cmd = new SqlCommand(query, connect);
                     SqlParameter param = new SqlParameter("@s_gas_1", S_gas_1);
                     cmd.Parameters.Add(param);
