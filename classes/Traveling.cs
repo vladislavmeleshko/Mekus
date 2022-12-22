@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Mekus.classes
 {
     public class Traveling
     {
+        public static string str_connect = @"Data Source=.\SQLEXPRESS;Database=Mekus;AttachDbFilename=|DataDirectory|\Mekus.mdf;Integrated Security=True;Connect Timeout=30";
         public int id { get; set; }
         public int number { get; set; }
         public DateTime date_traveling { get; set; }
@@ -98,6 +101,84 @@ namespace Mekus.classes
             P_traveling_all = p_traveling_all;
             this.status_traveling = status_traveling;
             this.status_inRf = status_inRf;
+        }
+
+        public void createTraveling()
+        {
+            using (SqlConnection connect = new SqlConnection(str_connect))
+            {
+                try
+                {
+                    connect.Open();
+                    string query = string.Format("insert into Travelings (number, date_traveling, id_courier, id_car, id_gasstation) values ({0}, '{1}', {2}, {3}, {4})",
+                                                    number, date_traveling.Date, id_courier.id, id_car.id, id_gasstation.id);
+                    SqlCommand cmd = new SqlCommand(query, connect);
+                    cmd.ExecuteNonQuery();
+                    connect.Close();
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message);
+                    connect.Close();
+                }
+            }
+        }
+
+        public void closeTraveling()
+        {
+            using (SqlConnection connect = new SqlConnection(str_connect))
+            {
+                try
+                {
+                    connect.Open();
+                    string query = string.Format("update Travelings set s_probeg_1={0}, e_probeg_1={1}, t_probeg_1={2}, s_probeg_2={3}, e_probeg_2={4}, t_probeg_2={5}, t_probeg_all={6}," +
+                                                    "s_gas_1=@s_gas_1, e_gas_1=@e_gas_1, t_gas_1=@t_gas_1, r_gas_1=@r_gas_1, z_gas_1=@z_gas_1, p_gas_1=@p_gas_1," +
+                                                    "s_gas_2=@s_gas_2, e_gas_2=@e_gas_2, t_gas_2=@t_gas_2, r_gas_2=@r_gas_2, z_gas_2=@z_gas_2, p_gas_2=@p_gas_2," +
+                                                    "t_gas_all=@t_gas_all, p_traveling_1=@p_traveling_1, p_traveling_2=@p_traveling_2, p_traveling_all=@p_traveling_all," +
+                                                    "status_traveling={7}, status_inRf={8} where id={9}", s_probeg_1, e_probeg_1, t_probeg_1, s_probeg_2, e_probeg_2, t_probeg_2, t_probeg_all,
+                                                    status_traveling, status_inRf, id);
+                    SqlCommand cmd = new SqlCommand(query, connect);
+                    SqlParameter param = new SqlParameter("@s_gas_1", S_gas_1);
+                    cmd.Parameters.Add(param);
+                    param = new SqlParameter("@e_gas_1", E_gas_1);
+                    cmd.Parameters.Add(param);
+                    param = new SqlParameter("@t_gas_1", T_gas_1);
+                    cmd.Parameters.Add(param);
+                    param = new SqlParameter("@r_gas_1", R_gas_1);
+                    cmd.Parameters.Add(param);
+                    param = new SqlParameter("@z_gas_1", Z_gas_1);
+                    cmd.Parameters.Add(param);
+                    param = new SqlParameter("@p_gas_1", P_gas_1);
+                    cmd.Parameters.Add(param);
+                    param = new SqlParameter("@s_gas_2", S_gas_2);
+                    cmd.Parameters.Add(param);
+                    param = new SqlParameter("@e_gas_2", E_gas_2);
+                    cmd.Parameters.Add(param);
+                    param = new SqlParameter("@t_gas_2", T_gas_2);
+                    cmd.Parameters.Add(param);
+                    param = new SqlParameter("@r_gas_2", R_gas_2);
+                    cmd.Parameters.Add(param);
+                    param = new SqlParameter("@z_gas_2", Z_gas_2);
+                    cmd.Parameters.Add(param);
+                    param = new SqlParameter("@p_gas_2", P_gas_2);
+                    cmd.Parameters.Add(param);
+                    param = new SqlParameter("@t_gas_all", T_gas_all);
+                    cmd.Parameters.Add(param);
+                    param = new SqlParameter("@p_traveling_1", P_traveling_1);
+                    cmd.Parameters.Add(param);
+                    param = new SqlParameter("@p_traveling_2", P_traveling_2);
+                    cmd.Parameters.Add(param);
+                    param = new SqlParameter("@p_traveling_all", P_traveling_all);
+                    cmd.Parameters.Add(param);
+                    cmd.ExecuteNonQuery();
+                    connect.Close();
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message);
+                    connect.Close();
+                }
+            }
         }
     }
 }

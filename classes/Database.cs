@@ -38,6 +38,7 @@ namespace Mekus.classes
                     if (reader.HasRows)
                         while (reader.Read())
                             gases.Add(new Gas((int)reader["id"], (string)reader["gas"], (decimal)reader["price"]));
+                    reader.Close();
                     connect.Close();
                     return gases;
                 }
@@ -64,6 +65,7 @@ namespace Mekus.classes
                     if (reader.HasRows)
                         while (reader.Read())
                             models.Add(new Model((int)reader["id"], (string)reader["model"], (decimal)reader["rasxod"], gases.Find(x => x.id == (int)reader["id_gas"])));
+                    reader.Close();
                     connect.Close();
                     return models;
                 }
@@ -90,6 +92,7 @@ namespace Mekus.classes
                     if (reader.HasRows)
                         while (reader.Read())
                             cars.Add(new Car((int)reader["id"], (string)reader["car"], (int)reader["probeg"], (decimal)reader["gas"], models.Find(x => x.id == (int)reader["id_model"])));
+                    reader.Close();
                     connect.Close();
                     return cars;
                 }
@@ -116,6 +119,7 @@ namespace Mekus.classes
                     if (reader.HasRows)
                         while (reader.Read())
                             couriers.Add(new Courier((int)reader["id"], (string)reader["courier"], (string)reader["prava"], cars.Find(x => x.id == (int)reader["id_car"])));
+                    reader.Close();
                     connect.Close();
                     return couriers;
                 }
@@ -142,6 +146,7 @@ namespace Mekus.classes
                     if (reader.HasRows)
                         while (reader.Read())
                             gasstations.Add(new Gasstation((int)reader["id"], (decimal)reader["enter_gas"], (decimal)reader["really_gas"], (decimal)reader["price"], cars.Find(x => x.id == (int)reader["id_car"])));
+                    reader.Close();
                     connect.Close();
                     return gasstations;
                 }
@@ -175,6 +180,7 @@ namespace Mekus.classes
                                             (decimal)reader["s_gas_2"], (decimal)reader["e_gas_2"], (decimal)reader["t_gas_2"], (decimal)reader["r_gas_2"], (decimal)reader["z_gas_2"], (decimal)reader["p_gas_2"],
                                             (decimal)reader["t_gas_all"], (decimal)reader["p_traveling_1"], (decimal)reader["p_traveling_2"], (decimal)reader["p_traveling_all"], (int)reader["status_traveling"],
                                             (int)reader["status_inRf"]));
+                    reader.Close();
                     connect.Close();
                     return travelings;
                 }

@@ -34,6 +34,8 @@ namespace Mekus.forms.travelings
             if (db.travelings.Count == 0)
                 textBox1.Text = "1";
             else textBox1.Text = Convert.ToString(db.travelings[db.travelings.Count - 1].number + 1);
+            traveling.date_traveling = dateTimePicker1.Value.Date;
+            traveling.id_gasstation = new Gasstation();
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -52,7 +54,7 @@ namespace Mekus.forms.travelings
         {
             try
             {
-                traveling 
+                traveling.date_traveling = dateTimePicker1.Value.Date;
             }
             catch (Exception ex)
             {
@@ -64,7 +66,8 @@ namespace Mekus.forms.travelings
         {
             try
             {
-
+                traveling.id_courier = db.couriers.Find(x => x.courier == comboBox1.Text);
+                comboBox2.Text = traveling.id_courier.id_car.car;
             }
             catch (Exception ex)
             {
@@ -76,7 +79,7 @@ namespace Mekus.forms.travelings
         {
             try
             {
-
+                traveling.id_car = db.cars.Find(x => x.car == comboBox2.Text);
             }
             catch (Exception ex)
             {
@@ -88,7 +91,10 @@ namespace Mekus.forms.travelings
         {
             try
             {
-
+                traveling.id_gasstation = traveling.id_gasstation.get_gasstation(db, traveling);
+                traveling.createTraveling();
+                main.set_values_table();
+                Close();
             }
             catch (Exception ex)
             {
