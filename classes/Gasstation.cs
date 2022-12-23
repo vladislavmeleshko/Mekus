@@ -107,7 +107,6 @@ namespace Mekus.classes
 
         public decimal get_price_traveling(Database db, Traveling traveling, decimal t_gas_all)
         {
-            decimal price = 0;
             using (SqlConnection connect = new SqlConnection(str_connect))
             {
                 try
@@ -156,7 +155,6 @@ namespace Mekus.classes
                         connect.Close();
                         return t_gas_all * Price;
                     }
-                    
                 }
                 catch (Exception ex)
                 {

@@ -83,6 +83,12 @@
     <Compile Include="forms\travelings\close_traveling.Designer.cs">
       <DependentUpon>close_traveling.cs</DependentUpon>
     </Compile>
+    <Compile Include="forms\travelings\close_traveling_rf.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\travelings\close_traveling_rf.Designer.cs">
+      <DependentUpon>close_traveling_rf.cs</DependentUpon>
+    </Compile>
     <Compile Include="forms\travelings\create_traveling.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -111,6 +117,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="forms\travelings\close_traveling.resx">
       <DependentUpon>close_traveling.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="forms\travelings\close_traveling_rf.resx">
+      <DependentUpon>close_traveling_rf.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="forms\travelings\create_traveling.resx">
       <DependentUpon>create_traveling.cs</DependentUpon>

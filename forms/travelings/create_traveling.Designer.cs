@@ -37,15 +37,18 @@
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.comboBox3 = new System.Windows.Forms.ComboBox();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.groupBox5.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(13, 233);
+            this.button1.Location = new System.Drawing.Point(15, 292);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(302, 23);
             this.button1.TabIndex = 14;
@@ -56,7 +59,7 @@
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.comboBox1);
-            this.groupBox3.Location = new System.Drawing.Point(13, 121);
+            this.groupBox3.Location = new System.Drawing.Point(15, 180);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(302, 50);
             this.groupBox3.TabIndex = 8;
@@ -75,7 +78,7 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.dateTimePicker1);
-            this.groupBox2.Location = new System.Drawing.Point(13, 65);
+            this.groupBox2.Location = new System.Drawing.Point(15, 124);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(302, 50);
             this.groupBox2.TabIndex = 9;
@@ -93,7 +96,7 @@
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.comboBox2);
-            this.groupBox4.Location = new System.Drawing.Point(13, 177);
+            this.groupBox4.Location = new System.Drawing.Point(15, 236);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(302, 50);
             this.groupBox4.TabIndex = 10;
@@ -112,7 +115,7 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.textBox1);
-            this.groupBox1.Location = new System.Drawing.Point(13, 9);
+            this.groupBox1.Location = new System.Drawing.Point(15, 68);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(302, 50);
             this.groupBox1.TabIndex = 11;
@@ -127,14 +130,38 @@
             this.textBox1.TabIndex = 0;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.comboBox3);
+            this.groupBox5.Location = new System.Drawing.Point(15, 12);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(302, 50);
+            this.groupBox5.TabIndex = 10;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Направление";
+            // 
+            // comboBox3
+            // 
+            this.comboBox3.FormattingEnabled = true;
+            this.comboBox3.Items.AddRange(new object[] {
+            "Минск",
+            "РФ",
+            "Агент"});
+            this.comboBox3.Location = new System.Drawing.Point(7, 19);
+            this.comboBox3.Name = "comboBox3";
+            this.comboBox3.Size = new System.Drawing.Size(289, 21);
+            this.comboBox3.TabIndex = 0;
+            this.comboBox3.SelectedIndexChanged += new System.EventHandler(this.comboBox3_SelectedIndexChanged);
+            // 
             // create_traveling
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(329, 266);
+            this.ClientSize = new System.Drawing.Size(329, 327);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox1);
             this.Name = "create_traveling";
@@ -145,6 +172,7 @@
             this.groupBox4.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -160,5 +188,7 @@
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.ComboBox comboBox3;
     }
 }

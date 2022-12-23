@@ -43,12 +43,27 @@ namespace Mekus
                 dataGridView4.Rows.Add(db.couriers[i].id, db.couriers[i].courier, db.couriers[i].prava, db.couriers[i].id_car.id_model.model + " " + db.couriers[i].id_car.car);
             dataGridView5.Rows.Clear();
             for (int i = 0; i < db.travelings.Count; i++)
-            { 
-                dataGridView5.Rows.Add(db.travelings[i].number, db.travelings[i].id_courier.courier, db.travelings[i].id_car.id_model.model + " " + db.travelings[i].id_car.car,
+            {
+                if (db.travelings[i].status_inRf == 0)
+                { 
+                    dataGridView5.Rows.Add(db.travelings[i].number, db.travelings[i].id_courier.courier, db.travelings[i].id_car.id_model.model + " " + db.travelings[i].id_car.car,
                                         db.travelings[i].s_probeg_1, db.travelings[i].e_probeg_1, db.travelings[i].t_probeg_all, db.travelings[i].S_gas_1, db.travelings[i].E_gas_1,
                                         db.travelings[i].T_gas_all, db.travelings[i].R_gas_1, db.travelings[i].Z_gas_1, db.travelings[i].P_gas_1, db.travelings[i].P_traveling_all);
-                if (db.travelings[i].status_inRf == 0)
                     comboBox4.Items.Add(db.travelings[i].number);
+                }
+            }
+            dataGridView6.Rows.Clear();
+            for (int i = 0; i < db.travelings.Count; i++)
+            {
+                if (db.travelings[i].status_inRf == 1)
+                { 
+                    dataGridView6.Rows.Add(db.travelings[i].number, db.travelings[i].id_courier.courier, db.travelings[i].id_car.id_model.model + " " + db.travelings[i].id_car.car,
+                                        db.travelings[i].s_probeg_1, db.travelings[i].e_probeg_1, db.travelings[i].S_gas_1, db.travelings[i].E_gas_1, db.travelings[i].R_gas_1, db.travelings[i].Z_gas_1,
+                                        db.travelings[i].s_probeg_2, db.travelings[i].e_probeg_2, db.travelings[i].S_gas_2, db.travelings[i].E_gas_2, db.travelings[i].R_gas_2, db.travelings[i].Z_gas_2,
+                                        db.travelings[i].t_probeg_all, db.travelings[i].T_gas_all, db.travelings[i].P_traveling_all);
+                
+                    comboBox3.Items.Add(db.travelings[i].number);
+                }
             }
         }
 
@@ -88,6 +103,22 @@ namespace Mekus
             {
                 Traveling traveling = db.travelings.Find(x => x.number == Convert.ToInt32(comboBox4.Text));
                 close_traveling form = new close_traveling(db, this, traveling);
+                form.Show();
+            }
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            create_traveling form = new create_traveling(db, this);
+            form.Show();
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            if (comboBox3.Text.Length != 0)
+            {
+                Traveling traveling = db.travelings.Find(x => x.number == Convert.ToInt32(comboBox3.Text));
+                close_traveling_rf form = new close_traveling_rf(db, this, traveling);
                 form.Show();
             }
         }

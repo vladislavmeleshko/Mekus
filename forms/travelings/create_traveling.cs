@@ -36,6 +36,7 @@ namespace Mekus.forms.travelings
             else textBox1.Text = Convert.ToString(db.travelings[db.travelings.Count - 1].number + 1);
             traveling.date_traveling = dateTimePicker1.Value.Date;
             traveling.id_gasstation = new Gasstation();
+            comboBox3.SelectedIndex = 0;
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -92,7 +93,7 @@ namespace Mekus.forms.travelings
             try
             {
                 traveling.id_gasstation = traveling.id_gasstation.get_gasstation(db, traveling);
-                traveling.createTraveling();
+                traveling.createTraveling(traveling.status_inRf);
                 main.set_values_table();
                 Close();
             }
@@ -100,6 +101,15 @@ namespace Mekus.forms.travelings
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBox3.SelectedIndex == 0)
+                traveling.status_inRf = 0;
+            else if (comboBox3.SelectedIndex == 1)
+                traveling.status_inRf = 1;
+            else traveling.status_inRf = 3;
         }
     }
 }
