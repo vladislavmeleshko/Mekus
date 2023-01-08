@@ -42,7 +42,7 @@ namespace Mekus.forms.travelings
             textBox12.Text = Convert.ToString(traveling.Z_gas_1);
             textBox13.Text = Convert.ToString(traveling.id_car.id_model.id_gas.Price);
             textBox18.Text = Convert.ToString(traveling.id_car.id_model.Rasxod);
-            textBox19.Text = Convert.ToString(traveling.Z_gas_1);
+            textBox19.Text = Convert.ToString(traveling.Z_gas_2);
             textBox20.Text = Convert.ToString(traveling.id_car.id_model.id_gas.Price);
         }
 
@@ -54,18 +54,25 @@ namespace Mekus.forms.travelings
                 {
                     traveling.e_probeg_1 = Convert.ToInt32(textBox6.Text);
                     traveling.t_probeg_1 = traveling.e_probeg_1 - traveling.s_probeg_1;
-                    traveling.t_probeg_all = traveling.t_probeg_1;
-                    textBox7.Text = Convert.ToString(traveling.t_probeg_all);
+                    textBox7.Text = Convert.ToString(traveling.t_probeg_1);
 
                     traveling.T_gas_1 = traveling.t_probeg_1 * traveling.R_gas_1 / 100;
-                    traveling.T_gas_all = traveling.T_gas_1;
-                    textBox10.Text = Convert.ToString(traveling.T_gas_all);
+                    textBox10.Text = Convert.ToString(traveling.T_gas_1);
 
-                    traveling.E_gas_1 = traveling.S_gas_1 - traveling.T_gas_all + traveling.Z_gas_1;
+                    traveling.E_gas_1 = traveling.S_gas_1 - traveling.T_gas_1 + traveling.Z_gas_1;
                     textBox9.Text = Convert.ToString(traveling.E_gas_1);
 
                     traveling.id_car.probeg = traveling.e_probeg_1;
                     traveling.id_car.Gas = traveling.E_gas_1;
+
+                    traveling.s_probeg_2 = traveling.e_probeg_1;
+                    textBox14.Text = Convert.ToString(traveling.s_probeg_2);
+
+                    traveling.S_gas_2 = traveling.E_gas_1;
+                    textBox17.Text = Convert.ToString(traveling.S_gas_2);
+
+                    if(textBox15.Text.Length != 0)
+                        textBox15_TextChanged(sender, e);
                 }
             }
             catch (Exception ex)
@@ -124,19 +131,22 @@ namespace Mekus.forms.travelings
                 {
                     traveling.e_probeg_2 = Convert.ToInt32(textBox15.Text);
                     traveling.t_probeg_2 = traveling.e_probeg_2 - traveling.s_probeg_2;
-                    traveling.t_probeg_all = traveling.t_probeg_1 + traveling.t_probeg_2;
                     textBox16.Text = Convert.ToString(traveling.t_probeg_2);
+
+                    traveling.T_gas_2 = traveling.t_probeg_2 * traveling.R_gas_2 / 100;
+                    textBox22.Text = Convert.ToString(traveling.T_gas_2);
+
+                    traveling.E_gas_2 = traveling.S_gas_2 - traveling.T_gas_2 + traveling.Z_gas_2;
+                    textBox21.Text = Convert.ToString(traveling.E_gas_2);
+
+                    traveling.t_probeg_all = traveling.t_probeg_1 + traveling.t_probeg_2;
                     textBox23.Text = Convert.ToString(traveling.t_probeg_all);
 
-                    traveling.T_gas_1 = traveling.t_probeg_1 * traveling.R_gas_1 / 100;
-                    traveling.T_gas_all = traveling.T_gas_1;
-                    textBox10.Text = Convert.ToString(traveling.T_gas_all);
+                    traveling.T_gas_all = traveling.T_gas_1 + traveling.T_gas_2;
+                    textBox24.Text = Convert.ToString(traveling.T_gas_all);
 
-                    traveling.E_gas_1 = traveling.S_gas_1 - traveling.T_gas_all + traveling.Z_gas_1;
-                    textBox9.Text = Convert.ToString(traveling.E_gas_1);
-
-                    traveling.id_car.probeg = traveling.e_probeg_1;
-                    traveling.id_car.Gas = traveling.E_gas_1;
+                    traveling.id_car.probeg = traveling.e_probeg_2;
+                    traveling.id_car.Gas = traveling.E_gas_2;
                 }
             }
             catch (Exception ex)
