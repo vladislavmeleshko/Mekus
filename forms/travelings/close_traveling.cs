@@ -119,7 +119,7 @@ namespace Mekus.forms.travelings
             {
                 if (traveling.Z_gas_1 != 0)
                     traveling.id_gasstation.addGasstation(db, traveling.Z_gas_1, traveling.P_gas_1, traveling);
-                traveling.P_traveling_1 = traveling.id_gasstation.get_price_traveling(db, traveling, traveling.T_gas_all);
+                traveling.P_traveling_1 = traveling.id_gasstation.get_price_traveling(db, traveling, traveling.T_gas_1);
                 traveling.P_traveling_all = traveling.P_traveling_1;
                 traveling.id_car.editCar();
                 traveling.closeTraveling();
