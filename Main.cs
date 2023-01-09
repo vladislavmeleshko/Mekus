@@ -42,6 +42,7 @@ namespace Mekus
             for (int i = 0; i < db.couriers.Count; i++)
                 dataGridView4.Rows.Add(db.couriers[i].id, db.couriers[i].courier, db.couriers[i].prava, db.couriers[i].id_car.id_model.model + " " + db.couriers[i].id_car.car);
             dataGridView5.Rows.Clear();
+            comboBox4.Items.Clear();
             for (int i = 0; i < db.travelings.Count; i++)
             {
                 if (db.travelings[i].status_inRf == 0)
@@ -53,6 +54,7 @@ namespace Mekus
                 }
             }
             dataGridView6.Rows.Clear();
+            comboBox3.Items.Clear();
             for (int i = 0; i < db.travelings.Count; i++)
             {
                 if (db.travelings[i].status_inRf == 1)
