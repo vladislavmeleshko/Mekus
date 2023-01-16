@@ -61,18 +61,13 @@
             this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.button6 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
-            this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.comboBox4 = new System.Windows.Forms.ComboBox();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.dataGridView5 = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column29 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -86,13 +81,7 @@
             this.Column14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage6 = new System.Windows.Forms.TabPage();
-            this.button7 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
-            this.groupBox8 = new System.Windows.Forms.GroupBox();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
-            this.groupBox9 = new System.Windows.Forms.GroupBox();
-            this.comboBox5 = new System.Windows.Forms.ComboBox();
-            this.comboBox6 = new System.Windows.Forms.ComboBox();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.dateTimePicker3 = new System.Windows.Forms.DateTimePicker();
             this.dateTimePicker4 = new System.Windows.Forms.DateTimePicker();
@@ -115,6 +104,7 @@
             this.Column26 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column27 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column28 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.button7 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -129,13 +119,9 @@
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).BeginInit();
             this.tabPage5.SuspendLayout();
-            this.groupBox7.SuspendLayout();
-            this.groupBox6.SuspendLayout();
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView5)).BeginInit();
             this.tabPage6.SuspendLayout();
-            this.groupBox8.SuspendLayout();
-            this.groupBox9.SuspendLayout();
             this.groupBox10.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView6)).BeginInit();
             this.SuspendLayout();
@@ -439,10 +425,8 @@
             // 
             // tabPage5
             // 
-            this.tabPage5.Controls.Add(this.button6);
+            this.tabPage5.Controls.Add(this.button7);
             this.tabPage5.Controls.Add(this.button5);
-            this.tabPage5.Controls.Add(this.groupBox7);
-            this.tabPage5.Controls.Add(this.groupBox6);
             this.tabPage5.Controls.Add(this.groupBox5);
             this.tabPage5.Controls.Add(this.dataGridView5);
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
@@ -452,77 +436,16 @@
             this.tabPage5.Text = "Путевые листы";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
-            // button6
-            // 
-            this.button6.Location = new System.Drawing.Point(1030, 21);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(128, 23);
-            this.button6.TabIndex = 3;
-            this.button6.Text = "Закрыть путевой лист";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
-            // 
             // button5
             // 
             this.button5.AutoSize = true;
-            this.button5.Location = new System.Drawing.Point(896, 21);
+            this.button5.Location = new System.Drawing.Point(431, 20);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(128, 23);
             this.button5.TabIndex = 3;
             this.button5.Text = "Создать путевой лист";
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
-            // 
-            // groupBox7
-            // 
-            this.groupBox7.Controls.Add(this.comboBox4);
-            this.groupBox7.Location = new System.Drawing.Point(698, 3);
-            this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(192, 50);
-            this.groupBox7.TabIndex = 2;
-            this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "Выберите номер путевого листа";
-            // 
-            // comboBox4
-            // 
-            this.comboBox4.FormattingEnabled = true;
-            this.comboBox4.Location = new System.Drawing.Point(7, 20);
-            this.comboBox4.Name = "comboBox4";
-            this.comboBox4.Size = new System.Drawing.Size(179, 21);
-            this.comboBox4.TabIndex = 0;
-            // 
-            // groupBox6
-            // 
-            this.groupBox6.Controls.Add(this.comboBox2);
-            this.groupBox6.Controls.Add(this.comboBox1);
-            this.groupBox6.Location = new System.Drawing.Point(431, 3);
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(261, 50);
-            this.groupBox6.TabIndex = 2;
-            this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "Отобрать путевые листы по";
-            // 
-            // comboBox2
-            // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(134, 20);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(121, 21);
-            this.comboBox2.TabIndex = 0;
-            this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "По курьеру",
-            "По автомобилю",
-            "По статусу"});
-            this.comboBox1.Location = new System.Drawing.Point(7, 20);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.TabIndex = 0;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // groupBox5
             // 
@@ -541,7 +464,6 @@
             this.dateTimePicker2.Name = "dateTimePicker2";
             this.dateTimePicker2.Size = new System.Drawing.Size(200, 20);
             this.dateTimePicker2.TabIndex = 0;
-            this.dateTimePicker2.ValueChanged += new System.EventHandler(this.dateTimePicker2_ValueChanged);
             // 
             // dateTimePicker1
             // 
@@ -549,7 +471,6 @@
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(200, 20);
             this.dateTimePicker1.TabIndex = 0;
-            this.dateTimePicker1.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
             // 
             // dataGridView5
             // 
@@ -559,6 +480,7 @@
             this.dataGridView5.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView5.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn13,
+            this.Column29,
             this.dataGridViewTextBoxColumn14,
             this.dataGridViewTextBoxColumn15,
             this.Column6,
@@ -576,12 +498,19 @@
             this.dataGridView5.ReadOnly = true;
             this.dataGridView5.Size = new System.Drawing.Size(1759, 697);
             this.dataGridView5.TabIndex = 1;
+            this.dataGridView5.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView5_CellMouseDoubleClick);
             // 
             // dataGridViewTextBoxColumn13
             // 
             this.dataGridViewTextBoxColumn13.HeaderText = "№";
             this.dataGridViewTextBoxColumn13.Name = "dataGridViewTextBoxColumn13";
             this.dataGridViewTextBoxColumn13.ReadOnly = true;
+            // 
+            // Column29
+            // 
+            this.Column29.HeaderText = "Дата";
+            this.Column29.Name = "Column29";
+            this.Column29.ReadOnly = true;
             // 
             // dataGridViewTextBoxColumn14
             // 
@@ -657,10 +586,7 @@
             // 
             // tabPage6
             // 
-            this.tabPage6.Controls.Add(this.button7);
             this.tabPage6.Controls.Add(this.button8);
-            this.tabPage6.Controls.Add(this.groupBox8);
-            this.tabPage6.Controls.Add(this.groupBox9);
             this.tabPage6.Controls.Add(this.groupBox10);
             this.tabPage6.Controls.Add(this.dataGridView6);
             this.tabPage6.Location = new System.Drawing.Point(4, 22);
@@ -670,71 +596,16 @@
             this.tabPage6.Text = "Путевые листы на РФ";
             this.tabPage6.UseVisualStyleBackColor = true;
             // 
-            // button7
-            // 
-            this.button7.Location = new System.Drawing.Point(1030, 23);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(128, 23);
-            this.button7.TabIndex = 8;
-            this.button7.Text = "Закрыть путевой лист";
-            this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
-            // 
             // button8
             // 
             this.button8.AutoSize = true;
-            this.button8.Location = new System.Drawing.Point(896, 23);
+            this.button8.Location = new System.Drawing.Point(431, 22);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(128, 23);
             this.button8.TabIndex = 9;
             this.button8.Text = "Создать путевой лист";
             this.button8.UseVisualStyleBackColor = true;
             this.button8.Click += new System.EventHandler(this.button8_Click);
-            // 
-            // groupBox8
-            // 
-            this.groupBox8.Controls.Add(this.comboBox3);
-            this.groupBox8.Location = new System.Drawing.Point(698, 5);
-            this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(192, 50);
-            this.groupBox8.TabIndex = 5;
-            this.groupBox8.TabStop = false;
-            this.groupBox8.Text = "Выберите номер путевого листа";
-            // 
-            // comboBox3
-            // 
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Location = new System.Drawing.Point(7, 20);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(179, 21);
-            this.comboBox3.TabIndex = 0;
-            // 
-            // groupBox9
-            // 
-            this.groupBox9.Controls.Add(this.comboBox5);
-            this.groupBox9.Controls.Add(this.comboBox6);
-            this.groupBox9.Location = new System.Drawing.Point(431, 5);
-            this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(261, 50);
-            this.groupBox9.TabIndex = 6;
-            this.groupBox9.TabStop = false;
-            this.groupBox9.Text = "Отобрать путевые листы по";
-            // 
-            // comboBox5
-            // 
-            this.comboBox5.FormattingEnabled = true;
-            this.comboBox5.Location = new System.Drawing.Point(134, 20);
-            this.comboBox5.Name = "comboBox5";
-            this.comboBox5.Size = new System.Drawing.Size(121, 21);
-            this.comboBox5.TabIndex = 0;
-            // 
-            // comboBox6
-            // 
-            this.comboBox6.FormattingEnabled = true;
-            this.comboBox6.Location = new System.Drawing.Point(7, 20);
-            this.comboBox6.Name = "comboBox6";
-            this.comboBox6.Size = new System.Drawing.Size(121, 21);
-            this.comboBox6.TabIndex = 0;
             // 
             // groupBox10
             // 
@@ -791,6 +662,7 @@
             this.dataGridView6.ReadOnly = true;
             this.dataGridView6.Size = new System.Drawing.Size(1759, 697);
             this.dataGridView6.TabIndex = 4;
+            this.dataGridView6.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView6_CellMouseDoubleClick);
             // 
             // dataGridViewTextBoxColumn6
             // 
@@ -900,6 +772,17 @@
             this.Column28.Name = "Column28";
             this.Column28.ReadOnly = true;
             // 
+            // button7
+            // 
+            this.button7.AutoSize = true;
+            this.button7.Location = new System.Drawing.Point(565, 20);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(133, 23);
+            this.button7.TabIndex = 10;
+            this.button7.Text = "Печать путевого листа";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -924,14 +807,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).EndInit();
             this.tabPage5.ResumeLayout(false);
             this.tabPage5.PerformLayout();
-            this.groupBox7.ResumeLayout(false);
-            this.groupBox6.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView5)).EndInit();
             this.tabPage6.ResumeLayout(false);
             this.tabPage6.PerformLayout();
-            this.groupBox8.ResumeLayout(false);
-            this.groupBox9.ResumeLayout(false);
             this.groupBox10.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView6)).EndInit();
             this.ResumeLayout(false);
@@ -974,37 +853,12 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
-        private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.GroupBox groupBox7;
-        private System.Windows.Forms.ComboBox comboBox4;
-        private System.Windows.Forms.GroupBox groupBox6;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.DateTimePicker dateTimePicker2;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn13;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn14;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn15;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column9;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column10;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column11;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column12;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column13;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column14;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column15;
         private System.Windows.Forms.TabPage tabPage6;
-        private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button button8;
-        private System.Windows.Forms.GroupBox groupBox8;
-        private System.Windows.Forms.ComboBox comboBox3;
-        private System.Windows.Forms.GroupBox groupBox9;
-        private System.Windows.Forms.ComboBox comboBox5;
-        private System.Windows.Forms.ComboBox comboBox6;
         private System.Windows.Forms.GroupBox groupBox10;
         private System.Windows.Forms.DateTimePicker dateTimePicker3;
         private System.Windows.Forms.DateTimePicker dateTimePicker4;
@@ -1027,6 +881,21 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column26;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column27;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column28;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn13;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column29;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn14;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn15;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column9;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column10;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column11;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column12;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column13;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column14;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column15;
+        private System.Windows.Forms.Button button7;
     }
 }
 

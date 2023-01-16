@@ -14,6 +14,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Excel = Microsoft.Office.Interop.Excel;
+using System.Reflection;
 
 namespace Mekus
 {
@@ -42,19 +44,16 @@ namespace Mekus
             for (int i = 0; i < db.couriers.Count; i++)
                 dataGridView4.Rows.Add(db.couriers[i].id, db.couriers[i].courier, db.couriers[i].prava, db.couriers[i].id_car.id_model.model + " " + db.couriers[i].id_car.car);
             dataGridView5.Rows.Clear();
-            comboBox4.Items.Clear();
             for (int i = 0; i < db.travelings.Count; i++)
             {
                 if (db.travelings[i].status_inRf == 0)
                 { 
-                    dataGridView5.Rows.Add(db.travelings[i].number, db.travelings[i].id_courier.courier, db.travelings[i].id_car.id_model.model + " " + db.travelings[i].id_car.car,
+                    dataGridView5.Rows.Add(db.travelings[i].number, db.travelings[i].date_traveling.ToString("dd MMMM yyyy"), db.travelings[i].id_courier.courier, db.travelings[i].id_car.id_model.model + " " + db.travelings[i].id_car.car,
                                         db.travelings[i].s_probeg_1, db.travelings[i].e_probeg_1, db.travelings[i].t_probeg_all, db.travelings[i].S_gas_1, db.travelings[i].E_gas_1,
                                         db.travelings[i].T_gas_all, db.travelings[i].R_gas_1, db.travelings[i].Z_gas_1, db.travelings[i].P_gas_1, db.travelings[i].P_traveling_all);
-                    comboBox4.Items.Add(db.travelings[i].number);
                 }
             }
             dataGridView6.Rows.Clear();
-            comboBox3.Items.Clear();
             for (int i = 0; i < db.travelings.Count; i++)
             {
                 if (db.travelings[i].status_inRf == 1)
@@ -64,7 +63,6 @@ namespace Mekus
                                         db.travelings[i].s_probeg_2, db.travelings[i].e_probeg_2, db.travelings[i].S_gas_2, db.travelings[i].E_gas_2, db.travelings[i].R_gas_2, db.travelings[i].Z_gas_2,
                                         db.travelings[i].t_probeg_all, db.travelings[i].T_gas_all, db.travelings[i].P_traveling_all);
                 
-                    comboBox3.Items.Add(db.travelings[i].number);
                 }
             }
         }
@@ -99,181 +97,63 @@ namespace Mekus
             form.Show();
         }
 
-        private void button6_Click(object sender, EventArgs e)
-        {
-            if (comboBox4.Text.Length != 0)
-            {
-                Traveling traveling = db.travelings.Find(x => x.number == Convert.ToInt32(comboBox4.Text));
-                close_traveling form = new close_traveling(db, this, traveling);
-                form.Show();
-            }
-        }
-
         private void button8_Click(object sender, EventArgs e)
         {
             create_traveling form = new create_traveling(db, this);
             form.Show();
         }
 
-        private void button7_Click(object sender, EventArgs e)
+        private void dataGridView5_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            if (comboBox3.Text.Length != 0)
+            try
             {
-                Traveling traveling = db.travelings.Find(x => x.number == Convert.ToInt32(comboBox3.Text));
+                Traveling traveling = db.travelings.Find(x => x.number == (int)dataGridView5.CurrentRow.Cells[0].Value);
+                close_traveling form = new close_traveling(db, this, traveling);
+                form.Show();
+            }
+            catch(Exception ex) 
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void dataGridView6_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            try
+            {
+                Traveling traveling = db.travelings.Find(x => x.number == (int)dataGridView6.CurrentRow.Cells[0].Value);
                 close_traveling_rf form = new close_traveling_rf(db, this, traveling);
                 form.Show();
             }
-        }
-
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                comboBox2.Items.Clear();
-
-                if(comboBox1.SelectedIndex == 0)
-                {
-                    for (int i = 0; i < db.couriers.Count; i++)
-                        comboBox2.Items.Add(db.couriers[i].courier);
-                }
-                else if (comboBox1.SelectedIndex == 1)
-                {
-                    for (int i = 0; i < db.cars.Count; i++)
-                        comboBox2.Items.Add(db.cars[i].car);
-                }
-                else if (comboBox1.SelectedIndex == 2)
-                {
-                    comboBox2.Items.Add("Открытые путевые");
-                    comboBox2.Items.Add("Все путевые");
-                }
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                if(comboBox1.SelectedIndex == 0)
-                {
-                    dataGridView5.Rows.Clear();
-                    comboBox4.Items.Clear();
-                    for (int i = 0; i < db.travelings.Count; i++)
-                    {
-                        if (db.travelings[i].status_inRf == 0 && db.travelings[i].id_courier == db.couriers.Find(x => x.courier == comboBox2.Text) &&
-                            db.travelings[i].date_traveling.Date >= dateTimePicker1.Value.Date && db.travelings[i].date_traveling.Date <= dateTimePicker2.Value.Date)
-                        {
-                            dataGridView5.Rows.Add(db.travelings[i].number, db.travelings[i].id_courier.courier, db.travelings[i].id_car.id_model.model + " " + db.travelings[i].id_car.car,
-                                                db.travelings[i].s_probeg_1, db.travelings[i].e_probeg_1, db.travelings[i].t_probeg_all, db.travelings[i].S_gas_1, db.travelings[i].E_gas_1,
-                                                db.travelings[i].T_gas_all, db.travelings[i].R_gas_1, db.travelings[i].Z_gas_1, db.travelings[i].P_gas_1, db.travelings[i].P_traveling_all);
-                            comboBox4.Items.Add(db.travelings[i].number);
-                        }
-                    }
-                }
-                else if (comboBox1.SelectedIndex == 1)
-                {
-                    dataGridView5.Rows.Clear();
-                    comboBox4.Items.Clear();
-                    for (int i = 0; i < db.travelings.Count; i++)
-                    {
-                        if (db.travelings[i].status_inRf == 0 && db.travelings[i].id_car == db.cars.Find(x => x.car == comboBox2.Text) &&
-                            db.travelings[i].date_traveling.Date >= dateTimePicker1.Value.Date && db.travelings[i].date_traveling.Date <= dateTimePicker2.Value.Date)
-                        {
-                            dataGridView5.Rows.Add(db.travelings[i].number, db.travelings[i].id_courier.courier, db.travelings[i].id_car.id_model.model + " " + db.travelings[i].id_car.car,
-                                                db.travelings[i].s_probeg_1, db.travelings[i].e_probeg_1, db.travelings[i].t_probeg_all, db.travelings[i].S_gas_1, db.travelings[i].E_gas_1,
-                                                db.travelings[i].T_gas_all, db.travelings[i].R_gas_1, db.travelings[i].Z_gas_1, db.travelings[i].P_gas_1, db.travelings[i].P_traveling_all);
-                            comboBox4.Items.Add(db.travelings[i].number);
-                        }
-                    }
-                }
-                else if (comboBox1.SelectedIndex == 2)
-                {
-                    dataGridView5.Rows.Clear();
-                    comboBox4.Items.Clear();
-                    if (comboBox2.SelectedIndex == 0)
-                    {
-                        for (int i = 0; i < db.travelings.Count; i++)
-                        {
-                            if (db.travelings[i].status_inRf == 0 && db.travelings[i].status_traveling == 0 &&
-                            db.travelings[i].date_traveling.Date >= dateTimePicker1.Value.Date && db.travelings[i].date_traveling.Date <= dateTimePicker2.Value.Date)
-                            {
-                                dataGridView5.Rows.Add(db.travelings[i].number, db.travelings[i].id_courier.courier, db.travelings[i].id_car.id_model.model + " " + db.travelings[i].id_car.car,
-                                                    db.travelings[i].s_probeg_1, db.travelings[i].e_probeg_1, db.travelings[i].t_probeg_all, db.travelings[i].S_gas_1, db.travelings[i].E_gas_1,
-                                                    db.travelings[i].T_gas_all, db.travelings[i].R_gas_1, db.travelings[i].Z_gas_1, db.travelings[i].P_gas_1, db.travelings[i].P_traveling_all);
-                                comboBox4.Items.Add(db.travelings[i].number);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        for (int i = 0; i < db.travelings.Count; i++)
-                        {
-                            if (db.travelings[i].status_inRf == 0 &&
-                            db.travelings[i].date_traveling.Date >= dateTimePicker1.Value.Date && db.travelings[i].date_traveling.Date <= dateTimePicker2.Value.Date)
-                            {
-                                dataGridView5.Rows.Add(db.travelings[i].number, db.travelings[i].id_courier.courier, db.travelings[i].id_car.id_model.model + " " + db.travelings[i].id_car.car,
-                                                    db.travelings[i].s_probeg_1, db.travelings[i].e_probeg_1, db.travelings[i].t_probeg_all, db.travelings[i].S_gas_1, db.travelings[i].E_gas_1,
-                                                    db.travelings[i].T_gas_all, db.travelings[i].R_gas_1, db.travelings[i].Z_gas_1, db.travelings[i].P_gas_1, db.travelings[i].P_traveling_all);
-                                comboBox4.Items.Add(db.travelings[i].number);
-                            }
-                        }
-                    }
-                }
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                dataGridView5.Rows.Clear();
-                comboBox4.Items.Clear();
-
-                for (int i = 0; i < db.travelings.Count; i++)
-                {
-                    if (db.travelings[i].status_inRf == 0 &&
-                    db.travelings[i].date_traveling.Date >= dateTimePicker1.Value.Date && db.travelings[i].date_traveling.Date <= dateTimePicker2.Value.Date)
-                    {
-                        dataGridView5.Rows.Add(db.travelings[i].number, db.travelings[i].id_courier.courier, db.travelings[i].id_car.id_model.model + " " + db.travelings[i].id_car.car,
-                                            db.travelings[i].s_probeg_1, db.travelings[i].e_probeg_1, db.travelings[i].t_probeg_all, db.travelings[i].S_gas_1, db.travelings[i].E_gas_1,
-                                            db.travelings[i].T_gas_all, db.travelings[i].R_gas_1, db.travelings[i].Z_gas_1, db.travelings[i].P_gas_1, db.travelings[i].P_traveling_all);
-                        comboBox4.Items.Add(db.travelings[i].number);
-                    }
-                }
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-        private void dateTimePicker2_ValueChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                dataGridView5.Rows.Clear();
-                comboBox4.Items.Clear();
-
-                for (int i = 0; i < db.travelings.Count; i++)
-                {
-                    if (db.travelings[i].status_inRf == 0 &&
-                    db.travelings[i].date_traveling.Date >= dateTimePicker1.Value.Date && db.travelings[i].date_traveling.Date <= dateTimePicker2.Value.Date)
-                    {
-                        dataGridView5.Rows.Add(db.travelings[i].number, db.travelings[i].id_courier.courier, db.travelings[i].id_car.id_model.model + " " + db.travelings[i].id_car.car,
-                                            db.travelings[i].s_probeg_1, db.travelings[i].e_probeg_1, db.travelings[i].t_probeg_all, db.travelings[i].S_gas_1, db.travelings[i].E_gas_1,
-                                            db.travelings[i].T_gas_all, db.travelings[i].R_gas_1, db.travelings[i].Z_gas_1, db.travelings[i].P_gas_1, db.travelings[i].P_traveling_all);
-                        comboBox4.Items.Add(db.travelings[i].number);
-                    }
-                }
-            }
             catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Traveling traveling = db.travelings.Find(x => x.number == (int)dataGridView5.CurrentRow.Cells[0].Value);
+
+                Excel.Workbook xlWB;
+                Excel.Worksheet xlSht;
+
+                Excel.Application xlApp = new Excel.Application();
+                xlApp.Visible = true;
+                xlWB = xlApp.Workbooks.Open(Application.StartupPath + @"\list.xls");
+                xlSht = xlWB.Worksheets["Шаблон"];
+
+                xlSht.Cells[7, 10] = traveling.date_traveling.ToString("dd          MMMM          yyyy") + " г.";
+                xlSht.Cells[6, 27] = traveling.number;
+                xlSht.Cells[10, 1] = traveling.id_car.id_model.model;
+                xlSht.Cells[10, "S"] = traveling.id_car.car;
+                xlSht.Cells[16, "A"] = traveling.id_courier.courier;
+                xlSht.Cells[16, "V"] = traveling.id_courier.prava;
+
+            }
+            catch(Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
