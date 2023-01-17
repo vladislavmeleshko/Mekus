@@ -47,13 +47,13 @@ namespace Mekus.classes
 
         public Gasstation get_gasstation(Database db, Traveling traveling)
         {
-            Gasstation gasstation = new Gasstation();
+            Gasstation gasstation = null;
             using(SqlConnection connect = new SqlConnection(str_connect))
             {
                 try
                 {
                     connect.Open();
-                    gasstation = db.gasstations.Find(x => x.id_car == traveling.id_car && x.Enter_gas != x.Really_gas);
+                    gasstation = db.gasstations.Find(x => x.id_car == traveling.id_car && x.Enter_gas > x.Really_gas);
                     if (gasstation == null)
                     {
                         gasstation = new Gasstation();
@@ -114,15 +114,15 @@ namespace Mekus.classes
                     connect.Open();
                     if (Really_gas + t_gas_all > Enter_gas)
                     {
-                        string query = string.Format("update Gasstations set really_gas+=@really_gas where id={0}", id);
+                        string query = string.Format("update Gasstations set really_gas=@enter_gas where id={0}", id);
                         SqlCommand cmd = new SqlCommand(query, connect);
-                        SqlParameter param = new SqlParameter("@really_gas", Enter_gas);
+                        SqlParameter param = new SqlParameter("@enter_gas", Enter_gas);
                         cmd.Parameters.Add(param);
                         cmd.ExecuteNonQuery();
                         Gasstation gasstation = db.gasstations.Find(x => x.id > traveling.id_gasstation.id && x.id_car.id == traveling.id_car.id);
-                        query = string.Format("update Gasstations set really_gas+=@really_gas where id={0}", gasstation.id);
+                        query = string.Format("update Gasstations set really_gas=@really_gas where id={0}", gasstation.id);
                         cmd = new SqlCommand(query, connect);
-                        param = new SqlParameter("@really_gas", t_gas_all - Enter_gas);
+                        param = new SqlParameter("@really_gas", Really_gas + t_gas_all - Enter_gas);
                         cmd.Parameters.Add(param);
                         cmd.ExecuteNonQuery();
                         query = string.Format("update Travelings set id_gasstation={0} where id>{1}", gasstation.id, traveling.id);
