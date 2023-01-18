@@ -1,16 +1,12 @@
 ﻿using Mekus.classes;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Net;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Net.Http.Json;
+using Mekus.nav;
+using System.Net;
+using System.IO;
 using System.Text.Json;
 
 namespace Mekus.forms.travelings
@@ -44,6 +40,8 @@ namespace Mekus.forms.travelings
             textBox11.Text = Convert.ToString(traveling.id_car.id_model.Rasxod);
             textBox12.Text = Convert.ToString(traveling.Z_gas_1);
             textBox13.Text = Convert.ToString(traveling.id_car.id_model.id_gas.Price);
+
+            GetRequestInNavBy(traveling.date_traveling, traveling.date_traveling);
         }
 
         private void textBox6_TextChanged(object sender, EventArgs e)
@@ -133,6 +131,28 @@ namespace Mekus.forms.travelings
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        public void GetRequestInNavBy(DateTime from, DateTime to)
+        {
+            string url = @"https://api.nav.by/info/integration.php?type=OBJECT_STAT_DATA&token=613ce8ea-8506-49a6-bf76-279a635601ce&from="
+                            + from.Date.ToString("yyyy-MM-dd") + " 00:00:00&to=" + to.Date.ToString("yyyy-MM-dd") + " 23:59:59&object_id=5308958";
+            WebRequest request = WebRequest.Create(url);
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            Stream dataStream = response.GetResponseStream();
+            StreamReader reader = new StreamReader(dataStream);
+            string responseFromServer = reader.ReadToEnd();
+
+            JSONParser parser = new JSONParser();
+            parser = JsonSerializer.Deserialize<JSONParser>(responseFromServer);
+
+            textBox14.Text = Convert.ToString(parser.root.result.items[0].distance_can / 1000) + " | " + Convert.ToString(parser.root.result.items[0].distance_can);
+
+            if (parser.root.result.items[0].fuel_in_list.Length > 0)
+                textBox15.Text = Convert.ToString(parser.root.result.items[0].fuel_in_list[0].value);
+
+            textBox16.Text = Convert.ToString(parser.root.result.items[0].odom_start);
+            textBox17.Text = Convert.ToString(parser.root.result.items[0].odom_finish);
         }
     }
 }

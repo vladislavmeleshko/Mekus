@@ -55,6 +55,14 @@
             this.groupBox13 = new System.Windows.Forms.GroupBox();
             this.textBox13 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.groupBox15 = new System.Windows.Forms.GroupBox();
+            this.textBox14 = new System.Windows.Forms.TextBox();
+            this.groupBox16 = new System.Windows.Forms.GroupBox();
+            this.textBox15 = new System.Windows.Forms.TextBox();
+            this.groupBox14 = new System.Windows.Forms.GroupBox();
+            this.textBox16 = new System.Windows.Forms.TextBox();
+            this.groupBox17 = new System.Windows.Forms.GroupBox();
+            this.textBox17 = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -68,6 +76,10 @@
             this.groupBox11.SuspendLayout();
             this.groupBox12.SuspendLayout();
             this.groupBox13.SuspendLayout();
+            this.groupBox15.SuspendLayout();
+            this.groupBox16.SuspendLayout();
+            this.groupBox14.SuspendLayout();
+            this.groupBox17.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -306,7 +318,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(637, 198);
+            this.button1.Location = new System.Drawing.Point(12, 236);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(187, 23);
             this.button1.TabIndex = 1;
@@ -314,12 +326,92 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // groupBox15
+            // 
+            this.groupBox15.Controls.Add(this.textBox14);
+            this.groupBox15.Location = new System.Drawing.Point(630, 68);
+            this.groupBox15.Name = "groupBox15";
+            this.groupBox15.Size = new System.Drawing.Size(200, 50);
+            this.groupBox15.TabIndex = 0;
+            this.groupBox15.TabStop = false;
+            this.groupBox15.Text = "Пробег";
+            // 
+            // textBox14
+            // 
+            this.textBox14.Enabled = false;
+            this.textBox14.Location = new System.Drawing.Point(7, 20);
+            this.textBox14.Name = "textBox14";
+            this.textBox14.Size = new System.Drawing.Size(187, 20);
+            this.textBox14.TabIndex = 0;
+            this.textBox14.TextChanged += new System.EventHandler(this.textBox11_TextChanged);
+            // 
+            // groupBox16
+            // 
+            this.groupBox16.Controls.Add(this.textBox15);
+            this.groupBox16.Location = new System.Drawing.Point(630, 124);
+            this.groupBox16.Name = "groupBox16";
+            this.groupBox16.Size = new System.Drawing.Size(194, 50);
+            this.groupBox16.TabIndex = 0;
+            this.groupBox16.TabStop = false;
+            this.groupBox16.Text = "Заправлено";
+            // 
+            // textBox15
+            // 
+            this.textBox15.Enabled = false;
+            this.textBox15.Location = new System.Drawing.Point(7, 20);
+            this.textBox15.Name = "textBox15";
+            this.textBox15.Size = new System.Drawing.Size(181, 20);
+            this.textBox15.TabIndex = 0;
+            this.textBox15.TextChanged += new System.EventHandler(this.textBox11_TextChanged);
+            // 
+            // groupBox14
+            // 
+            this.groupBox14.Controls.Add(this.textBox16);
+            this.groupBox14.Location = new System.Drawing.Point(630, 180);
+            this.groupBox14.Name = "groupBox14";
+            this.groupBox14.Size = new System.Drawing.Size(194, 50);
+            this.groupBox14.TabIndex = 0;
+            this.groupBox14.TabStop = false;
+            this.groupBox14.Text = "Показание одометра (Н)";
+            // 
+            // textBox16
+            // 
+            this.textBox16.Enabled = false;
+            this.textBox16.Location = new System.Drawing.Point(7, 20);
+            this.textBox16.Name = "textBox16";
+            this.textBox16.Size = new System.Drawing.Size(181, 20);
+            this.textBox16.TabIndex = 0;
+            this.textBox16.TextChanged += new System.EventHandler(this.textBox11_TextChanged);
+            // 
+            // groupBox17
+            // 
+            this.groupBox17.Controls.Add(this.textBox17);
+            this.groupBox17.Location = new System.Drawing.Point(630, 236);
+            this.groupBox17.Name = "groupBox17";
+            this.groupBox17.Size = new System.Drawing.Size(194, 50);
+            this.groupBox17.TabIndex = 0;
+            this.groupBox17.TabStop = false;
+            this.groupBox17.Text = "Показание одометра (К)";
+            // 
+            // textBox17
+            // 
+            this.textBox17.Enabled = false;
+            this.textBox17.Location = new System.Drawing.Point(7, 20);
+            this.textBox17.Name = "textBox17";
+            this.textBox17.Size = new System.Drawing.Size(181, 20);
+            this.textBox17.TabIndex = 0;
+            this.textBox17.TextChanged += new System.EventHandler(this.textBox11_TextChanged);
+            // 
             // close_traveling
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(842, 241);
+            this.ClientSize = new System.Drawing.Size(842, 292);
+            this.Controls.Add(this.groupBox17);
+            this.Controls.Add(this.groupBox14);
+            this.Controls.Add(this.groupBox16);
             this.Controls.Add(this.button1);
+            this.Controls.Add(this.groupBox15);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
@@ -362,6 +454,14 @@
             this.groupBox12.PerformLayout();
             this.groupBox13.ResumeLayout(false);
             this.groupBox13.PerformLayout();
+            this.groupBox15.ResumeLayout(false);
+            this.groupBox15.PerformLayout();
+            this.groupBox16.ResumeLayout(false);
+            this.groupBox16.PerformLayout();
+            this.groupBox14.ResumeLayout(false);
+            this.groupBox14.PerformLayout();
+            this.groupBox17.ResumeLayout(false);
+            this.groupBox17.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -395,5 +495,13 @@
         private System.Windows.Forms.GroupBox groupBox13;
         private System.Windows.Forms.TextBox textBox13;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.GroupBox groupBox16;
+        private System.Windows.Forms.TextBox textBox15;
+        private System.Windows.Forms.GroupBox groupBox15;
+        private System.Windows.Forms.TextBox textBox14;
+        private System.Windows.Forms.GroupBox groupBox14;
+        private System.Windows.Forms.TextBox textBox16;
+        private System.Windows.Forms.GroupBox groupBox17;
+        private System.Windows.Forms.TextBox textBox17;
     }
 }
