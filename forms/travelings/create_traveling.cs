@@ -33,7 +33,7 @@ namespace Mekus.forms.travelings
                 comboBox2.Items.Add(db.cars[i].car);
             if (db.travelings.Count == 0)
                 textBox1.Text = "1";
-            else textBox1.Text = Convert.ToString(db.travelings[db.travelings.Count - 1].number + 1);
+            else textBox1.Text = Convert.ToString(db.travelings[0].number + 1);
             traveling.date_traveling = dateTimePicker1.Value.Date;
             traveling.id_gasstation = new Gasstation();
             comboBox3.SelectedIndex = 0;

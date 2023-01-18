@@ -167,7 +167,7 @@ namespace Mekus.classes
                 {
                     connect.Open();
                     travelings.Clear();
-                    string query = string.Format("select * from Travelings order by date_traveling desc");
+                    string query = string.Format("select * from Travelings order by number desc");
                     SqlCommand cmd = new SqlCommand(query, connect);
                     SqlDataReader reader = cmd.ExecuteReader();
                     if (reader.HasRows)
