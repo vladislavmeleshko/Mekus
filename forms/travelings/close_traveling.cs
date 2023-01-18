@@ -136,7 +136,7 @@ namespace Mekus.forms.travelings
         public void GetRequestInNavBy(DateTime from, DateTime to, int nav_id_object)
         {
             string url = @"https://api.nav.by/info/integration.php?type=OBJECT_STAT_DATA&token=613ce8ea-8506-49a6-bf76-279a635601ce&from="
-                            + from.Date.ToString("yyyy-MM-dd") + " 00:00:00&to=" + to.Date.ToString("yyyy-MM-dd") + " 23:59:59&object_id="+ nav_id_object;
+                            + from.Date.ToString("yyyy-MM-dd") + " 00:00:00&to=" + to.Date.ToString("yyyy-MM-dd") + " 23:59:00&object_id="+ nav_id_object;
             WebRequest request = WebRequest.Create(url);
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
             Stream dataStream = response.GetResponseStream();
