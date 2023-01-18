@@ -21,18 +21,21 @@ namespace Mekus.classes
 
         public Model id_model { get; set; }
 
+        public int nav_id_object { get; set; }
+
         public Car()
         {
 
         }
 
-        public Car(int id, string car, int probeg, decimal gas, Model id_model)
+        public Car(int id, string car, int probeg, decimal gas, Model id_model, int nav_id_object)
         {
             this.id = id;
             this.car = car;
             this.probeg = probeg;
             Gas = gas;
             this.id_model = id_model;
+            this.nav_id_object = nav_id_object;
         }
 
         public Car(string car, int probeg, decimal gas, Model id_model)

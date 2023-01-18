@@ -28,6 +28,20 @@ namespace Mekus
             set_values_table();
         }
 
+        public void update_gridviewtravelingslist()
+        {
+            dataGridView5.Rows.Clear();
+            for (int i = 0; i < db.travelings.Count; i++)
+            {
+                if (db.travelings[i].status_inRf == 0 && db.travelings[i].date_traveling.Date >= dateTimePicker1.Value.Date && db.travelings[i].date_traveling.Date <= dateTimePicker2.Value.Date)
+                {
+                    dataGridView5.Rows.Add(db.travelings[i].number, db.travelings[i].date_traveling.ToString("dd MMMM yyyy"), db.travelings[i].id_courier.courier, db.travelings[i].id_car.id_model.model + " " + db.travelings[i].id_car.car,
+                                        db.travelings[i].s_probeg_1, db.travelings[i].e_probeg_1, db.travelings[i].t_probeg_all, db.travelings[i].S_gas_1, db.travelings[i].E_gas_1,
+                                        db.travelings[i].T_gas_all, db.travelings[i].R_gas_1, db.travelings[i].Z_gas_1, db.travelings[i].P_gas_1, db.travelings[i].P_traveling_all);
+                }
+            }
+        }
+
         public void set_values_table()
         {
             db.get_all_data();
@@ -46,8 +60,8 @@ namespace Mekus
             dataGridView5.Rows.Clear();
             for (int i = 0; i < db.travelings.Count; i++)
             {
-                if (db.travelings[i].status_inRf == 0)
-                { 
+                if (db.travelings[i].status_inRf == 0 && db.travelings[i].date_traveling.Date >= dateTimePicker1.Value.Date && db.travelings[i].date_traveling.Date <= dateTimePicker2.Value.Date)
+                {
                     dataGridView5.Rows.Add(db.travelings[i].number, db.travelings[i].date_traveling.ToString("dd MMMM yyyy"), db.travelings[i].id_courier.courier, db.travelings[i].id_car.id_model.model + " " + db.travelings[i].id_car.car,
                                         db.travelings[i].s_probeg_1, db.travelings[i].e_probeg_1, db.travelings[i].t_probeg_all, db.travelings[i].S_gas_1, db.travelings[i].E_gas_1,
                                         db.travelings[i].T_gas_all, db.travelings[i].R_gas_1, db.travelings[i].Z_gas_1, db.travelings[i].P_gas_1, db.travelings[i].P_traveling_all);
@@ -154,6 +168,30 @@ namespace Mekus
 
             }
             catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                update_gridviewtravelingslist();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void dateTimePicker2_ValueChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                update_gridviewtravelingslist();
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }

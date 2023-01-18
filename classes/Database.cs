@@ -91,7 +91,7 @@ namespace Mekus.classes
                     SqlDataReader reader = cmd.ExecuteReader();
                     if (reader.HasRows)
                         while (reader.Read())
-                            cars.Add(new Car((int)reader["id"], (string)reader["car"], (int)reader["probeg"], (decimal)reader["gas"], models.Find(x => x.id == (int)reader["id_model"])));
+                            cars.Add(new Car((int)reader["id"], (string)reader["car"], (int)reader["probeg"], (decimal)reader["gas"], models.Find(x => x.id == (int)reader["id_model"]), (int)reader["nav_id_object"]));
                     reader.Close();
                     connect.Close();
                     return cars;
@@ -167,7 +167,7 @@ namespace Mekus.classes
                 {
                     connect.Open();
                     travelings.Clear();
-                    string query = string.Format("select * from Travelings");
+                    string query = string.Format("select * from Travelings order by date_traveling desc");
                     SqlCommand cmd = new SqlCommand(query, connect);
                     SqlDataReader reader = cmd.ExecuteReader();
                     if (reader.HasRows)
