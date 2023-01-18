@@ -28,16 +28,33 @@ namespace Mekus
             set_values_table();
         }
 
-        public void update_gridviewtravelingslist()
+        public void update_gridviewtravelingslist(int status_inRf)
         {
-            dataGridView5.Rows.Clear();
-            for (int i = 0; i < db.travelings.Count; i++)
+            if (status_inRf == 0) 
             {
-                if (db.travelings[i].status_inRf == 0 && db.travelings[i].date_traveling.Date >= dateTimePicker1.Value.Date && db.travelings[i].date_traveling.Date <= dateTimePicker2.Value.Date)
+                dataGridView5.Rows.Clear();
+                for (int i = 0; i < db.travelings.Count; i++)
                 {
-                    dataGridView5.Rows.Add(db.travelings[i].number, db.travelings[i].date_traveling.ToString("dd MMMM yyyy"), db.travelings[i].id_courier.courier, db.travelings[i].id_car.id_model.model + " " + db.travelings[i].id_car.car,
-                                        db.travelings[i].s_probeg_1, db.travelings[i].e_probeg_1, db.travelings[i].t_probeg_all, db.travelings[i].S_gas_1, db.travelings[i].E_gas_1,
-                                        db.travelings[i].T_gas_all, db.travelings[i].R_gas_1, db.travelings[i].Z_gas_1, db.travelings[i].P_gas_1, db.travelings[i].P_traveling_all);
+                    if (db.travelings[i].status_inRf == status_inRf && db.travelings[i].date_traveling.Date >= dateTimePicker1.Value.Date && db.travelings[i].date_traveling.Date <= dateTimePicker2.Value.Date)
+                    {
+                        dataGridView5.Rows.Add(db.travelings[i].number, db.travelings[i].date_traveling.ToString("dd MMMM yyyy"), db.travelings[i].id_courier.courier, db.travelings[i].id_car.id_model.model + " " + db.travelings[i].id_car.car,
+                                            db.travelings[i].s_probeg_1, db.travelings[i].e_probeg_1, db.travelings[i].t_probeg_all, db.travelings[i].S_gas_1, db.travelings[i].E_gas_1,
+                                            db.travelings[i].T_gas_all, db.travelings[i].R_gas_1, db.travelings[i].Z_gas_1, db.travelings[i].P_gas_1, db.travelings[i].P_traveling_all);
+                    }
+                }
+            }
+            else
+            {
+                dataGridView6.Rows.Clear();
+                for (int i = 0; i < db.travelings.Count; i++)
+                {
+                    if (db.travelings[i].status_inRf == status_inRf && db.travelings[i].date_traveling.Date >= dateTimePicker4.Value.Date && db.travelings[i].date_traveling.Date <= dateTimePicker3.Value.Date)
+                    {
+                        dataGridView6.Rows.Add(db.travelings[i].number, db.travelings[i].date_traveling.ToString("dd MMMM yyyy"), db.travelings[i].id_courier.courier, db.travelings[i].id_car.id_model.model + " " + db.travelings[i].id_car.car,
+                                        db.travelings[i].s_probeg_1, db.travelings[i].e_probeg_1, db.travelings[i].S_gas_1, db.travelings[i].E_gas_1, db.travelings[i].R_gas_1, db.travelings[i].Z_gas_1,
+                                        db.travelings[i].s_probeg_2, db.travelings[i].e_probeg_2, db.travelings[i].S_gas_2, db.travelings[i].E_gas_2, db.travelings[i].R_gas_2, db.travelings[i].Z_gas_2,
+                                        db.travelings[i].t_probeg_all, db.travelings[i].T_gas_all, db.travelings[i].P_traveling_all);
+                    }
                 }
             }
         }
@@ -70,9 +87,9 @@ namespace Mekus
             dataGridView6.Rows.Clear();
             for (int i = 0; i < db.travelings.Count; i++)
             {
-                if (db.travelings[i].status_inRf == 1)
+                if (db.travelings[i].status_inRf == 1 && db.travelings[i].date_traveling.Date >= dateTimePicker4.Value.Date && db.travelings[i].date_traveling.Date <= dateTimePicker3.Value.Date)
                 { 
-                    dataGridView6.Rows.Add(db.travelings[i].number, db.travelings[i].id_courier.courier, db.travelings[i].id_car.id_model.model + " " + db.travelings[i].id_car.car,
+                    dataGridView6.Rows.Add(db.travelings[i].number, db.travelings[i].date_traveling.ToString("dd MMMM yyyy"), db.travelings[i].id_courier.courier, db.travelings[i].id_car.id_model.model + " " + db.travelings[i].id_car.car,
                                         db.travelings[i].s_probeg_1, db.travelings[i].e_probeg_1, db.travelings[i].S_gas_1, db.travelings[i].E_gas_1, db.travelings[i].R_gas_1, db.travelings[i].Z_gas_1,
                                         db.travelings[i].s_probeg_2, db.travelings[i].e_probeg_2, db.travelings[i].S_gas_2, db.travelings[i].E_gas_2, db.travelings[i].R_gas_2, db.travelings[i].Z_gas_2,
                                         db.travelings[i].t_probeg_all, db.travelings[i].T_gas_all, db.travelings[i].P_traveling_all);
@@ -177,7 +194,7 @@ namespace Mekus
         {
             try
             {
-                update_gridviewtravelingslist();
+                update_gridviewtravelingslist(0);
             }
             catch(Exception ex)
             {
@@ -189,7 +206,59 @@ namespace Mekus
         {
             try
             {
-                update_gridviewtravelingslist();
+                update_gridviewtravelingslist(0);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Traveling traveling = db.travelings.Find(x => x.number == (int)dataGridView6.CurrentRow.Cells[0].Value);
+
+                Excel.Workbook xlWB;
+                Excel.Worksheet xlSht;
+
+                Excel.Application xlApp = new Excel.Application();
+                xlApp.Visible = true;
+                xlWB = xlApp.Workbooks.Open(Application.StartupPath + @"\list_rf.xls");
+                xlSht = xlWB.Worksheets["Шаблон"];
+
+                xlSht.Cells[7, 10] = traveling.date_traveling.ToString("dd          MMMM          yyyy") + " г.";
+                xlSht.Cells[6, 27] = traveling.number;
+                xlSht.Cells[10, 1] = traveling.id_car.id_model.model;
+                xlSht.Cells[10, "S"] = traveling.id_car.car;
+                xlSht.Cells[16, "A"] = traveling.id_courier.courier;
+                xlSht.Cells[16, "V"] = traveling.id_courier.prava;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void dateTimePicker4_ValueChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                update_gridviewtravelingslist(1);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void dateTimePicker3_ValueChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                update_gridviewtravelingslist(1);
             }
             catch (Exception ex)
             {
