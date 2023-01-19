@@ -144,25 +144,28 @@ namespace Mekus.forms.travelings
             JSONParser parser = new JSONParser();
             parser = JsonSerializer.Deserialize<JSONParser>(responseFromServer);
 
-            if(parser.root.result.items[0].distance_can != 0)
-                textBox14.Text = Convert.ToString(Convert.ToDecimal(decimal.Round((decimal)parser.root.result.items[0].distance_can, 3, MidpointRounding.AwayFromZero) / 1000));
-            else
-                textBox14.Text = Convert.ToString(Convert.ToDecimal(decimal.Round((decimal)parser.root.result.items[0].distance_gps, 3, MidpointRounding.AwayFromZero) / 1000));
+            if (parser.root.result.items[0].object_id != "5431279")
+            {
+                if (parser.root.result.items[0].distance_can != 0)
+                    textBox14.Text = Convert.ToString(Convert.ToDecimal(decimal.Round((decimal)parser.root.result.items[0].distance_can, 3, MidpointRounding.AwayFromZero) / 1000));
+                else
+                    textBox14.Text = Convert.ToString(Convert.ToDecimal(decimal.Round((decimal)parser.root.result.items[0].distance_gps, 3, MidpointRounding.AwayFromZero) / 1000));
 
-            if (parser.root.result.items[0].fuel_in_list.Length > 0)
-                textBox15.Text = Convert.ToString(parser.root.result.items[0].fuel_in_list[0].value);
-            else
-                textBox15.Text = "0";
+                if (parser.root.result.items[0].fuel_in_list.Length > 0)
+                    textBox15.Text = Convert.ToString(parser.root.result.items[0].fuel_in_list[0].value);
+                else
+                    textBox15.Text = "0";
 
-            if (parser.root.result.items[0].odom_start != 0)
-                textBox16.Text = Convert.ToString(parser.root.result.items[0].odom_start);
-            else
-                textBox16.Text = "0";
+                if (parser.root.result.items[0].odom_start != 0)
+                    textBox16.Text = Convert.ToString(parser.root.result.items[0].odom_start);
+                else
+                    textBox16.Text = "0";
 
-            if (parser.root.result.items[0].odom_finish != 0)
-                textBox17.Text = Convert.ToString(parser.root.result.items[0].odom_finish);
-            else
-                textBox17.Text = "0";
+                if (parser.root.result.items[0].odom_finish != 0)
+                    textBox17.Text = Convert.ToString(parser.root.result.items[0].odom_finish);
+                else
+                    textBox17.Text = "0";
+            }
         }
     }
 }

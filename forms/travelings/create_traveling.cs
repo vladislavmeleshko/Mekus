@@ -111,5 +111,17 @@ namespace Mekus.forms.travelings
                 traveling.status_inRf = 1;
             else traveling.status_inRf = 3;
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                dateTimePicker1.Value = dateTimePicker1.Value.Date.AddDays(1);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
     }
 }
