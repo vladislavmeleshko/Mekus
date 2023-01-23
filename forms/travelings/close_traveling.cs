@@ -132,39 +132,46 @@ namespace Mekus.forms.travelings
 
         public void GetRequestInNavBy(DateTime from, DateTime to, int nav_id_object)
         {
-            string url = @"https://api.nav.by/info/integration.php?type=OBJECT_STAT_DATA&token=613ce8ea-8506-49a6-bf76-279a635601ce&from="
-                            + from.Date.ToString("yyyy-MM-dd") + " 00:00:00&to=" + to.Date.ToString("yyyy-MM-dd") + " 23:59:00&object_id="+ nav_id_object;
-
-            WebRequest request = WebRequest.Create(url);
-            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-            Stream dataStream = response.GetResponseStream();
-            StreamReader reader = new StreamReader(dataStream);
-            string responseFromServer = reader.ReadToEnd();
-
-            JSONParser parser = new JSONParser();
-            parser = JsonSerializer.Deserialize<JSONParser>(responseFromServer);
-
-            if (parser.root.result.items[0].object_id != "5431279")
+            try
             {
-                if (parser.root.result.items[0].distance_can != 0)
-                    textBox14.Text = Convert.ToString(Convert.ToDecimal(decimal.Round((decimal)parser.root.result.items[0].distance_can, 3, MidpointRounding.AwayFromZero) / 1000));
-                else
-                    textBox14.Text = Convert.ToString(Convert.ToDecimal(decimal.Round((decimal)parser.root.result.items[0].distance_gps, 3, MidpointRounding.AwayFromZero) / 1000));
+                string url = @"https://api.nav.by/info/integration.php?type=OBJECT_STAT_DATA&token=613ce8ea-8506-49a6-bf76-279a635601ce&from="
+                            + from.Date.ToString("yyyy-MM-dd") + " 00:00:00&to=" + to.Date.ToString("yyyy-MM-dd") + " 23:59:00&object_id=" + nav_id_object;
 
-                if (parser.root.result.items[0].fuel_in_list.Length > 0)
-                    textBox15.Text = Convert.ToString(parser.root.result.items[0].fuel_in_list[0].value);
-                else
-                    textBox15.Text = "0";
+                WebRequest request = WebRequest.Create(url);
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                Stream dataStream = response.GetResponseStream();
+                StreamReader reader = new StreamReader(dataStream);
+                string responseFromServer = reader.ReadToEnd();
 
-                if (parser.root.result.items[0].odom_start != 0)
-                    textBox16.Text = Convert.ToString(parser.root.result.items[0].odom_start);
-                else
-                    textBox16.Text = "0";
+                JSONParser parser = new JSONParser();
+                parser = JsonSerializer.Deserialize<JSONParser>(responseFromServer);
 
-                if (parser.root.result.items[0].odom_finish != 0)
-                    textBox17.Text = Convert.ToString(parser.root.result.items[0].odom_finish);
-                else
-                    textBox17.Text = "0";
+                if (parser.root.result.items[0].object_id != "5431279")
+                {
+                    if (parser.root.result.items[0].distance_can != 0)
+                        textBox14.Text = Convert.ToString(Convert.ToDecimal(decimal.Round((decimal)parser.root.result.items[0].distance_can, 3, MidpointRounding.AwayFromZero) / 1000));
+                    else
+                        textBox14.Text = Convert.ToString(Convert.ToDecimal(decimal.Round((decimal)parser.root.result.items[0].distance_gps, 3, MidpointRounding.AwayFromZero) / 1000));
+
+                    if (parser.root.result.items[0].fuel_in_list.Length > 0)
+                        textBox15.Text = Convert.ToString(parser.root.result.items[0].fuel_in_list[0].value);
+                    else
+                        textBox15.Text = "0";
+
+                    if (parser.root.result.items[0].odom_start != 0)
+                        textBox16.Text = Convert.ToString(parser.root.result.items[0].odom_start);
+                    else
+                        textBox16.Text = "0";
+
+                    if (parser.root.result.items[0].odom_finish != 0)
+                        textBox17.Text = Convert.ToString(parser.root.result.items[0].odom_finish);
+                    else
+                        textBox17.Text = "0";
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
     }
