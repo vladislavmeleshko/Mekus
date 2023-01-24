@@ -124,7 +124,10 @@ namespace Mekus.forms.travelings
                 traveling.P_traveling_all = traveling.P_traveling_1;
                 traveling.id_car.editCar();
                 traveling.closeTraveling();
-                main.set_values_table();
+
+                main.set_value_table(traveling);
+                //main.set_values_table();
+
                 Close();
             }
             catch(Exception ex)
