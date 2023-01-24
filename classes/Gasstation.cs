@@ -180,9 +180,9 @@ namespace Mekus.classes
                     }
                     else if (Really_gas + t_gas_all == Enter_gas)
                     {
-                        string query = string.Format("update Gasstations set really_gas+=@really_gas where id={0}", id);
+                        string query = string.Format("update Gasstations set really_gas=@really_gas where id={0}", id);
                         SqlCommand cmd = new SqlCommand(query, connect);
-                        SqlParameter param = new SqlParameter("@really_gas", t_gas_all);
+                        SqlParameter param = new SqlParameter("@really_gas", Really_gas + t_gas_all);
                         cmd.Parameters.Add(param);
                         cmd.ExecuteNonQuery();
                         Gasstation gasstation = db.gasstations.Find(x => x.id > traveling.id_gasstation.id && x.id_car.id == traveling.id_car.id);
@@ -194,9 +194,9 @@ namespace Mekus.classes
                     }
                     else
                     {
-                        string query = string.Format("update Gasstations set really_gas+=@really_gas where id={0}", id);
+                        string query = string.Format("update Gasstations set really_gas=@really_gas where id={0}", id);
                         SqlCommand cmd = new SqlCommand(query, connect);
-                        SqlParameter param = new SqlParameter("@really_gas", t_gas_all);
+                        SqlParameter param = new SqlParameter("@really_gas", Really_gas + t_gas_all);
                         cmd.Parameters.Add(param);
                         cmd.ExecuteNonQuery();
                         connect.Close();
