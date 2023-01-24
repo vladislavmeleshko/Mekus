@@ -114,22 +114,69 @@ namespace Mekus.classes
                     connect.Open();
                     if (Really_gas + t_gas_all > Enter_gas)
                     {
-                        string query = string.Format("update Gasstations set really_gas=@enter_gas where id={0}", id);
-                        SqlCommand cmd = new SqlCommand(query, connect);
-                        SqlParameter param = new SqlParameter("@enter_gas", Enter_gas);
-                        cmd.Parameters.Add(param);
-                        cmd.ExecuteNonQuery();
                         Gasstation gasstation = db.gasstations.Find(x => x.id > traveling.id_gasstation.id && x.id_car.id == traveling.id_car.id);
-                        query = string.Format("update Gasstations set really_gas=@really_gas where id={0}", gasstation.id);
-                        cmd = new SqlCommand(query, connect);
-                        param = new SqlParameter("@really_gas", Really_gas + t_gas_all - Enter_gas);
-                        cmd.Parameters.Add(param);
-                        cmd.ExecuteNonQuery();
-                        query = string.Format("update Travelings set id_gasstation={0} where id>{1} and id_car={2}", gasstation.id, traveling.id, traveling.id_car.id);
-                        cmd = new SqlCommand(query, connect);
-                        cmd.ExecuteNonQuery();
-                        connect.Close();
-                        return (Enter_gas - Really_gas) * Price + (Really_gas + t_gas_all - Enter_gas) * gasstation.Price;
+                        if(gasstation != null)
+                        {
+                            if(Enter_gas > Really_gas)
+                            {
+                                string query = string.Format("update Gasstations set really_gas=@enter_gas where id={0}", id);
+                                SqlCommand cmd = new SqlCommand(query, connect);
+                                SqlParameter param = new SqlParameter("@enter_gas", Enter_gas);
+                                cmd.Parameters.Add(param);
+                                cmd.ExecuteNonQuery();
+                                query = string.Format("update Gasstations set really_gas=@really_gas where id={0}", gasstation.id);
+                                cmd = new SqlCommand(query, connect);
+                                param = new SqlParameter("@really_gas", Really_gas + t_gas_all - Enter_gas);
+                                cmd.Parameters.Add(param);
+                                cmd.ExecuteNonQuery();
+                                query = string.Format("update Travelings set id_gasstation={0} where id>{1} and id_car={2}", gasstation.id, traveling.id, traveling.id_car.id);
+                                cmd = new SqlCommand(query, connect);
+                                cmd.ExecuteNonQuery();
+                                query = string.Format("insert into History_gas (id_traveling, prev_t_gas, next_t_gas) values ({0}, @prev_t_gas, @next_t_gas)", traveling.id);
+                                cmd = new SqlCommand(query, connect);
+                                param = new SqlParameter("@prev_t_gas", Enter_gas - Really_gas);
+                                cmd.Parameters.Add(param);
+                                param = new SqlParameter("@next_t_gas", Really_gas + t_gas_all - Enter_gas);
+                                cmd.Parameters.Add(param);
+                                cmd.ExecuteNonQuery();
+                                connect.Close();
+                                return (Enter_gas - Really_gas) * Price + (Really_gas + t_gas_all - Enter_gas) * gasstation.Price;
+                            }
+                            else
+                            {
+                                string query = string.Format("update Gasstations set really_gas=@really_gas where id={0}", gasstation.id);
+                                SqlCommand cmd = new SqlCommand(query, connect);
+                                SqlParameter param = new SqlParameter("@really_gas", gasstation.Really_gas + t_gas_all);
+                                cmd.Parameters.Add(param);
+                                cmd.ExecuteNonQuery();
+                                query = string.Format("update Travelings set id_gasstation={0} where id>{1} and id_car={2}", gasstation.id, traveling.id, traveling.id_car.id);
+                                cmd = new SqlCommand(query, connect);
+                                cmd.ExecuteNonQuery();
+                                query = string.Format("insert into History_gas (id_traveling, next_t_gas, code_history) values ({0}, @next_t_gas, 1)", traveling.id);
+                                cmd = new SqlCommand(query, connect);
+                                param = new SqlParameter("@next_t_gas", t_gas_all);
+                                cmd.Parameters.Add(param);
+                                cmd.ExecuteNonQuery();
+                                connect.Close();
+                                return t_gas_all * gasstation.Price;
+                            }
+                        }
+                        else
+                        {
+                            string query = string.Format("update Gasstations set really_gas=@really_gas where id={0}", id);
+                            SqlCommand cmd = new SqlCommand(query, connect);
+                            SqlParameter param = new SqlParameter("@really_gas", Really_gas + t_gas_all);
+                            cmd.Parameters.Add(param);
+                            cmd.ExecuteNonQuery();
+                            query = string.Format("insert into History_gas (id_traveling, prev_t_gas, code_history) values ({0}, @prev_t_gas, 2)", traveling.id);
+                            cmd = new SqlCommand(query, connect);
+                            param = new SqlParameter("@prev_t_gas", Really_gas + t_gas_all - Enter_gas);
+                            cmd.Parameters.Add(param);
+                            cmd.ExecuteNonQuery();
+                            connect.Close();
+                            MessageBox.Show("Путевой лист закрывается с отрицательным остатком топлива. Скорее всего у вас где-то ошибка! (Забыли внести заправку, указали неправильный расход топлива и т.д.)", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return t_gas_all * Price;
+                        }
                     }
                     else if (Really_gas + t_gas_all == Enter_gas)
                     {
