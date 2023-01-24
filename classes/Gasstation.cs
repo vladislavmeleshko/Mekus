@@ -124,7 +124,7 @@ namespace Mekus.classes
                                 SqlParameter param = new SqlParameter("@enter_gas", Enter_gas);
                                 cmd.Parameters.Add(param);
                                 cmd.ExecuteNonQuery();
-                                query = string.Format("update Gasstations set really_gas=@really_gas where id={0}", gasstation.id);
+                                query = string.Format("update Gasstations set really_gas+=@really_gas where id={0}", gasstation.id);
                                 cmd = new SqlCommand(query, connect);
                                 param = new SqlParameter("@really_gas", Really_gas + t_gas_all - Enter_gas);
                                 cmd.Parameters.Add(param);
