@@ -117,22 +117,27 @@ namespace Mekus.classes
                         Gasstation gasstation = db.gasstations.Find(x => x.id > traveling.id_gasstation.id && x.Enter_gas != x.Really_gas && x.id_car.id == traveling.id_car.id);
                         if(gasstation != null)
                         {
-                            decimal temp1 = decimal.Round(Enter_gas - Really_gas, 2, MidpointRounding.AwayFromZero); // Получаем возможное кол-во топлива, которые мы можем добавить в заправку
+                            // Получаем возможное кол-во топлива, которые мы можем добавить в заправку
+                            decimal temp1 = decimal.Round(Enter_gas - Really_gas, 2, MidpointRounding.AwayFromZero);
                             string query = string.Format("update Gasstations set really_gas=@really_gas where id={0}", id);
                             SqlCommand cmd = new SqlCommand(query, connect);
                             SqlParameter param = new SqlParameter("@really_gas", Really_gas + temp1);
                             cmd.Parameters.Add(param);
                             cmd.ExecuteNonQuery();
-                            decimal temp2 = decimal.Round(Really_gas + t_gas_all - Enter_gas, 2, MidpointRounding.AwayFromZero); // Получаем оставшееся кол-во топлива, которое мы добавляем в след. заправку
+
+                            // Получаем оставшееся кол-во топлива, которое мы добавляем в след. заправку
+                            decimal temp2 = decimal.Round(Really_gas + t_gas_all - Enter_gas, 2, MidpointRounding.AwayFromZero);
                             query = string.Format("update Gasstations set really_gas=@really_gas where id={0}", gasstation.id);
                             cmd = new SqlCommand(query, connect);
                             param = new SqlParameter("@really_gas", gasstation.Really_gas + temp2);
                             cmd.Parameters.Add(param);
                             cmd.ExecuteNonQuery();
+
                             // Обновляем заправку в след. путевые листы с этим автомобилем, с которой будем списывать топливо для нахождения стоимости израсходованного топлива
                             query = string.Format("update Travelings set id_gasstation={0} where id>={1} and id_car={2}", gasstation.id, traveling.id, traveling.id_car.id);
                             cmd = new SqlCommand(query, connect);
                             cmd.ExecuteNonQuery();
+
                             // Записываем в историю, сколько потратили топлива с изначально присвоенной заправки, сколько потратили топлива со след. заправки
                             query = string.Format("insert into History_gas (id_traveling, prev_t_gas, next_t_gas, one_to_many) values ({0}, @prev_t_gas, @next_t_gas, '{1}')", traveling.id, 
                                 id + " | " + gasstation.id);
@@ -143,6 +148,7 @@ namespace Mekus.classes
                             cmd.Parameters.Add(param);
                             cmd.ExecuteNonQuery();
                             connect.Close();
+
                             return decimal.Round(temp1 * Price, 2, MidpointRounding.AwayFromZero) + decimal.Round(temp2 * gasstation.Price, 2, MidpointRounding.AwayFromZero);
                         }
                         else
