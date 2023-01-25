@@ -114,7 +114,7 @@ namespace Mekus.classes
                     connect.Open();
                     if (Really_gas + t_gas_all >= Enter_gas)
                     {
-                        Gasstation gasstation = db.gasstations.Find(x => x.id > traveling.id_gasstation.id && x.id_car.id == traveling.id_car.id);
+                        Gasstation gasstation = db.gasstations.Find(x => x.id > traveling.id_gasstation.id && x.Enter_gas != x.Really_gas && x.id_car.id == traveling.id_car.id);
                         if(gasstation != null)
                         {
                             decimal temp1 = Enter_gas - Really_gas; // Получаем возможное кол-во топлива, которые мы можем добавить в заправку

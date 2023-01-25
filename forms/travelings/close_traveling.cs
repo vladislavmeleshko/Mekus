@@ -119,13 +119,14 @@ namespace Mekus.forms.travelings
                     traveling.id_gasstation.addGasstation(db, traveling.Z_gas_1, traveling.P_gas_1, traveling);
 
                 traveling.P_traveling_1 = traveling.id_gasstation.get_price_traveling(db, traveling, traveling.T_gas_1);
+
                 db.gasstations = db.get_gasstations();
 
                 traveling.P_traveling_all = traveling.P_traveling_1;
                 traveling.id_car.editCar();
                 traveling.closeTraveling();
 
-                main.set_value_table(traveling);
+                main.set_value_table(traveling, 0);
                 //main.set_values_table();
 
                 Close();

@@ -209,14 +209,18 @@ namespace Mekus.forms.travelings
 
                 db.gasstations = db.get_gasstations();
 
-                traveling.id_gasstation = db.gasstations.Find(x => x.id >= traveling.id_gasstation.id && x.Enter_gas != x.Really_gas);
+                traveling.id_gasstation = db.gasstations.Find(x => x.id >= traveling.id_gasstation.id && x.Enter_gas != x.Really_gas && x.id_car == traveling.id_car);
 
                 traveling.P_traveling_2 = traveling.id_gasstation.get_price_traveling(db, traveling, traveling.T_gas_2);
 
                 traveling.P_traveling_all = traveling.P_traveling_1 + traveling.P_traveling_2;
                 traveling.id_car.editCar();
                 traveling.closeTraveling();
-                main.set_values_table();
+
+                main.set_value_table(traveling, 1);
+
+                // main.set_values_table();
+
                 Close();
             }
             catch (Exception ex)

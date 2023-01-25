@@ -61,25 +61,52 @@ namespace Mekus
 
         // Пробная функция
 
-        public void set_value_table(Traveling traveling)
+        public void set_value_table(Traveling traveling, int id)
         {
             try
             {
                 db.get_all_data();
-                for(int i = 0; i < dataGridView5.Rows.Count; i++)
+                if(id == 0)
                 {
-                    if (dataGridView5.Rows[i].Cells[0].Value.ToString() == Convert.ToString(traveling.number))
+                    for (int i = 0; i < dataGridView5.Rows.Count; i++)
                     {
-                        dataGridView5.Rows[i].Cells[4].Value = Convert.ToString(traveling.s_probeg_1);
-                        dataGridView5.Rows[i].Cells[5].Value = Convert.ToString(traveling.e_probeg_1);
-                        dataGridView5.Rows[i].Cells[6].Value = Convert.ToString(traveling.t_probeg_1);
-                        dataGridView5.Rows[i].Cells[7].Value = Convert.ToString(traveling.S_gas_1);
-                        dataGridView5.Rows[i].Cells[8].Value = Convert.ToString(traveling.E_gas_1);
-                        dataGridView5.Rows[i].Cells[9].Value = Convert.ToString(traveling.T_gas_1);
-                        dataGridView5.Rows[i].Cells[10].Value = Convert.ToString(traveling.R_gas_1);
-                        dataGridView5.Rows[i].Cells[11].Value = Convert.ToString(traveling.Z_gas_1);
-                        dataGridView5.Rows[i].Cells[12].Value = Convert.ToString(traveling.id_gasstation.Price);
-                        dataGridView5.Rows[i].Cells[13].Value = Convert.ToString(traveling.P_traveling_all);
+                        if (dataGridView5.Rows[i].Cells[0].Value.ToString() == Convert.ToString(traveling.number))
+                        {
+                            dataGridView5.Rows[i].Cells[4].Value = Convert.ToString(traveling.s_probeg_1);
+                            dataGridView5.Rows[i].Cells[5].Value = Convert.ToString(traveling.e_probeg_1);
+                            dataGridView5.Rows[i].Cells[6].Value = Convert.ToString(traveling.t_probeg_1);
+                            dataGridView5.Rows[i].Cells[7].Value = Convert.ToString(traveling.S_gas_1);
+                            dataGridView5.Rows[i].Cells[8].Value = Convert.ToString(traveling.E_gas_1);
+                            dataGridView5.Rows[i].Cells[9].Value = Convert.ToString(traveling.T_gas_1);
+                            dataGridView5.Rows[i].Cells[10].Value = Convert.ToString(traveling.R_gas_1);
+                            dataGridView5.Rows[i].Cells[11].Value = Convert.ToString(traveling.Z_gas_1);
+                            dataGridView5.Rows[i].Cells[12].Value = Convert.ToString(traveling.id_gasstation.Price);
+                            dataGridView5.Rows[i].Cells[13].Value = Convert.ToString(traveling.P_traveling_all);
+                        }
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < dataGridView6.Rows.Count; i++)
+                    {
+                        if (dataGridView6.Rows[i].Cells[0].Value.ToString() == Convert.ToString(traveling.number))
+                        {
+                            dataGridView6.Rows[i].Cells[4].Value = Convert.ToString(traveling.s_probeg_1);
+                            dataGridView6.Rows[i].Cells[5].Value = Convert.ToString(traveling.e_probeg_1);
+                            dataGridView6.Rows[i].Cells[6].Value = Convert.ToString(traveling.S_gas_1);
+                            dataGridView6.Rows[i].Cells[7].Value = Convert.ToString(traveling.E_gas_1);
+                            dataGridView6.Rows[i].Cells[8].Value = Convert.ToString(traveling.R_gas_1);
+                            dataGridView6.Rows[i].Cells[9].Value = Convert.ToString(traveling.Z_gas_1);
+                            dataGridView6.Rows[i].Cells[10].Value = Convert.ToString(traveling.s_probeg_2);
+                            dataGridView6.Rows[i].Cells[11].Value = Convert.ToString(traveling.e_probeg_2);
+                            dataGridView6.Rows[i].Cells[12].Value = Convert.ToString(traveling.S_gas_2);
+                            dataGridView6.Rows[i].Cells[13].Value = Convert.ToString(traveling.E_gas_2);
+                            dataGridView6.Rows[i].Cells[14].Value = Convert.ToString(traveling.R_gas_2);
+                            dataGridView6.Rows[i].Cells[15].Value = Convert.ToString(traveling.Z_gas_2);
+                            dataGridView6.Rows[i].Cells[16].Value = Convert.ToString(traveling.t_probeg_all);
+                            dataGridView6.Rows[i].Cells[17].Value = Convert.ToString(traveling.T_gas_all);
+                            dataGridView6.Rows[i].Cells[18].Value = Convert.ToString(traveling.P_traveling_all);
+                        }
                     }
                 }
             }
