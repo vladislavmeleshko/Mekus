@@ -95,7 +95,8 @@ namespace Mekus.forms.travelings
                 traveling.id_gasstation = traveling.id_gasstation.get_gasstation(db, traveling);
                 traveling.createTraveling(traveling.status_inRf);
                 main.set_values_table();
-                Close();
+                // Close();
+                textBox1.Text = Convert.ToString(Convert.ToInt32(textBox1.Text) + 1);
             }
             catch (Exception ex)
             {
