@@ -117,13 +117,13 @@ namespace Mekus.classes
                         Gasstation gasstation = db.gasstations.Find(x => x.id > traveling.id_gasstation.id && x.Enter_gas != x.Really_gas && x.id_car.id == traveling.id_car.id);
                         if(gasstation != null)
                         {
-                            decimal temp1 = Enter_gas - Really_gas; // Получаем возможное кол-во топлива, которые мы можем добавить в заправку
+                            decimal temp1 = decimal.Round(Enter_gas - Really_gas, 2, MidpointRounding.AwayFromZero); // Получаем возможное кол-во топлива, которые мы можем добавить в заправку
                             string query = string.Format("update Gasstations set really_gas=@really_gas where id={0}", id);
                             SqlCommand cmd = new SqlCommand(query, connect);
                             SqlParameter param = new SqlParameter("@really_gas", Really_gas + temp1);
                             cmd.Parameters.Add(param);
                             cmd.ExecuteNonQuery();
-                            decimal temp2 = Really_gas + t_gas_all - Enter_gas; // Получаем оставшееся кол-во топлива, которое мы добавляем в след. заправку
+                            decimal temp2 = decimal.Round(Really_gas + t_gas_all - Enter_gas, 2, MidpointRounding.AwayFromZero); // Получаем оставшееся кол-во топлива, которое мы добавляем в след. заправку
                             query = string.Format("update Gasstations set really_gas=@really_gas where id={0}", gasstation.id);
                             cmd = new SqlCommand(query, connect);
                             param = new SqlParameter("@really_gas", gasstation.Really_gas + temp2);
@@ -143,7 +143,7 @@ namespace Mekus.classes
                             cmd.Parameters.Add(param);
                             cmd.ExecuteNonQuery();
                             connect.Close();
-                            return (Enter_gas - Really_gas) * Price + (Really_gas + t_gas_all - Enter_gas) * gasstation.Price;
+                            return decimal.Round(temp1 * Price, 2, MidpointRounding.AwayFromZero) + decimal.Round(temp2 * gasstation.Price, 2, MidpointRounding.AwayFromZero);
                         }
                         else
                         {
@@ -160,7 +160,7 @@ namespace Mekus.classes
                             connect.Close();
                             MessageBox.Show("Путевой лист закрывается с отрицательным остатком топлива. Скорее всего у вас где-то ошибка! (Забыли внести заправку, указали неправильный расход топлива и т.д.)" +
                                 "При закрытии следующего путевого листа, желательно поменять остаток топлива в авто на положительный (во вкладке 'Автомобили')", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return t_gas_all * Price;
+                            return decimal.Round(t_gas_all * Price, 2, MidpointRounding.AwayFromZero);
                         }
                     }
                     else
@@ -176,7 +176,7 @@ namespace Mekus.classes
                         cmd.Parameters.Add(param);
                         cmd.ExecuteNonQuery();
                         connect.Close();
-                        return t_gas_all * Price;
+                        return decimal.Round(t_gas_all * Price, 2, MidpointRounding.AwayFromZero);
                     }
                 }
                 catch (Exception ex)
