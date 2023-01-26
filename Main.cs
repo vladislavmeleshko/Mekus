@@ -72,6 +72,7 @@ namespace Mekus
                     {
                         if (dataGridView5.Rows[i].Cells[0].Value.ToString() == Convert.ToString(traveling.number))
                         {
+                            dataGridView5.Rows[i].Cells[3].Value = Convert.ToString(traveling.id_car.id_model.model + " " + traveling.id_car.car);
                             dataGridView5.Rows[i].Cells[4].Value = Convert.ToString(traveling.s_probeg_1);
                             dataGridView5.Rows[i].Cells[5].Value = Convert.ToString(traveling.e_probeg_1);
                             dataGridView5.Rows[i].Cells[6].Value = Convert.ToString(traveling.t_probeg_1);

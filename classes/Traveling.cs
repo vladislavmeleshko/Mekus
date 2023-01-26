@@ -124,6 +124,26 @@ namespace Mekus.classes
             }
         }
 
+        public void editCar()
+        {
+            using (SqlConnection connect = new SqlConnection(str_connect))
+            {
+                try
+                {
+                    connect.Open();
+                    string query = string.Format("update Travelings set id_car={0}, id_gasstation={1} where id={2}", id_car.id, id_gasstation.id, id);
+                    SqlCommand cmd = new SqlCommand(query, connect);
+                    cmd.ExecuteNonQuery();
+                    connect.Close();
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message);
+                    connect.Close();
+                }
+            }
+        }
+
         public void closeTraveling()
         {
             using (SqlConnection connect = new SqlConnection(str_connect))
@@ -135,7 +155,7 @@ namespace Mekus.classes
                                                     "s_gas_1=@s_gas_1, e_gas_1=@e_gas_1, t_gas_1=@t_gas_1, r_gas_1=@r_gas_1, z_gas_1=@z_gas_1, p_gas_1=@p_gas_1," +
                                                     "s_gas_2=@s_gas_2, e_gas_2=@e_gas_2, t_gas_2=@t_gas_2, r_gas_2=@r_gas_2, z_gas_2=@z_gas_2, p_gas_2=@p_gas_2," +
                                                     "t_gas_all=@t_gas_all, p_traveling_1=@p_traveling_1, p_traveling_2=@p_traveling_2, p_traveling_all=@p_traveling_all," +
-                                                    "status_traveling=1 where id={7}", s_probeg_1, e_probeg_1, t_probeg_1, s_probeg_2, e_probeg_2, t_probeg_2, t_probeg_all,
+                                                    "status_traveling=1, id_car={7}, id_gasstation={8} where id={9}", s_probeg_1, e_probeg_1, t_probeg_1, s_probeg_2, e_probeg_2, t_probeg_2, t_probeg_all, id_car.id, id_gasstation.id,
                                                     id);
                     SqlCommand cmd = new SqlCommand(query, connect);
                     SqlParameter param = new SqlParameter("@s_gas_1", S_gas_1);

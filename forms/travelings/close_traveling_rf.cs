@@ -13,6 +13,8 @@ namespace Mekus.forms.travelings
         Database db = null;
         Main main = null;
         Traveling traveling = null;
+        bool editcar = false;
+        bool edit_traveling = false;
 
         public close_traveling_rf()
         {
@@ -31,10 +33,13 @@ namespace Mekus.forms.travelings
             db.cars = db.get_cars();
             this.traveling.id_car = db.cars.Find(x => x.id == traveling.id_car.id);
 
+            for (int i = 0; i < db.cars.Count; i++)
+                comboBox1.Items.Add(db.cars[i].car);
+
             textBox1.Text = Convert.ToString(traveling.number);
             textBox2.Text = Convert.ToString(traveling.date_traveling.Date.ToString("dd MMMM yyyy"));
             textBox3.Text = Convert.ToString(traveling.id_courier.courier);
-            textBox4.Text = Convert.ToString(traveling.id_car.car);
+            comboBox1.Text = Convert.ToString(traveling.id_car.car);
             textBox5.Text = Convert.ToString(traveling.id_car.probeg);
             traveling.s_probeg_1 = traveling.id_car.probeg;
             textBox8.Text = Convert.ToString(traveling.id_car.Gas);
@@ -48,6 +53,8 @@ namespace Mekus.forms.travelings
             textBox20.Text = Convert.ToString(traveling.id_car.id_model.id_gas.Price);
 
             GetRequestInNavBy(traveling.date_traveling, traveling.date_traveling, traveling.id_car.nav_id_object);
+
+            edit_traveling = true;
         }
 
         private void textBox6_TextChanged(object sender, EventArgs e)
@@ -205,6 +212,12 @@ namespace Mekus.forms.travelings
         {
             try
             {
+                if (editcar == true)
+                {
+                    traveling.id_gasstation = traveling.id_gasstation.get_gasstation(db, traveling);
+                    traveling.editCar();
+                }
+
                 if (traveling.Z_gas_1 != 0)
                     traveling.id_gasstation.addGasstation(db, traveling.Z_gas_1, traveling.P_gas_1, traveling);
                 if (traveling.Z_gas_2 != 0)
@@ -281,6 +294,37 @@ namespace Mekus.forms.travelings
                 }
             }
             catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                traveling.id_gasstation = traveling.id_gasstation.get_gasstation(db, traveling);
+                traveling.editCar();
+                main.set_value_table(traveling, 0);
+                Close();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if(edit_traveling == true)
+                {
+                    editcar = true; // проверка на кривые ручки
+                    traveling.id_car = db.cars.Find(x => x.car == comboBox1.Text);
+                }
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }

@@ -30,7 +30,6 @@
         {
             this.button1 = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -82,6 +81,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.button2 = new System.Windows.Forms.Button();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -120,21 +121,13 @@
             // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.textBox4);
+            this.groupBox4.Controls.Add(this.comboBox1);
             this.groupBox4.Location = new System.Drawing.Point(630, 12);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(200, 50);
             this.groupBox4.TabIndex = 2;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Автомобиль";
-            // 
-            // textBox4
-            // 
-            this.textBox4.Enabled = false;
-            this.textBox4.Location = new System.Drawing.Point(7, 20);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(187, 20);
-            this.textBox4.TabIndex = 0;
             // 
             // groupBox3
             // 
@@ -517,9 +510,9 @@
             // groupBox23
             // 
             this.groupBox23.Controls.Add(this.textBox23);
-            this.groupBox23.Location = new System.Drawing.Point(637, 236);
+            this.groupBox23.Location = new System.Drawing.Point(630, 180);
             this.groupBox23.Name = "groupBox23";
-            this.groupBox23.Size = new System.Drawing.Size(200, 50);
+            this.groupBox23.Size = new System.Drawing.Size(207, 50);
             this.groupBox23.TabIndex = 7;
             this.groupBox23.TabStop = false;
             this.groupBox23.Text = "Пробег (общ.), весь";
@@ -535,9 +528,9 @@
             // groupBox24
             // 
             this.groupBox24.Controls.Add(this.textBox24);
-            this.groupBox24.Location = new System.Drawing.Point(637, 292);
+            this.groupBox24.Location = new System.Drawing.Point(630, 236);
             this.groupBox24.Name = "groupBox24";
-            this.groupBox24.Size = new System.Drawing.Size(200, 50);
+            this.groupBox24.Size = new System.Drawing.Size(207, 50);
             this.groupBox24.TabIndex = 7;
             this.groupBox24.TabStop = false;
             this.groupBox24.Text = "Израсход. топливо, всё";
@@ -595,11 +588,31 @@
             this.label5.TabIndex = 16;
             this.label5.Text = "Одометр (К): ";
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(637, 337);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(187, 23);
+            this.button2.TabIndex = 17;
+            this.button2.Text = "Изменить автомобиль";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(7, 20);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(187, 21);
+            this.comboBox1.TabIndex = 0;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
             // close_traveling_rf
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(845, 409);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -634,7 +647,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Закрытие путевого листа на РФ";
             this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -690,7 +702,6 @@
 
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.GroupBox groupBox2;
@@ -742,5 +753,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }

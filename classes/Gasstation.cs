@@ -53,7 +53,7 @@ namespace Mekus.classes
                 try
                 {
                     connect.Open();
-                    gasstation = db.gasstations.Find(x => x.id_car == traveling.id_car && x.Enter_gas > x.Really_gas);
+                    gasstation = db.gasstations.Find(x => x.id_car.id == traveling.id_car.id && x.Enter_gas > x.Really_gas);
                     if (gasstation == null)
                     {
                         gasstation = new Gasstation();
