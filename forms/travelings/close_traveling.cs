@@ -24,7 +24,12 @@ namespace Mekus.forms.travelings
             InitializeComponent();
             this.db = db;
             this.main = main;
-            this.traveling = traveling;
+
+            db.travelings = db.get_travelings();
+            this.traveling = db.travelings.Find(x => x.id == traveling.id);
+
+            db.cars = db.get_cars();
+            this.traveling.id_car = db.cars.Find(x => x.id == traveling.id_car.id);
 
             textBox1.Text = Convert.ToString(traveling.number);
             textBox2.Text = Convert.ToString(traveling.date_traveling.Date.ToString("dd MMMM yyyy"));
