@@ -45,9 +45,9 @@ namespace Mekus.forms.travelings
                 textBox3.Text = Convert.ToString(traveling.id_courier.courier);
                 comboBox1.Text = Convert.ToString(traveling.id_car.car);
                 textBox5.Text = Convert.ToString(traveling.id_car.probeg);
-                traveling.s_probeg_1 = traveling.id_car.probeg;
+                this.traveling.s_probeg_1 = traveling.id_car.probeg;
                 textBox8.Text = Convert.ToString(traveling.id_car.Gas);
-                traveling.S_gas_1 = traveling.id_car.Gas;
+                this.traveling.S_gas_1 = traveling.id_car.Gas;
                 textBox11.Text = Convert.ToString(traveling.id_car.id_model.Rasxod);
                 textBox12.Text = Convert.ToString(traveling.Z_gas_1);
                 textBox13.Text = Convert.ToString(traveling.id_car.id_model.id_gas.Price);
@@ -88,9 +88,6 @@ namespace Mekus.forms.travelings
                 {
                     if (textBox6.Text.Length != 0)
                     {
-                        traveling.s_probeg_1 = traveling.id_car.probeg;
-                        traveling.S_gas_1 = traveling.id_car.Gas;
-
                         traveling.e_probeg_1 = Convert.ToInt32(textBox6.Text);
                         traveling.t_probeg_1 = traveling.e_probeg_1 - traveling.s_probeg_1;
                         traveling.t_probeg_all = traveling.t_probeg_1;
