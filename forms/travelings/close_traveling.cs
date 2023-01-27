@@ -38,7 +38,7 @@ namespace Mekus.forms.travelings
             for (int i = 0; i < db.cars.Count; i++)
                 comboBox1.Items.Add(db.cars[i].car);
 
-            if (traveling.status_traveling == 0)
+            if (this.traveling.status_traveling == 0)
             {
                 textBox1.Text = Convert.ToString(traveling.number);
                 textBox2.Text = Convert.ToString(traveling.date_traveling.Date.ToString("dd MMMM yyyy"));
@@ -71,9 +71,9 @@ namespace Mekus.forms.travelings
                 textBox10.Text = Convert.ToString(traveling.T_gas_1);
                 textBox14.Text = Convert.ToString(traveling.t_probeg_all);
                 textBox15.Text = Convert.ToString(traveling.Z_gas_1);
-                textBox11.Text = Convert.ToString(traveling.id_car.id_model.Rasxod);
+                textBox11.Text = Convert.ToString(traveling.R_gas_1);
                 textBox12.Text = Convert.ToString(traveling.Z_gas_1);
-                textBox13.Text = Convert.ToString(traveling.id_car.id_model.id_gas.Price);
+                textBox13.Text = Convert.ToString(traveling.P_gas_1);
                 button1.Enabled = false;
                 button2.Enabled = false;
                 comboBox1.Enabled = false;

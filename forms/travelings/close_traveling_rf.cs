@@ -15,6 +15,7 @@ namespace Mekus.forms.travelings
         Traveling traveling = null;
         bool editcar = false;
         bool edit_traveling = false;
+        bool read_traveling = false;
 
         public close_traveling_rf()
         {
@@ -36,33 +37,71 @@ namespace Mekus.forms.travelings
             for (int i = 0; i < db.cars.Count; i++)
                 comboBox1.Items.Add(db.cars[i].car);
 
-            textBox1.Text = Convert.ToString(traveling.number);
-            textBox2.Text = Convert.ToString(traveling.date_traveling.Date.ToString("dd MMMM yyyy"));
-            textBox3.Text = Convert.ToString(traveling.id_courier.courier);
-            comboBox1.Text = Convert.ToString(traveling.id_car.car);
-            textBox5.Text = Convert.ToString(traveling.id_car.probeg);
-            this.traveling.s_probeg_1 = traveling.id_car.probeg;
-            
-            textBox8.Text = Convert.ToString(traveling.id_car.Gas);
-            this.traveling.S_gas_1 = traveling.id_car.Gas;
-                        
-            textBox11.Text = Convert.ToString(traveling.id_car.id_model.Rasxod);
-            textBox12.Text = Convert.ToString(traveling.Z_gas_1);
-            textBox13.Text = Convert.ToString(traveling.id_car.id_model.id_gas.Price);
-            textBox18.Text = Convert.ToString(traveling.id_car.id_model.Rasxod);
-            textBox19.Text = Convert.ToString(traveling.Z_gas_2);
-            textBox20.Text = Convert.ToString(traveling.id_car.id_model.id_gas.Price);
+            if(this.traveling.status_traveling == 0)
+            {
+                textBox1.Text = Convert.ToString(traveling.number);
+                textBox2.Text = Convert.ToString(traveling.date_traveling.Date.ToString("dd MMMM yyyy"));
+                textBox3.Text = Convert.ToString(traveling.id_courier.courier);
+                comboBox1.Text = Convert.ToString(traveling.id_car.car);
+                textBox5.Text = Convert.ToString(traveling.id_car.probeg);
+                this.traveling.s_probeg_1 = traveling.id_car.probeg;
 
-            GetRequestInNavBy(traveling.date_traveling, traveling.date_traveling, traveling.id_car.nav_id_object);
+                textBox8.Text = Convert.ToString(traveling.id_car.Gas);
+                this.traveling.S_gas_1 = traveling.id_car.Gas;
 
-            edit_traveling = true;
+                textBox11.Text = Convert.ToString(traveling.id_car.id_model.Rasxod);
+                textBox12.Text = Convert.ToString(traveling.Z_gas_1);
+                textBox13.Text = Convert.ToString(traveling.id_car.id_model.id_gas.Price);
+                textBox18.Text = Convert.ToString(traveling.id_car.id_model.Rasxod);
+                textBox19.Text = Convert.ToString(traveling.Z_gas_2);
+                textBox20.Text = Convert.ToString(traveling.id_car.id_model.id_gas.Price);
+
+                GetRequestInNavBy(traveling.date_traveling, traveling.date_traveling, traveling.id_car.nav_id_object);
+
+                edit_traveling = true;
+            }
+            else
+            {
+                textBox1.Text = Convert.ToString(traveling.number);
+                textBox2.Text = Convert.ToString(traveling.date_traveling.Date.ToString("dd MMMM yyyy"));
+                textBox3.Text = Convert.ToString(traveling.id_courier.courier);
+                comboBox1.Text = Convert.ToString(traveling.id_car.car);
+                textBox5.Text = Convert.ToString(traveling.s_probeg_1);
+                textBox6.Text = Convert.ToString(traveling.e_probeg_1);
+                textBox7.Text = Convert.ToString(traveling.t_probeg_1);
+                textBox8.Text = Convert.ToString(traveling.S_gas_1);
+                textBox9.Text = Convert.ToString(traveling.E_gas_1);
+                textBox10.Text = Convert.ToString(traveling.T_gas_1);
+                textBox11.Text = Convert.ToString(traveling.R_gas_1);
+                textBox12.Text = Convert.ToString(traveling.Z_gas_1);
+                textBox13.Text = Convert.ToString(traveling.P_gas_1);
+                textBox14.Text = Convert.ToString(traveling.s_probeg_2);
+                textBox15.Text = Convert.ToString(traveling.e_probeg_2);
+                textBox16.Text = Convert.ToString(traveling.t_probeg_2);
+                textBox17.Text = Convert.ToString(traveling.S_gas_2);
+                textBox18.Text = Convert.ToString(traveling.R_gas_2);
+                textBox19.Text = Convert.ToString(traveling.Z_gas_2);
+                textBox20.Text = Convert.ToString(traveling.P_gas_2);
+                textBox21.Text = Convert.ToString(traveling.E_gas_2);
+                textBox22.Text = Convert.ToString(traveling.T_gas_2);
+                textBox23.Text = Convert.ToString(traveling.t_probeg_all);
+                textBox24.Text = Convert.ToString(traveling.T_gas_all);
+
+                GetRequestInNavBy(traveling.date_traveling, traveling.date_traveling, traveling.id_car.nav_id_object);
+
+                button1.Enabled = false;
+                button2.Enabled = false;
+                comboBox1.Enabled = false;
+
+                read_traveling = true;
+            }
         }
 
         private void textBox6_TextChanged(object sender, EventArgs e)
         {
             try
             {
-                if (textBox6.Text.Length != 0)
+                if (textBox6.Text.Length != 0 && read_traveling == true)
                 {
                     traveling.e_probeg_1 = Convert.ToInt32(textBox6.Text);
                     traveling.t_probeg_1 = traveling.e_probeg_1 - traveling.s_probeg_1;
@@ -94,9 +133,12 @@ namespace Mekus.forms.travelings
         {
             try
             {
-                traveling.R_gas_1 = Convert.ToDecimal(textBox11.Text);
-                if (textBox6.Text.Length != 0)
-                    textBox6_TextChanged(sender, e);
+                if(read_traveling == true)
+                {
+                    traveling.R_gas_1 = Convert.ToDecimal(textBox11.Text);
+                    if (textBox6.Text.Length != 0)
+                        textBox6_TextChanged(sender, e);
+                }
             }
             catch (Exception ex)
             {
@@ -108,9 +150,12 @@ namespace Mekus.forms.travelings
         {
             try
             {
-                traveling.Z_gas_1 = Convert.ToDecimal(textBox12.Text);
-                if (textBox6.Text.Length != 0)
-                    textBox6_TextChanged(sender, e);
+                if (read_traveling == true)
+                {
+                    traveling.Z_gas_1 = Convert.ToDecimal(textBox12.Text);
+                    if (textBox6.Text.Length != 0)
+                        textBox6_TextChanged(sender, e);
+                }
             }
             catch (Exception ex)
             {
@@ -122,9 +167,12 @@ namespace Mekus.forms.travelings
         {
             try
             {
-                traveling.P_gas_1 = Convert.ToDecimal(textBox13.Text);
-                if (textBox6.Text.Length != 0)
-                    textBox6_TextChanged(sender, e);
+                if (read_traveling == true)
+                {
+                    traveling.P_gas_1 = Convert.ToDecimal(textBox13.Text);
+                    if (textBox6.Text.Length != 0)
+                        textBox6_TextChanged(sender, e);
+                }
             }
             catch (Exception ex)
             {
@@ -136,7 +184,7 @@ namespace Mekus.forms.travelings
         {
             try
             {
-                if (textBox15.Text.Length != 0)
+                if (textBox15.Text.Length != 0 && read_traveling == true)
                 {
                     traveling.e_probeg_2 = Convert.ToInt32(textBox15.Text);
                     traveling.t_probeg_2 = traveling.e_probeg_2 - traveling.s_probeg_2;
@@ -165,9 +213,12 @@ namespace Mekus.forms.travelings
         {
             try
             {
-                traveling.R_gas_2 = Convert.ToDecimal(textBox18.Text);
-                if (textBox15.Text.Length != 0)
-                    textBox15_TextChanged(sender, e);
+                if (read_traveling == true)
+                {
+                    traveling.R_gas_2 = Convert.ToDecimal(textBox18.Text);
+                    if (textBox15.Text.Length != 0)
+                        textBox15_TextChanged(sender, e);
+                }
             }
             catch (Exception ex)
             {
@@ -179,9 +230,12 @@ namespace Mekus.forms.travelings
         {
             try
             {
-                traveling.Z_gas_2 = Convert.ToDecimal(textBox19.Text);
-                if (textBox15.Text.Length != 0)
-                    textBox15_TextChanged(sender, e);
+                if (read_traveling == true)
+                {
+                    traveling.Z_gas_2 = Convert.ToDecimal(textBox19.Text);
+                    if (textBox15.Text.Length != 0)
+                        textBox15_TextChanged(sender, e);
+                }
             }
             catch (Exception ex)
             {
@@ -193,9 +247,12 @@ namespace Mekus.forms.travelings
         {
             try
             {
-                traveling.P_gas_2 = Convert.ToDecimal(textBox20.Text);
-                if (textBox15.Text.Length != 0)
-                    textBox15_TextChanged(sender, e);
+                if (read_traveling == true)
+                {
+                    traveling.P_gas_2 = Convert.ToDecimal(textBox20.Text);
+                    if (textBox15.Text.Length != 0)
+                        textBox15_TextChanged(sender, e);
+                }
             }
             catch (Exception ex)
             {
@@ -249,7 +306,7 @@ namespace Mekus.forms.travelings
         {
             try
             {
-                if(nav_id_object != 5716630)
+                if(nav_id_object != 5716630 || nav_id_object != 5431279)
                 {
                     string url = @"https://api.nav.by/info/integration.php?type=OBJECT_STAT_DATA&token=613ce8ea-8506-49a6-bf76-279a635601ce&from="
                             + from.Date.ToString("yyyy-MM-dd") + " 18:00:00&to=" + to.Date.AddDays(1).ToString("yyyy-MM-dd") + " 08:00:00&object_id=" + nav_id_object;
