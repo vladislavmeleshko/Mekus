@@ -62,6 +62,8 @@ namespace Mekus.forms.travelings
             }
             else
             {
+                read_traveling = true;
+
                 textBox1.Text = Convert.ToString(traveling.number);
                 textBox2.Text = Convert.ToString(traveling.date_traveling.Date.ToString("dd MMMM yyyy"));
                 textBox3.Text = Convert.ToString(traveling.id_courier.courier);
@@ -92,8 +94,6 @@ namespace Mekus.forms.travelings
                 button1.Enabled = false;
                 button2.Enabled = false;
                 comboBox1.Enabled = false;
-
-                read_traveling = true;
             }
         }
 
@@ -101,7 +101,7 @@ namespace Mekus.forms.travelings
         {
             try
             {
-                if (textBox6.Text.Length != 0 && read_traveling == true)
+                if (textBox6.Text.Length != 0 && read_traveling == false)
                 {
                     traveling.e_probeg_1 = Convert.ToInt32(textBox6.Text);
                     traveling.t_probeg_1 = traveling.e_probeg_1 - traveling.s_probeg_1;
@@ -133,7 +133,7 @@ namespace Mekus.forms.travelings
         {
             try
             {
-                if(read_traveling == true)
+                if(read_traveling == false)
                 {
                     traveling.R_gas_1 = Convert.ToDecimal(textBox11.Text);
                     if (textBox6.Text.Length != 0)
@@ -150,7 +150,7 @@ namespace Mekus.forms.travelings
         {
             try
             {
-                if (read_traveling == true)
+                if (read_traveling == false)
                 {
                     traveling.Z_gas_1 = Convert.ToDecimal(textBox12.Text);
                     if (textBox6.Text.Length != 0)
@@ -167,7 +167,7 @@ namespace Mekus.forms.travelings
         {
             try
             {
-                if (read_traveling == true)
+                if (read_traveling == false)
                 {
                     traveling.P_gas_1 = Convert.ToDecimal(textBox13.Text);
                     if (textBox6.Text.Length != 0)
@@ -184,7 +184,7 @@ namespace Mekus.forms.travelings
         {
             try
             {
-                if (textBox15.Text.Length != 0 && read_traveling == true)
+                if (textBox15.Text.Length != 0 && read_traveling == false)
                 {
                     traveling.e_probeg_2 = Convert.ToInt32(textBox15.Text);
                     traveling.t_probeg_2 = traveling.e_probeg_2 - traveling.s_probeg_2;
@@ -213,7 +213,7 @@ namespace Mekus.forms.travelings
         {
             try
             {
-                if (read_traveling == true)
+                if (read_traveling == false)
                 {
                     traveling.R_gas_2 = Convert.ToDecimal(textBox18.Text);
                     if (textBox15.Text.Length != 0)
@@ -230,7 +230,7 @@ namespace Mekus.forms.travelings
         {
             try
             {
-                if (read_traveling == true)
+                if (read_traveling == false)
                 {
                     traveling.Z_gas_2 = Convert.ToDecimal(textBox19.Text);
                     if (textBox15.Text.Length != 0)
@@ -247,7 +247,7 @@ namespace Mekus.forms.travelings
         {
             try
             {
-                if (read_traveling == true)
+                if (read_traveling == false)
                 {
                     traveling.P_gas_2 = Convert.ToDecimal(textBox20.Text);
                     if (textBox15.Text.Length != 0)
@@ -308,7 +308,13 @@ namespace Mekus.forms.travelings
             {
                 if(nav_id_object != 5716630 || nav_id_object != 5431279)
                 {
-                    string url = @"https://api.nav.by/info/integration.php?type=OBJECT_STAT_DATA&token=613ce8ea-8506-49a6-bf76-279a635601ce&from="
+                    string url = null;
+
+                    if (traveling.date_traveling.DayOfWeek == 0)
+                        url = @"https://api.nav.by/info/integration.php?type=OBJECT_STAT_DATA&token=613ce8ea-8506-49a6-bf76-279a635601ce&from="
+                            + from.Date.ToString("yyyy-MM-dd") + " 08:00:00&to=" + to.Date.ToString("yyyy-MM-dd") + " 23:59:00&object_id=" + nav_id_object;
+                    else
+                        url = @"https://api.nav.by/info/integration.php?type=OBJECT_STAT_DATA&token=613ce8ea-8506-49a6-bf76-279a635601ce&from="
                             + from.Date.ToString("yyyy-MM-dd") + " 18:00:00&to=" + to.Date.AddDays(1).ToString("yyyy-MM-dd") + " 08:00:00&object_id=" + nav_id_object;
 
                     WebRequest request = WebRequest.Create(url);
@@ -327,12 +333,14 @@ namespace Mekus.forms.travelings
 
                     if (parser.root.result.items[0].fuel_in_list.Length > 0)
                     {
-                        if (parser.root.result.items[0].fuel_in_list[0].value > 0)
-                            label2.Text += Convert.ToString(parser.root.result.items[0].fuel_in_list[0].value);
+                        if(parser.root.result.items[0].fuel_in_list.Length == 1)
+                            if (parser.root.result.items[0].fuel_in_list[0].value > 0)
+                                label2.Text += Convert.ToString(parser.root.result.items[0].fuel_in_list[0].value);
                         else
                             label2.Text += "0";
-                        if (parser.root.result.items[0].fuel_in_list[1].value > 0)
-                            label3.Text += Convert.ToString(parser.root.result.items[0].fuel_in_list[1].value);
+                        if (parser.root.result.items[0].fuel_in_list.Length == 2)
+                            if (parser.root.result.items[0].fuel_in_list[1].value > 0)
+                                label3.Text += Convert.ToString(parser.root.result.items[0].fuel_in_list[1].value);
                         else
                             label3.Text += "0";
                     }
