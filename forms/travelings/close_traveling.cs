@@ -88,6 +88,9 @@ namespace Mekus.forms.travelings
                 {
                     if (textBox6.Text.Length != 0)
                     {
+                        traveling.s_probeg_1 = traveling.id_car.probeg;
+                        traveling.S_gas_1 = traveling.id_car.Gas;
+
                         traveling.e_probeg_1 = Convert.ToInt32(textBox6.Text);
                         traveling.t_probeg_1 = traveling.e_probeg_1 - traveling.s_probeg_1;
                         traveling.t_probeg_all = traveling.t_probeg_1;
@@ -99,9 +102,6 @@ namespace Mekus.forms.travelings
 
                         traveling.E_gas_1 = traveling.S_gas_1 - traveling.T_gas_all + traveling.Z_gas_1;
                         textBox9.Text = Convert.ToString(traveling.E_gas_1);
-
-                        traveling.id_car.probeg = traveling.e_probeg_1;
-                        traveling.id_car.Gas = traveling.E_gas_1;
                     }
                 }
             }
@@ -171,7 +171,10 @@ namespace Mekus.forms.travelings
                     traveling.id_gasstation = traveling.id_gasstation.get_gasstation(db, traveling);
                     traveling.editCar();
                 }
-                
+
+                traveling.id_car.probeg = traveling.e_probeg_1;
+                traveling.id_car.Gas = traveling.E_gas_1;
+
                 if (traveling.Z_gas_1 != 0)
                     traveling.id_gasstation.addGasstation(db, traveling.Z_gas_1, traveling.P_gas_1, traveling);
 

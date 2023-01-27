@@ -42,9 +42,10 @@ namespace Mekus.forms.travelings
             comboBox1.Text = Convert.ToString(traveling.id_car.car);
             textBox5.Text = Convert.ToString(traveling.id_car.probeg);
             traveling.s_probeg_1 = traveling.id_car.probeg;
+            
             textBox8.Text = Convert.ToString(traveling.id_car.Gas);
             traveling.S_gas_1 = traveling.id_car.Gas;
-            
+                        
             textBox11.Text = Convert.ToString(traveling.id_car.id_model.Rasxod);
             textBox12.Text = Convert.ToString(traveling.Z_gas_1);
             textBox13.Text = Convert.ToString(traveling.id_car.id_model.id_gas.Price);
@@ -63,6 +64,9 @@ namespace Mekus.forms.travelings
             {
                 if (textBox6.Text.Length != 0)
                 {
+                    traveling.s_probeg_1 = traveling.id_car.probeg;
+                    traveling.S_gas_1 = traveling.id_car.Gas;
+
                     traveling.e_probeg_1 = Convert.ToInt32(textBox6.Text);
                     traveling.t_probeg_1 = traveling.e_probeg_1 - traveling.s_probeg_1;
                     textBox7.Text = Convert.ToString(traveling.t_probeg_1);
@@ -72,9 +76,6 @@ namespace Mekus.forms.travelings
 
                     traveling.E_gas_1 = traveling.S_gas_1 - traveling.T_gas_1 + traveling.Z_gas_1;
                     textBox9.Text = Convert.ToString(traveling.E_gas_1);
-
-                    traveling.id_car.probeg = traveling.e_probeg_1;
-                    traveling.id_car.Gas = traveling.E_gas_1;
 
                     traveling.s_probeg_2 = traveling.e_probeg_1;
                     textBox14.Text = Convert.ToString(traveling.s_probeg_2);
@@ -155,9 +156,6 @@ namespace Mekus.forms.travelings
 
                     traveling.T_gas_all = traveling.T_gas_1 + traveling.T_gas_2;
                     textBox24.Text = Convert.ToString(traveling.T_gas_all);
-
-                    traveling.id_car.probeg = traveling.e_probeg_2;
-                    traveling.id_car.Gas = traveling.E_gas_2;
                 }
             }
             catch (Exception ex)
@@ -212,6 +210,9 @@ namespace Mekus.forms.travelings
         {
             try
             {
+                traveling.id_car.probeg = traveling.e_probeg_2;
+                traveling.id_car.Gas = traveling.E_gas_2;
+
                 if (editcar == true)
                 {
                     traveling.id_gasstation = traveling.id_gasstation.get_gasstation(db, traveling);
