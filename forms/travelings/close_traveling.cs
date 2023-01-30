@@ -278,5 +278,10 @@ namespace Mekus.forms.travelings
                 MessageBox.Show(ex.Message);
             }
         }
+
+        private void close_traveling_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            db.get_all_data();
+        }
     }
 }
