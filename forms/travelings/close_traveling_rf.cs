@@ -306,7 +306,7 @@ namespace Mekus.forms.travelings
         {
             try
             {
-                if(nav_id_object != 5716630 || nav_id_object != 5431279)
+                if(nav_id_object != 5716630 && nav_id_object != 5431279)
                 {
                     string url = null;
 
