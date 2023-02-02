@@ -16,6 +16,8 @@ namespace Mekus.classes
         public decimal Really_gas { get => decimal.Round(really_gas, 2, MidpointRounding.AwayFromZero); set => really_gas = decimal.Round(value, 2, MidpointRounding.AwayFromZero); }
         public decimal Price { get => decimal.Round(price, 2, MidpointRounding.AwayFromZero); set => price = decimal.Round(value, 2, MidpointRounding.AwayFromZero); }
 
+        public DateTime? date_gas { get; set; }
+
         private decimal enter_gas;
 
         private decimal really_gas;
@@ -28,21 +30,23 @@ namespace Mekus.classes
 
         }
 
-        public Gasstation(int id, decimal enter_gas, decimal really_gas, decimal price, Car id_car)
+        public Gasstation(int id, decimal enter_gas, decimal really_gas, decimal price, Car id_car, DateTime date_gas)
         {
             this.id = id;
             Enter_gas = enter_gas;
             Really_gas = really_gas;
             Price = price;
             this.id_car = id_car;
+            this.date_gas = date_gas;
         }
 
-        public Gasstation(decimal enter_gas, decimal really_gas, decimal price, Car id_car)
+        public Gasstation(decimal enter_gas, decimal really_gas, decimal price, Car id_car, DateTime date_gas)
         {
             Enter_gas = enter_gas;
             Really_gas = really_gas;
             Price = price;
             this.id_car = id_car;
+            this.date_gas = date_gas;
         }
 
         public Gasstation get_gasstation(Database db, Traveling traveling)
@@ -57,7 +61,7 @@ namespace Mekus.classes
                     if (gasstation == null)
                     {
                         gasstation = new Gasstation();
-                        string query = string.Format("insert into Gasstations (enter_gas, really_gas, price, id_car) values (@enter_gas, 0, @price, {0})", traveling.id_car.id);
+                        string query = string.Format("insert into Gasstations (enter_gas, really_gas, price, id_car, date_gas) values (@enter_gas, 0, @price, {0}, '{1}')", traveling.id_car.id, traveling.date_traveling.Date);
                         SqlCommand cmd = new SqlCommand(query, connect);
                         SqlParameter param = new SqlParameter("@enter_gas", traveling.id_car.Gas);
                         cmd.Parameters.Add(param);
@@ -87,7 +91,7 @@ namespace Mekus.classes
                 try
                 {
                     connect.Open();
-                    string query = string.Format("insert into Gasstations (enter_gas, really_gas, id_car, price) values (@enter_gas, 0, {0}, @price)", traveling.id_car.id);
+                    string query = string.Format("insert into Gasstations (enter_gas, really_gas, id_car, price, date_gas) values (@enter_gas, 0, {0}, @price, '{1}')", traveling.id_car.id, traveling.date_traveling);
                     SqlCommand cmd = new SqlCommand(query, connect);
                     SqlParameter param = new SqlParameter("@enter_gas", enter_gas);
                     cmd.Parameters.Add(param);

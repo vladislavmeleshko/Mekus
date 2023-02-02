@@ -145,7 +145,7 @@ namespace Mekus.classes
                     SqlDataReader reader = cmd.ExecuteReader();
                     if (reader.HasRows)
                         while (reader.Read())
-                            gasstations.Add(new Gasstation((int)reader["id"], (decimal)reader["enter_gas"], (decimal)reader["really_gas"], (decimal)reader["price"], cars.Find(x => x.id == (int)reader["id_car"])));
+                            gasstations.Add(new Gasstation((int)reader["id"], (decimal)reader["enter_gas"], (decimal)reader["really_gas"], (decimal)reader["price"], cars.Find(x => x.id == (int)reader["id_car"]), (DateTime)reader["date_gas"]));
                     reader.Close();
                     connect.Close();
                     return gasstations;
