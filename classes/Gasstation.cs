@@ -84,14 +84,18 @@ namespace Mekus.classes
             }
         }
 
-        public void addGasstation(Database db, decimal enter_gas, decimal price, Traveling traveling)
+        public void addGasstation(Database db, decimal enter_gas, decimal price, Traveling traveling, bool next_day)
         {
             using (SqlConnection connect = new SqlConnection(str_connect))
             {
                 try
                 {
                     connect.Open();
-                    string query = string.Format("insert into Gasstations (enter_gas, really_gas, id_car, price, date_gas) values (@enter_gas, 0, {0}, @price, '{1}')", traveling.id_car.id, traveling.date_traveling);
+                    string query;
+                    if(next_day == false)
+                        query = string.Format("insert into Gasstations (enter_gas, really_gas, id_car, price, date_gas) values (@enter_gas, 0, {0}, @price, '{1}')", traveling.id_car.id, traveling.date_traveling);
+                    else
+                        query = string.Format("insert into Gasstations (enter_gas, really_gas, id_car, price, date_gas) values (@enter_gas, 0, {0}, @price, '{1}')", traveling.id_car.id, traveling.date_traveling.AddDays(1));
                     SqlCommand cmd = new SqlCommand(query, connect);
                     SqlParameter param = new SqlParameter("@enter_gas", enter_gas);
                     cmd.Parameters.Add(param);

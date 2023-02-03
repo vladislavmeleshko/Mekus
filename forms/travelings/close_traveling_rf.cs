@@ -274,9 +274,9 @@ namespace Mekus.forms.travelings
                 }
 
                 if (traveling.Z_gas_1 != 0)
-                    traveling.id_gasstation.addGasstation(db, traveling.Z_gas_1, traveling.P_gas_1, traveling);
+                    traveling.id_gasstation.addGasstation(db, traveling.Z_gas_1, traveling.P_gas_1, traveling, false);
                 if (traveling.Z_gas_2 != 0)
-                    traveling.id_gasstation.addGasstation(db, traveling.Z_gas_2, traveling.P_gas_2, traveling);
+                    traveling.id_gasstation.addGasstation(db, traveling.Z_gas_2, traveling.P_gas_2, traveling, true);
 
                 traveling.P_traveling_1 = traveling.id_gasstation.get_price_traveling(db, traveling, traveling.T_gas_1);
 
