@@ -268,37 +268,47 @@ namespace Mekus.forms.travelings
         {
             try
             {
-                traveling.id_car.probeg = traveling.e_probeg_2;
-                traveling.id_car.Gas = traveling.E_gas_2;
+                DialogResult dialogResult = new DialogResult();
 
-                if (editcar == true)
+                if (traveling.E_gas_1 < 0)
+                    dialogResult = MessageBox.Show("Остаток топлива по пути туда получается отрицательный, вы желаете продолжить?", "Отрицательный остаток топлива", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
+                else if (traveling.E_gas_2 < 0)
+                    dialogResult = MessageBox.Show("Остаток топлива по пути обратно получается отрицательный, вы желаете продолжить?", "Отрицательный остаток топлива", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
+
+                if (dialogResult == DialogResult.OK)
                 {
-                    traveling.id_gasstation = traveling.id_gasstation.get_gasstation(db, traveling);
-                    traveling.editCar();
+                    traveling.id_car.probeg = traveling.e_probeg_2;
+                    traveling.id_car.Gas = traveling.E_gas_2;
+
+                    if (editcar == true)
+                    {
+                        traveling.id_gasstation = traveling.id_gasstation.get_gasstation(db, traveling);
+                        traveling.editCar();
+                    }
+
+                    if (traveling.Z_gas_1 != 0)
+                        traveling.id_gasstation.addGasstation(db, traveling.Z_gas_1, traveling.P_gas_1, traveling, false);
+                    if (traveling.Z_gas_2 != 0)
+                        traveling.id_gasstation.addGasstation(db, traveling.Z_gas_2, traveling.P_gas_2, traveling, true);
+
+                    traveling.P_traveling_1 = traveling.id_gasstation.get_price_traveling_test(db, traveling, traveling.T_gas_1, 0.00m);
+
+                    db.gasstations = db.get_gasstations();
+
+                    traveling.id_gasstation = db.gasstations.Find(x => x.id >= traveling.id_gasstation.id && x.Enter_gas != x.Really_gas && x.id_car == traveling.id_car);
+
+                    traveling.P_traveling_2 = traveling.id_gasstation.get_price_traveling_test(db, traveling, traveling.T_gas_2, 0.00m);
+
+                    traveling.P_traveling_all = traveling.P_traveling_1 + traveling.P_traveling_2;
+                    traveling.id_car.editCar();
+                    traveling.closeTraveling();
+
+                    main.set_value_table(traveling, 1);
+
+                    // main.set_values_table();
+
+                    Close();
                 }
-
-                if (traveling.Z_gas_1 != 0)
-                    traveling.id_gasstation.addGasstation(db, traveling.Z_gas_1, traveling.P_gas_1, traveling, false);
-                if (traveling.Z_gas_2 != 0)
-                    traveling.id_gasstation.addGasstation(db, traveling.Z_gas_2, traveling.P_gas_2, traveling, true);
-
-                traveling.P_traveling_1 = traveling.id_gasstation.get_price_traveling_test(db, traveling, traveling.T_gas_1, 0.00m);
-
-                db.gasstations = db.get_gasstations();
-
-                traveling.id_gasstation = db.gasstations.Find(x => x.id >= traveling.id_gasstation.id && x.Enter_gas != x.Really_gas && x.id_car == traveling.id_car);
-
-                traveling.P_traveling_2 = traveling.id_gasstation.get_price_traveling_test(db, traveling, traveling.T_gas_2, 0.00m);
-
-                traveling.P_traveling_all = traveling.P_traveling_1 + traveling.P_traveling_2;
-                traveling.id_car.editCar();
-                traveling.closeTraveling();
-
-                main.set_value_table(traveling, 1);
-
-                // main.set_values_table();
-
-                Close();
             }
             catch (Exception ex)
             {
