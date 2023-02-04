@@ -173,7 +173,7 @@ namespace Mekus.forms.travelings
                 if (traveling.E_gas_1 < 0)
                     dialogResult = MessageBox.Show("Остаток топлива по пути туда получается отрицательный, вы желаете продолжить?", "Отрицательный остаток топлива", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
 
-                if(dialogResult == DialogResult.OK)
+                if(dialogResult == DialogResult.OK || traveling.E_gas_1 >= 0)
                 {
                     if (editcar == true)
                     {

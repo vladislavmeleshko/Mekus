@@ -275,7 +275,7 @@ namespace Mekus.forms.travelings
                 else if (traveling.E_gas_2 < 0)
                     dialogResult = MessageBox.Show("Остаток топлива по пути обратно получается отрицательный, вы желаете продолжить?", "Отрицательный остаток топлива", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
 
-                if (dialogResult == DialogResult.OK)
+                if (dialogResult == DialogResult.OK || (traveling.E_gas_1 >= 0 && traveling.E_gas_2 >= 0))
                 {
                     traveling.id_car.probeg = traveling.e_probeg_2;
                     traveling.id_car.Gas = traveling.E_gas_2;
