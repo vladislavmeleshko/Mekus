@@ -521,7 +521,7 @@
             this.groupBox23.Controls.Add(this.textBox23);
             this.groupBox23.Location = new System.Drawing.Point(630, 180);
             this.groupBox23.Name = "groupBox23";
-            this.groupBox23.Size = new System.Drawing.Size(207, 50);
+            this.groupBox23.Size = new System.Drawing.Size(200, 50);
             this.groupBox23.TabIndex = 7;
             this.groupBox23.TabStop = false;
             this.groupBox23.Text = "Пробег (общ.), весь";
@@ -539,7 +539,7 @@
             this.groupBox24.Controls.Add(this.textBox24);
             this.groupBox24.Location = new System.Drawing.Point(630, 236);
             this.groupBox24.Name = "groupBox24";
-            this.groupBox24.Size = new System.Drawing.Size(207, 50);
+            this.groupBox24.Size = new System.Drawing.Size(200, 50);
             this.groupBox24.TabIndex = 7;
             this.groupBox24.TabStop = false;
             this.groupBox24.Text = "Израсход. топливо, всё";
@@ -611,7 +611,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(845, 409);
+            this.ClientSize = new System.Drawing.Size(844, 409);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);

@@ -1,9 +1,13 @@
 ﻿using Mekus.classes;
 using Mekus.nav;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Net.Http.Json;
+using System.Net.Http;
 using System.Text.Json;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Mekus.forms.travelings
@@ -278,13 +282,13 @@ namespace Mekus.forms.travelings
                 if (traveling.Z_gas_2 != 0)
                     traveling.id_gasstation.addGasstation(db, traveling.Z_gas_2, traveling.P_gas_2, traveling, true);
 
-                traveling.P_traveling_1 = traveling.id_gasstation.get_price_traveling(db, traveling, traveling.T_gas_1);
+                traveling.P_traveling_1 = traveling.id_gasstation.get_price_traveling_test(db, traveling, traveling.T_gas_1, 0.00m);
 
                 db.gasstations = db.get_gasstations();
 
                 traveling.id_gasstation = db.gasstations.Find(x => x.id >= traveling.id_gasstation.id && x.Enter_gas != x.Really_gas && x.id_car == traveling.id_car);
 
-                traveling.P_traveling_2 = traveling.id_gasstation.get_price_traveling(db, traveling, traveling.T_gas_2);
+                traveling.P_traveling_2 = traveling.id_gasstation.get_price_traveling_test(db, traveling, traveling.T_gas_2, 0.00m);
 
                 traveling.P_traveling_all = traveling.P_traveling_1 + traveling.P_traveling_2;
                 traveling.id_car.editCar();

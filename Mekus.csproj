@@ -87,6 +87,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BelarusNeft\API.cs" />
+    <Compile Include="BelarusNeft\EnterAPI.cs" />
+    <Compile Include="BelarusNeft\Test_1.cs" />
     <Compile Include="classes\Car.cs" />
     <Compile Include="classes\Courier.cs" />
     <Compile Include="classes\Database.cs" />

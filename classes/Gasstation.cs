@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -113,6 +114,104 @@ namespace Mekus.classes
             }
         }
 
+        public decimal get_price_traveling_test(Database db, Traveling traveling, decimal t_gas_all, decimal price_test)
+        {
+            using (SqlConnection connect = new SqlConnection(str_connect))
+            {
+                try
+                {
+                    if (t_gas_all == 0.00m)
+                    {
+                        connect.Close();
+                        return price_test;
+                    }    
+                    else
+                    {
+                        if (t_gas_all + traveling.id_gasstation.Really_gas <= traveling.id_gasstation.Enter_gas)
+                        {
+                            connect.Open();
+
+                            string query = string.Format("update Gasstations set really_gas=@really_gas where id={0}", traveling.id_gasstation.id);
+                            SqlCommand cmd = new SqlCommand(query, connect);
+                            SqlParameter param = new SqlParameter("@really_gas", traveling.id_gasstation.Really_gas + t_gas_all);
+                            cmd.Parameters.Add(param);
+                            cmd.ExecuteNonQuery();
+
+                            query = string.Format("insert into History_gas (id_traveling, prev_t_gas, one_to_many) values ({0}, @prev_t_gas, '{1}')", traveling.id, traveling.id_gasstation.id);
+                            cmd = new SqlCommand(query, connect);
+                            param = new SqlParameter("@prev_t_gas", t_gas_all);
+                            cmd.Parameters.Add(param);
+                            cmd.ExecuteNonQuery();
+
+                            query = string.Format("update Travelings set id_gasstation={0} where id>={1} and id_car={2}", traveling.id_gasstation.id, traveling.id, traveling.id_car.id);
+                            cmd = new SqlCommand(query, connect);
+                            cmd.ExecuteNonQuery();
+
+                            price_test += t_gas_all * traveling.id_gasstation.Price;
+                            t_gas_all -= t_gas_all;
+
+                            connect.Close();
+
+                            get_price_traveling_test(db, traveling, t_gas_all, price_test);
+                        }
+                        else
+                        {
+                            connect.Open();
+
+                            string query = string.Format("update Gasstations set really_gas=@really_gas where id={0}", traveling.id_gasstation.id);
+                            SqlCommand cmd = new SqlCommand(query, connect);
+                            SqlParameter param = new SqlParameter("@really_gas", traveling.id_gasstation.Enter_gas);
+                            cmd.Parameters.Add(param);
+                            cmd.ExecuteNonQuery();
+                            price_test += (traveling.id_gasstation.Enter_gas - traveling.id_gasstation.Really_gas) * traveling.id_gasstation.Price;
+                            t_gas_all -= traveling.id_gasstation.Enter_gas - traveling.id_gasstation.Really_gas;
+
+                            Gasstation gasstation = db.gasstations.Find(x => x.id > traveling.id_gasstation.id && x.Enter_gas != x.Really_gas && x.id_car == traveling.id_car);
+                            if (t_gas_all > gasstation.Enter_gas)
+                            {
+                                query = string.Format("update Travelings set id_gasstation={0} where id>={1} and id_car={2}", gasstation.id, traveling.id, traveling.id_car.id);
+                                cmd = new SqlCommand(query, connect);
+                                cmd.ExecuteNonQuery();
+
+                                query = string.Format("update Gasstations set really_gas=@really_gas where id={0}", gasstation.id);
+                                cmd = new SqlCommand(query, connect);
+                                param = new SqlParameter("@really_gas", gasstation.Enter_gas);
+                                cmd.Parameters.Add(param);
+                                cmd.ExecuteNonQuery();
+
+                                query = string.Format("insert into History_gas (id_traveling, prev_t_gas, next_t_gas, code_history, one_to_many) values ({0}, @prev_t_gas, @next_t_gas, 1, '{1}')", traveling.id,
+                                id + " | " + gasstation.id);
+                                cmd = new SqlCommand(query, connect);
+                                param = new SqlParameter("@prev_t_gas", traveling.id_gasstation.Enter_gas - traveling.id_gasstation.Really_gas);
+                                cmd.Parameters.Add(param);
+                                param = new SqlParameter("@next_t_gas", gasstation.Enter_gas - gasstation.Really_gas);
+                                cmd.Parameters.Add(param);
+                                cmd.ExecuteNonQuery();
+
+                                price_test += (gasstation.Enter_gas - gasstation.Really_gas) * gasstation.Price;
+                                t_gas_all -= gasstation.Enter_gas - gasstation.Really_gas;
+
+                                db.gasstations = db.get_gasstations();
+                                traveling.id_gasstation = db.gasstations.Find(x => x.id > traveling.id_gasstation.id && x.Enter_gas != x.Really_gas && x.id_car == traveling.id_car);
+
+                                connect.Close();
+
+                                get_price_traveling_test(db, traveling, t_gas_all, price_test);
+                            }
+                            connect.Close();
+                        }
+                    }
+                    return price_test;
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    connect.Close();
+                    return price_test;
+                }
+            }
+        }
+
         public decimal get_price_traveling(Database db, Traveling traveling, decimal t_gas_all)
         {
             using (SqlConnection connect = new SqlConnection(str_connect))
@@ -123,7 +222,7 @@ namespace Mekus.classes
                     if (Really_gas + t_gas_all >= Enter_gas)
                     {
                         Gasstation gasstation = db.gasstations.Find(x => x.id > traveling.id_gasstation.id && x.Enter_gas != x.Really_gas && x.id_car.id == traveling.id_car.id);
-                        if(gasstation != null)
+                        if (gasstation != null)
                         {
                             // Получаем возможное кол-во топлива, которые мы можем добавить в заправку
                             decimal temp1 = decimal.Round(Enter_gas - Really_gas, 2, MidpointRounding.AwayFromZero);
@@ -147,7 +246,7 @@ namespace Mekus.classes
                             cmd.ExecuteNonQuery();
 
                             // Записываем в историю, сколько потратили топлива с изначально присвоенной заправки, сколько потратили топлива со след. заправки
-                            query = string.Format("insert into History_gas (id_traveling, prev_t_gas, next_t_gas, one_to_many) values ({0}, @prev_t_gas, @next_t_gas, '{1}')", traveling.id, 
+                            query = string.Format("insert into History_gas (id_traveling, prev_t_gas, next_t_gas, one_to_many) values ({0}, @prev_t_gas, @next_t_gas, '{1}')", traveling.id,
                                 id + " | " + gasstation.id);
                             cmd = new SqlCommand(query, connect);
                             param = new SqlParameter("@prev_t_gas", temp1);
