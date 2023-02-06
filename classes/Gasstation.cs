@@ -163,10 +163,12 @@ namespace Mekus.classes
                             SqlParameter param = new SqlParameter("@really_gas", traveling.id_gasstation.Enter_gas);
                             cmd.Parameters.Add(param);
                             cmd.ExecuteNonQuery();
+
                             price_test += (traveling.id_gasstation.Enter_gas - traveling.id_gasstation.Really_gas) * traveling.id_gasstation.Price;
                             t_gas_all -= traveling.id_gasstation.Enter_gas - traveling.id_gasstation.Really_gas;
 
-                            Gasstation gasstation = db.gasstations.Find(x => x.id > traveling.id_gasstation.id && x.Enter_gas != x.Really_gas && x.id_car == traveling.id_car);
+                            Gasstation gasstation = db.gasstations.Find(x => x.id > traveling.id_gasstation.id && x.Enter_gas != x.Really_gas && x.id_car.id == traveling.id_car.id);
+
                             if (t_gas_all > gasstation.Enter_gas)
                             {
                                 query = string.Format("update Travelings set id_gasstation={0} where id>={1} and id_car={2}", gasstation.id, traveling.id, traveling.id_car.id);
@@ -192,10 +194,24 @@ namespace Mekus.classes
                                 t_gas_all -= gasstation.Enter_gas - gasstation.Really_gas;
 
                                 db.gasstations = db.get_gasstations();
-                                traveling.id_gasstation = db.gasstations.Find(x => x.id > traveling.id_gasstation.id && x.Enter_gas != x.Really_gas && x.id_car == traveling.id_car);
+                                traveling.id_gasstation = gasstation;
 
                                 connect.Close();
 
+                                get_price_traveling_test(db, traveling, t_gas_all, price_test);
+                            }
+                            else
+                            {
+                                query = string.Format("insert into History_gas (id_traveling, prev_t_gas, next_t_gas, code_history, one_to_many) values ({0}, @prev_t_gas, @next_t_gas, 1, '{1}')", traveling.id,
+                                id + " | " + gasstation.id);
+                                cmd = new SqlCommand(query, connect);
+                                param = new SqlParameter("@prev_t_gas", traveling.id_gasstation.Enter_gas - traveling.id_gasstation.Really_gas);
+                                cmd.Parameters.Add(param);
+                                param = new SqlParameter("@next_t_gas", t_gas_all);
+                                cmd.Parameters.Add(param);
+                                cmd.ExecuteNonQuery();
+
+                                traveling.id_gasstation = gasstation;
                                 get_price_traveling_test(db, traveling, t_gas_all, price_test);
                             }
                             connect.Close();
