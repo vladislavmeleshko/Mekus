@@ -116,6 +116,8 @@ namespace Mekus.classes
 
         public decimal get_price_traveling_test(Database db, Traveling traveling, decimal t_gas_all, decimal price_test)
         {
+            bool duplication = false;
+
             using (SqlConnection connect = new SqlConnection(str_connect))
             {
                 try
@@ -137,11 +139,14 @@ namespace Mekus.classes
                             cmd.Parameters.Add(param);
                             cmd.ExecuteNonQuery();
 
-                            query = string.Format("insert into History_gas (id_traveling, prev_t_gas, one_to_many) values ({0}, @prev_t_gas, '{1}')", traveling.id, traveling.id_gasstation.id);
-                            cmd = new SqlCommand(query, connect);
-                            param = new SqlParameter("@prev_t_gas", t_gas_all);
-                            cmd.Parameters.Add(param);
-                            cmd.ExecuteNonQuery();
+                            if(duplication == false)
+                            {
+                                query = string.Format("insert into History_gas (id_traveling, prev_t_gas, one_to_many) values ({0}, @prev_t_gas, '{1}')", traveling.id, traveling.id_gasstation.id);
+                                cmd = new SqlCommand(query, connect);
+                                param = new SqlParameter("@prev_t_gas", t_gas_all);
+                                cmd.Parameters.Add(param);
+                                cmd.ExecuteNonQuery();
+                            }
 
                             query = string.Format("update Travelings set id_gasstation={0} where id>={1} and id_car={2}", traveling.id_gasstation.id, traveling.id, traveling.id_car.id);
                             cmd = new SqlCommand(query, connect);
@@ -210,6 +215,11 @@ namespace Mekus.classes
                                 param = new SqlParameter("@next_t_gas", t_gas_all);
                                 cmd.Parameters.Add(param);
                                 cmd.ExecuteNonQuery();
+
+                                price_test += t_gas_all * gasstation.Price;
+                                t_gas_all -= t_gas_all;
+
+                                duplication = true;
 
                                 traveling.id_gasstation = gasstation;
                                 get_price_traveling_test(db, traveling, t_gas_all, price_test);
