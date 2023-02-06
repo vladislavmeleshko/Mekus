@@ -114,19 +114,14 @@ namespace Mekus.classes
             }
         }
 
-        public decimal get_price_traveling_test(Database db, Traveling traveling, decimal t_gas_all, decimal price_test)
+        public decimal get_price_traveling_test(Database db, Traveling traveling, decimal t_gas_all, decimal price_test, bool duplication)
         {
-            bool duplication = false;
-
             using (SqlConnection connect = new SqlConnection(str_connect))
             {
                 try
                 {
                     if (t_gas_all == 0.00m)
-                    {
-                        connect.Close();
                         return price_test;
-                    }    
                     else
                     {
                         if (t_gas_all + traveling.id_gasstation.Really_gas <= traveling.id_gasstation.Enter_gas)
@@ -157,7 +152,7 @@ namespace Mekus.classes
 
                             connect.Close();
 
-                            get_price_traveling_test(db, traveling, t_gas_all, price_test);
+                            return get_price_traveling_test(db, traveling, t_gas_all, price_test, false);
                         }
                         else
                         {
@@ -203,7 +198,7 @@ namespace Mekus.classes
 
                                 connect.Close();
 
-                                get_price_traveling_test(db, traveling, t_gas_all, price_test);
+                                return get_price_traveling_test(db, traveling, t_gas_all, price_test, false);
                             }
                             else
                             {
@@ -216,18 +211,15 @@ namespace Mekus.classes
                                 cmd.Parameters.Add(param);
                                 cmd.ExecuteNonQuery();
 
-                                price_test += t_gas_all * gasstation.Price;
-                                t_gas_all -= t_gas_all;
-
                                 duplication = true;
 
                                 traveling.id_gasstation = gasstation;
-                                get_price_traveling_test(db, traveling, t_gas_all, price_test);
+
+                                connect.Close();
+                                return get_price_traveling_test(db, traveling, t_gas_all, price_test, true);
                             }
-                            connect.Close();
                         }
                     }
-                    return price_test;
                 }
                 catch(Exception ex)
                 {
