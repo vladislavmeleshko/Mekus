@@ -120,6 +120,8 @@ namespace Mekus.classes
             {
                 try
                 {
+                    db.gasstations = db.get_gasstations();
+
                     if (t_gas_all == 0.00m)
                         return price_test;
                     else
@@ -142,10 +144,6 @@ namespace Mekus.classes
                                 cmd.Parameters.Add(param);
                                 cmd.ExecuteNonQuery();
                             }
-
-                            query = string.Format("update Travelings set id_gasstation={0} where id>={1} and id_car={2}", traveling.id_gasstation.id, traveling.id, traveling.id_car.id);
-                            cmd = new SqlCommand(query, connect);
-                            cmd.ExecuteNonQuery();
 
                             price_test += t_gas_all * traveling.id_gasstation.Price;
                             t_gas_all -= t_gas_all;
@@ -194,7 +192,7 @@ namespace Mekus.classes
                                 t_gas_all -= gasstation.Enter_gas - gasstation.Really_gas;
 
                                 db.gasstations = db.get_gasstations();
-                                traveling.id_gasstation = gasstation;
+                                traveling.id_gasstation = db.gasstations.Find(x => x.id > gasstation.id && x.Enter_gas != x.Really_gas && x.id_car.id == traveling.id_car.id);
 
                                 connect.Close();
 
@@ -209,6 +207,10 @@ namespace Mekus.classes
                                 cmd.Parameters.Add(param);
                                 param = new SqlParameter("@next_t_gas", t_gas_all);
                                 cmd.Parameters.Add(param);
+                                cmd.ExecuteNonQuery();
+
+                                query = string.Format("update Travelings set id_gasstation={0} where id>={1} and id_car={2}", gasstation.id, traveling.id, traveling.id_car.id);
+                                cmd = new SqlCommand(query, connect);
                                 cmd.ExecuteNonQuery();
 
                                 duplication = true;
