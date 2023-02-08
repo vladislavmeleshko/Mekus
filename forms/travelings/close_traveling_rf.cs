@@ -399,6 +399,10 @@ namespace Mekus.forms.travelings
                 {
                     editcar = true; // проверка на кривые ручки
                     traveling.id_car = db.cars.Find(x => x.car == comboBox1.Text);
+                    textBox5.Text = Convert.ToString(traveling.id_car.probeg);
+                    this.traveling.s_probeg_1 = traveling.id_car.probeg;
+                    textBox8.Text = Convert.ToString(traveling.id_car.Gas);
+                    this.traveling.S_gas_1 = traveling.id_car.Gas;
                 }
             }
             catch (Exception ex)
