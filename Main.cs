@@ -66,6 +66,7 @@ namespace Mekus
             try
             {
                 db.get_all_data();
+                traveling = db.travelings.Find(x => x.id == traveling.id);
                 if(id == 0)
                 {
                     for (int i = 0; i < dataGridView5.Rows.Count; i++)
@@ -92,6 +93,7 @@ namespace Mekus
                     {
                         if (dataGridView6.Rows[i].Cells[0].Value.ToString() == Convert.ToString(traveling.number))
                         {
+                            dataGridView6.Rows[i].Cells[3].Value = Convert.ToString(traveling.id_car.id_model.model + " " + traveling.id_car.car);
                             dataGridView6.Rows[i].Cells[4].Value = Convert.ToString(traveling.s_probeg_1);
                             dataGridView6.Rows[i].Cells[5].Value = Convert.ToString(traveling.e_probeg_1);
                             dataGridView6.Rows[i].Cells[6].Value = Convert.ToString(traveling.S_gas_1);

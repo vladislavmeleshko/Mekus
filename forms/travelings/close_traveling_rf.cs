@@ -382,7 +382,7 @@ namespace Mekus.forms.travelings
             {
                 traveling.id_gasstation = traveling.id_gasstation.get_gasstation(db, traveling);
                 traveling.editCar();
-                main.set_value_table(traveling, 0);
+                main.set_value_table(traveling, 1);
                 Close();
             }
             catch(Exception ex)
