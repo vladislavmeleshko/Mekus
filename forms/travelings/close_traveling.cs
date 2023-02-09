@@ -189,16 +189,23 @@ namespace Mekus.forms.travelings
 
                     traveling.P_traveling_1 = traveling.id_gasstation.get_price_traveling_test(db, traveling, traveling.T_gas_1, 0.00m, false);
 
-                    db.gasstations = db.get_gasstations();
+                    if(traveling.P_traveling_1 != -1)
+                    {
+                        db.gasstations = db.get_gasstations();
 
-                    traveling.P_traveling_all = traveling.P_traveling_1;
-                    traveling.id_car.editCar();
-                    traveling.closeTraveling();
+                        traveling.P_traveling_all = traveling.P_traveling_1;
+                        traveling.id_car.editCar();
+                        traveling.closeTraveling();
 
-                    main.set_value_table(traveling, 0);
-                    //main.set_values_table();
+                        main.set_value_table(traveling, 0);
+                        //main.set_values_table();
 
-                    Close();
+                        Close();
+                    }
+                    else
+                    {
+
+                    }
                 }
             }
             catch(Exception ex)
