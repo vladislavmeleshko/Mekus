@@ -415,5 +415,23 @@ namespace Mekus.forms.travelings
         {
             db.get_all_data();
         }
+
+        private void textBox7_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (read_traveling == false)
+                {
+                    traveling.t_probeg_1 = Convert.ToInt32(textBox7.Text);
+                    textBox6.Text = Convert.ToString(traveling.t_probeg_1 + traveling.s_probeg_1);
+                    if (textBox15.Text.Length != 0)
+                        textBox15_TextChanged(sender, e);
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
     }
 }

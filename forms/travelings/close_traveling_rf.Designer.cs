@@ -294,11 +294,11 @@
             // 
             // textBox7
             // 
-            this.textBox7.Enabled = false;
             this.textBox7.Location = new System.Drawing.Point(7, 20);
             this.textBox7.Name = "textBox7";
             this.textBox7.Size = new System.Drawing.Size(187, 20);
             this.textBox7.TabIndex = 0;
+            this.textBox7.TextChanged += new System.EventHandler(this.textBox7_TextChanged);
             // 
             // groupBox6
             // 
