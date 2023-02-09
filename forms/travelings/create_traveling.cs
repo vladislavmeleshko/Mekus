@@ -110,7 +110,8 @@ namespace Mekus.forms.travelings
                 traveling.status_inRf = 0;
             else if (comboBox3.SelectedIndex == 1)
                 traveling.status_inRf = 1;
-            else traveling.status_inRf = 3;
+            else
+                traveling.status_inRf = 2;
         }
 
         private void button2_Click(object sender, EventArgs e)
