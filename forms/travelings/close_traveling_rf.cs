@@ -290,14 +290,8 @@ namespace Mekus.forms.travelings
                         traveling.id_gasstation.addGasstation(db, traveling.Z_gas_1, traveling.P_gas_1, traveling, false);
                     if (traveling.Z_gas_2 != 0)
                         traveling.id_gasstation.addGasstation(db, traveling.Z_gas_2, traveling.P_gas_2, traveling, true);
-
-                    db.gasstations = db.get_gasstations();
                     
                     traveling.P_traveling_1 = traveling.id_gasstation.get_price_traveling_test_2(db, traveling, traveling.T_gas_1, 0.00m);
-
-                    db.gasstations = db.get_gasstations();
-
-                    traveling.id_gasstation = db.gasstations.Find(x => x.id >= traveling.id_gasstation.id && x.Enter_gas != x.Really_gas && x.id_car == traveling.id_car);
 
                     traveling.P_traveling_2 = traveling.id_gasstation.get_price_traveling_test_2(db, traveling, traveling.T_gas_2, 0.00m);
 

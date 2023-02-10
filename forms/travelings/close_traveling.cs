@@ -202,10 +202,6 @@ namespace Mekus.forms.travelings
 
                         Close();
                     }
-                    else
-                    {
-
-                    }
                 }
             }
             catch(Exception ex)

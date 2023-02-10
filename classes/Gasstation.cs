@@ -120,11 +120,11 @@ namespace Mekus.classes
             {
                 try
                 {
+                    db.gasstations = db.get_gasstations();
                     if (t_gas_all == 0.00m)
                         return price_test;
                     else
                     {
-                        db.gasstations = db.get_gasstations();
                         if(t_gas_all + Really_gas <= Enter_gas)
                         {
                             connect.Open();
