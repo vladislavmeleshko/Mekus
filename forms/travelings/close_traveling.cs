@@ -187,9 +187,9 @@ namespace Mekus.forms.travelings
                     if (traveling.Z_gas_1 != 0)
                         traveling.id_gasstation.addGasstation(db, traveling.Z_gas_1, traveling.P_gas_1, traveling, false);
 
-                    traveling.P_traveling_1 = traveling.id_gasstation.get_price_traveling_test(db, traveling, traveling.T_gas_1, 0.00m, false);
+                    traveling.P_traveling_1 = traveling.id_gasstation.get_price_traveling_test_2(db, traveling, traveling.T_gas_1, 0.00m);
 
-                    if(traveling.P_traveling_1 != -1)
+                    if (traveling.P_traveling_1 != -1)
                     {
                         db.gasstations = db.get_gasstations();
 

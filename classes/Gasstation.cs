@@ -114,6 +114,94 @@ namespace Mekus.classes
             }
         }
 
+        public decimal get_price_traveling_test_2(Database db, Traveling traveling, decimal t_gas_all, decimal price_test)
+        {
+            using (SqlConnection connect = new SqlConnection(str_connect))
+            {
+                try
+                {
+                    if (t_gas_all == 0.00m)
+                        return price_test;
+                    else
+                    {
+                        db.gasstations = db.get_gasstations();
+                        if(t_gas_all + Really_gas <= Enter_gas)
+                        {
+                            connect.Open();
+                            Really_gas += t_gas_all;
+                            string query = string.Format("update Gasstations set really_gas = {0} where id = {1}", Really_gas.ToString().Replace(",", "."), id);
+                            SqlCommand cmd = new SqlCommand(query, connect);
+                            cmd.ExecuteNonQuery();
+                            query = string.Format("insert into History_gas (id_traveling, prev_t_gas, one_to_many) values ({0}, {1}, '{2}')", traveling.id, t_gas_all.ToString().Replace(",", "."), id);
+                            cmd = new SqlCommand(query, connect);
+                            cmd.ExecuteNonQuery();
+                            price_test += t_gas_all * Price;
+                            t_gas_all -= t_gas_all;
+                            connect.Close();
+                            return get_price_traveling_test_2(db, traveling, t_gas_all, price_test);
+                        }
+                        else
+                        {
+                            Gasstation gasstation = db.gasstations.Find(x => x.id > id && x.Enter_gas != x.Really_gas && x.id_car == id_car);
+                            if(gasstation != null)
+                            {
+                                connect.Open();
+                                price_test += (Enter_gas - Really_gas) * Price;
+                                string query = string.Format("update Gasstations set really_gas = {0} where id = {1}", Enter_gas.ToString().Replace(",", "."), id);
+                                SqlCommand cmd = new SqlCommand(query, connect);
+                                cmd.ExecuteNonQuery();
+                                query = string.Format("insert into History_gas (id_traveling, prev_t_gas, one_to_many) values ({0}, {1}, '{2}')", traveling.id, (Enter_gas - Really_gas).ToString().Replace(",", "."), id);
+                                cmd = new SqlCommand(query, connect);
+                                cmd.ExecuteNonQuery();
+                                t_gas_all -= Enter_gas - Really_gas;
+                                traveling.id_gasstation = gasstation;
+                                if (t_gas_all + gasstation.Really_gas <= gasstation.Enter_gas)
+                                {
+                                    query = string.Format("update Travelings set id_gasstation = {0} where id >= {1} and id_car = {2}", gasstation.id, traveling.id, traveling.id_car.id);
+                                    cmd = new SqlCommand(query, connect);
+                                    cmd.ExecuteNonQuery();
+                                    connect.Close();
+                                    return traveling.id_gasstation.get_price_traveling_test_2(db, traveling, t_gas_all, price_test);
+                                }
+                                else
+                                {
+                                    connect.Close();
+                                    return traveling.id_gasstation.get_price_traveling_test_2(db, traveling, t_gas_all, price_test);
+                                }
+                            }
+                            else
+                            {
+                                connect.Open();
+                                string message = string.Format("Вам необходимо искуственно добавить заправку на {0} литров, вы желаете продолжить?", t_gas_all - Enter_gas - Really_gas);
+                                DialogResult dialogResult = MessageBox.Show(message, "Искуственно добавление заправки", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
+                                if (dialogResult == DialogResult.OK)
+                                {
+                                    string query = string.Format("insert into Gasstations (enter_gas, price, id_car, date_gas) values ({0}, {1}, {2}, {3})", (t_gas_all - Enter_gas - Really_gas).ToString().Replace(",", "."), traveling.P_gas_1, id_car, date_gas);
+                                    SqlCommand cmd = new SqlCommand(query, connect);
+                                    cmd.ExecuteNonQuery();
+                                    db.gasstations = db.get_gasstations();
+                                    gasstation = db.gasstations.Find(x => x.id > id && x.Enter_gas != x.Really_gas && x.id_car == id_car);
+                                    traveling.id_gasstation = gasstation;
+                                    connect.Close();
+                                    return traveling.id_gasstation.get_price_traveling_test_2(db, traveling, t_gas_all, price_test);
+                                }
+                                else
+                                {
+                                    connect.Close();
+                                    return -1;
+                                }
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    connect.Close();
+                    return -1;
+                }
+            }
+        }
         public decimal get_price_traveling_test(Database db, Traveling traveling, decimal t_gas_all, decimal price_test, bool duplication)
         {
             using (SqlConnection connect = new SqlConnection(str_connect))
