@@ -172,7 +172,7 @@ namespace Mekus.classes
                             else
                             {
                                 connect.Open();
-                                string message = string.Format("Вам необходимо искусственно добавить заправку на {0} литров, вы желаете продолжить?", t_gas_all - Enter_gas - Really_gas);
+                                string message = string.Format("Вам необходимо искусственно добавить заправку на {0} литров, вы желаете продолжить?", t_gas_all - (Enter_gas - Really_gas));
                                 DialogResult dialogResult = MessageBox.Show(message, "Искусственное добавление заправки", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
                                 if (dialogResult == DialogResult.OK)
                                 {
