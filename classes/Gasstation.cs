@@ -142,7 +142,7 @@ namespace Mekus.classes
                         }
                         else
                         {
-                            Gasstation gasstation = db.gasstations.Find(x => x.id > id && x.Enter_gas != x.Really_gas && x.id_car == id_car);
+                            Gasstation gasstation = db.gasstations.Find(x => x.id > id && x.Enter_gas != x.Really_gas && x.id_car.id == id_car.id);
                             if(gasstation != null)
                             {
                                 connect.Open();
@@ -180,7 +180,7 @@ namespace Mekus.classes
                                     SqlCommand cmd = new SqlCommand(query, connect);
                                     cmd.ExecuteNonQuery();
                                     db.gasstations = db.get_gasstations();
-                                    gasstation = db.gasstations.Find(x => x.id > id && x.Enter_gas != x.Really_gas && x.id_car == id_car);
+                                    gasstation = db.gasstations.Find(x => x.id > id && x.Enter_gas != x.Really_gas && x.id_car.id == id_car.id);
                                     traveling.id_gasstation = gasstation;
                                     connect.Close();
                                     return traveling.id_gasstation.get_price_traveling_test_2(db, traveling, t_gas_all, price_test);
