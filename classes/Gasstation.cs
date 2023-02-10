@@ -172,11 +172,11 @@ namespace Mekus.classes
                             else
                             {
                                 connect.Open();
-                                string message = string.Format("Вам необходимо искуственно добавить заправку на {0} литров, вы желаете продолжить?", t_gas_all - Enter_gas - Really_gas);
-                                DialogResult dialogResult = MessageBox.Show(message, "Искуственно добавление заправки", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
+                                string message = string.Format("Вам необходимо искусственно добавить заправку на {0} литров, вы желаете продолжить?", t_gas_all - Enter_gas - Really_gas);
+                                DialogResult dialogResult = MessageBox.Show(message, "Искусственное добавление заправки", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
                                 if (dialogResult == DialogResult.OK)
                                 {
-                                    string query = string.Format("insert into Gasstations (enter_gas, price, id_car, date_gas) values ({0}, {1}, {2}, {3})", (t_gas_all - Enter_gas - Really_gas).ToString().Replace(",", "."), traveling.P_gas_1, id_car, date_gas);
+                                    string query = string.Format("insert into Gasstations (enter_gas, price, id_car, date_gas) values ({0}, {1}, {2}, '{3}')", (t_gas_all - Enter_gas - Really_gas).ToString().Replace(",", "."), traveling.P_gas_1.ToString().Replace(",", "."), id_car, date_gas);
                                     SqlCommand cmd = new SqlCommand(query, connect);
                                     cmd.ExecuteNonQuery();
                                     db.gasstations = db.get_gasstations();
