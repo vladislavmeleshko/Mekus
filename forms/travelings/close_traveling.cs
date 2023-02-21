@@ -7,6 +7,10 @@ using System.IO;
 using System.Text.Json;
 using System.Reflection.Emit;
 using Microsoft.Office.Interop.Excel;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Security.Policy;
+using Mekus.belarusneft;
 
 namespace Mekus.forms.travelings
 {
@@ -298,6 +302,41 @@ namespace Mekus.forms.travelings
         private void close_traveling_FormClosing(object sender, FormClosingEventArgs e)
         {
             db.get_all_data();
+        }
+
+        private async void button3_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                EnterAPI enter = await Belarusneft.auth("https://belorusneft.by/identity/connect/token");
+
+                Test_1 test = new Test_1
+                {
+                    startDate = dateTimePicker1.Value.Date.ToString("yyyy-MM-dd"),
+                    endDate = dateTimePicker2.Value.Date.ToString("yyyy-MM-dd"),
+                    cardNumber = traveling.id_car.cardCode,
+                    subDivisnNumber = -1,
+                    flChoice = 1
+                };
+
+                API api = await Belarusneft.getAPI("https://ssl.beloil.by/rcp/i/api/v2/Contract/operational", enter.access_token, test);
+                if(api.cardList.Length > 0)
+                {
+                    if (api.cardList[0].issueRows.Length > 0)
+                    {
+                        dataGridView1.Rows.Clear();
+                        for (int i = 0; i < api.cardList[0].issueRows.Length; i++)
+                        {
+                            dataGridView1.Rows.Add(api.cardList[0].issueRows[i].dateTimeIssue, api.cardList[0].issueRows[i].productQuantity, 
+                                                    api.cardList[0].issueRows[i].productUnitPrice, api.cardList[0].issueRows[i].productName);
+                        }
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

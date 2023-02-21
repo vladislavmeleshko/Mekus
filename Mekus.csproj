@@ -87,6 +87,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="belarusneft\Belarusneft.cs" />
     <Compile Include="classes\Car.cs" />
     <Compile Include="classes\Courier.cs" />
     <Compile Include="classes\Database.cs" />

@@ -23,12 +23,14 @@ namespace Mekus.classes
 
         public int nav_id_object { get; set; }
 
+        public int cardCode { get; set; }
+
         public Car()
         {
 
         }
 
-        public Car(int id, string car, int probeg, decimal gas, Model id_model, int nav_id_object)
+        public Car(int id, string car, int probeg, decimal gas, Model id_model, int nav_id_object, int cardCode)
         {
             this.id = id;
             this.car = car;
@@ -36,6 +38,7 @@ namespace Mekus.classes
             Gas = gas;
             this.id_model = id_model;
             this.nav_id_object = nav_id_object;
+            this.cardCode = cardCode;
         }
 
         public Car(string car, int probeg, decimal gas, Model id_model)
