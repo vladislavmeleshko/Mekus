@@ -348,7 +348,7 @@ namespace Mekus.forms.travelings
             try
             {
                 dateTimePicker1.Value = traveling.date_traveling.Date;
-                dateTimePicker2.Value = traveling.date_traveling.Date.AddDays(1);
+                dateTimePicker2.Value = traveling.date_traveling.Date;
                 button3_Click(sender, e);
             }
             catch (Exception ex)
