@@ -42,7 +42,7 @@ namespace Mekus.forms.travelings
             for (int i = 0; i < db.cars.Count; i++)
                 comboBox1.Items.Add(db.cars[i].car);
 
-            if(this.traveling.status_traveling == 0)
+            if (this.traveling.status_traveling == 0)
             {
                 textBox1.Text = Convert.ToString(traveling.number);
                 textBox2.Text = Convert.ToString(traveling.date_traveling.Date.ToString("dd MMMM yyyy"));
@@ -435,7 +435,10 @@ namespace Mekus.forms.travelings
         {
             try
             {
-                EnterAPI enter = await Belarusneft.auth("https://belorusneft.by/identity/connect/token");
+                EnterAPI enter = null;
+                if (traveling.id_car.id != 11)
+                    enter = await Belarusneft.auth("https://belorusneft.by/identity/connect/token", 0);
+                else enter = await Belarusneft.auth("https://belorusneft.by/identity/connect/token", 1);
 
                 Test_1 test = new Test_1
                 {
@@ -461,6 +464,20 @@ namespace Mekus.forms.travelings
                 }
             }
             catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void close_traveling_rf_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                dateTimePicker1.Value = traveling.date_traveling.Date;
+                dateTimePicker2.Value = traveling.date_traveling.Date.AddDays(1);
+                button3_Click(sender, e);
+            }
+            catch(Exception ex)
             {
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }

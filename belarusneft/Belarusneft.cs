@@ -148,17 +148,34 @@ namespace Mekus.belarusneft
 
         }
 
-        public static async Task<EnterAPI> auth(string url)
+        public static async Task<EnterAPI> auth(string url, int type_car)
         {
-            IEnumerable<KeyValuePair<string, string>> queries = new List<KeyValuePair<string, string>>()
+            IEnumerable<KeyValuePair<string, string>> queries = null;
+            if(type_car == 0)
             {
-                new KeyValuePair<string, string>("grant_type", "password"),
-                new KeyValuePair<string, string>("client_id", "rcp.web"),
-                new KeyValuePair<string, string>("client_secret", "secret"),
-                new KeyValuePair<string, string>("scope", "rcp.api"),
-                new KeyValuePair<string, string>("username", "650.6404319"),
-                new KeyValuePair<string, string>("password", "De122020")
-            };
+                queries = new List<KeyValuePair<string, string>>()
+                {
+                    new KeyValuePair<string, string>("grant_type", "password"),
+                    new KeyValuePair<string, string>("client_id", "rcp.web"),
+                    new KeyValuePair<string, string>("client_secret", "secret"),
+                    new KeyValuePair<string, string>("scope", "rcp.api"),
+                    new KeyValuePair<string, string>("username", "650.6404319"),
+                    new KeyValuePair<string, string>("password", "De122020")
+                };
+            }
+            else
+            {
+                queries = new List<KeyValuePair<string, string>>()
+                {
+                    new KeyValuePair<string, string>("grant_type", "password"),
+                    new KeyValuePair<string, string>("client_id", "rcp.web"),
+                    new KeyValuePair<string, string>("client_secret", "secret"),
+                    new KeyValuePair<string, string>("scope", "rcp.api"),
+                    new KeyValuePair<string, string>("username", "650.6409982"),
+                    new KeyValuePair<string, string>("password", "aksa")
+                };
+            }
+            
 
             HttpContent q = new FormUrlEncodedContent(queries);
 
