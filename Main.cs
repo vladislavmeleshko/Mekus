@@ -246,6 +246,25 @@ namespace Mekus
                 xlSht.Cells[16, "A"] = traveling.id_courier.courier;
                 xlSht.Cells[16, "V"] = traveling.id_courier.prava;
 
+                if(traveling.status_traveling == 1)
+                {
+                    xlSht.Cells[8, 69] = traveling.s_probeg_1.ToString();
+                    xlSht.Cells[9, 69] = traveling.e_probeg_1.ToString();
+                    if(traveling.Z_gas_1 > 0)
+                    {
+                        xlSht.Cells[13, 55] = traveling.date_traveling.ToString("dd.MM.yyyy");
+                        xlSht.Cells[13, 77] = "ДТ";
+                        xlSht.Cells[13, 96] = traveling.Z_gas_1.ToString();
+                    }
+                    xlSht.Cells[13, 115] = traveling.S_gas_1.ToString();
+                    xlSht.Cells[13, 134] = traveling.E_gas_1.ToString();
+                    xlSht.Cells[22, 99] = traveling.t_probeg_all.ToString();
+                    xlSht.Cells[59, 1] = traveling.T_gas_all.ToString();
+                    xlSht.Cells[59, 11] = traveling.T_gas_all.ToString();
+                    xlSht.Cells[59, 71] = traveling.t_probeg_all.ToString();
+                    xlSht.Cells[59, 91] = traveling.t_probeg_all.ToString();
+                }
+
             }
             catch(Exception ex)
             {
