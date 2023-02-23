@@ -107,6 +107,7 @@
             this.Column26 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column27 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column28 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.button9 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -427,6 +428,7 @@
             // 
             // tabPage5
             // 
+            this.tabPage5.Controls.Add(this.button9);
             this.tabPage5.Controls.Add(this.button7);
             this.tabPage5.Controls.Add(this.button5);
             this.tabPage5.Controls.Add(this.groupBox5);
@@ -808,6 +810,17 @@
             this.Column28.Name = "Column28";
             this.Column28.ReadOnly = true;
             // 
+            // button9
+            // 
+            this.button9.AutoSize = true;
+            this.button9.Location = new System.Drawing.Point(704, 20);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(133, 23);
+            this.button9.TabIndex = 11;
+            this.button9.Text = "Тест";
+            this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.button9_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -923,6 +936,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column26;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column27;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column28;
+        private System.Windows.Forms.Button button9;
     }
 }
 

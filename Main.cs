@@ -347,5 +347,50 @@ namespace Mekus
                 MessageBox.Show(ex.Message);
             }
         }
+
+        // Перенос данных из Excel в программу
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Excel.Workbook xlWB;
+                Excel.Worksheet xlSht;
+
+                Excel.Application xlApp = new Excel.Application();
+                xlApp.Visible = true;
+                xlWB = xlApp.Workbooks.Open(Application.StartupPath + @"\АР 8312-7.xlsx");
+                xlSht = xlWB.Worksheets["Январь"];
+
+                int i = 7;
+
+                while (true)
+                {
+                    if(xlSht.Cells[i, 2].Value != null)
+                    {
+                        Traveling traveling = db.travelings.Find(x => x.number == Convert.ToInt32(xlSht.Cells[i, 2].Value.ToString()));
+                        if (traveling != null)
+                        {
+                            close_traveling form = new close_traveling(db, this, traveling);
+                            form.textBox6.Text = xlSht.Cells[i, 5].Value.ToString();
+                            form.textBox11.Text = xlSht.Cells[i, 7].Value.ToString();
+                            if (xlSht.Cells[i, 6].Value != null)
+                                form.textBox12.Text = xlSht.Cells[i, 6].Value.ToString();
+                            form.button1_Click(sender, e);
+                        }
+                        if (traveling.number == 21703)
+                            break;
+                    }
+                    i++;
+
+                }
+                MessageBox.Show("Функция завершена!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
     }
 }
+
