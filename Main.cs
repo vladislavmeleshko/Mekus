@@ -359,10 +359,10 @@ namespace Mekus
 
                 Excel.Application xlApp = new Excel.Application();
                 xlApp.Visible = true;
-                xlWB = xlApp.Workbooks.Open(Application.StartupPath + @"\АР 8312-7.xlsx");
-                xlSht = xlWB.Worksheets["Январь"];
+                xlWB = xlApp.Workbooks.Open(Application.StartupPath + @"\АО 2441-7.xlsx");
+                xlSht = xlWB.Worksheets["Февраль"];
 
-                int i = 7;
+                int i = 5;
 
                 while (true)
                 {
@@ -378,7 +378,7 @@ namespace Mekus
                                 form.textBox12.Text = xlSht.Cells[i, 6].Value.ToString();
                             form.button1_Click(sender, e);
                         }
-                        if (traveling.number == 21703)
+                        if (traveling.number == 21841)
                             break;
                     }
                     i++;
