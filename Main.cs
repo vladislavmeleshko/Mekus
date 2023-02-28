@@ -360,7 +360,7 @@ namespace Mekus
                 Excel.Application xlApp = new Excel.Application();
                 xlApp.Visible = true;
                 xlWB = xlApp.Workbooks.Open(Application.StartupPath + @"\АО 2441-7.xlsx");
-                xlSht = xlWB.Worksheets["Февраль"];
+                xlSht = (Excel.Worksheet)xlApp.Worksheets.get_Item(2);
 
                 int i = 5;
 
@@ -368,7 +368,7 @@ namespace Mekus
                 {
                     if(xlSht.Cells[i, 2].Value != null)
                     {
-                        Traveling traveling = db.travelings.Find(x => x.number == Convert.ToInt32(xlSht.Cells[i, 2].Value.ToString()));
+                        Traveling traveling = db.travelings.Find(x => x.number == Convert.ToInt32(xlSht.Cells[i, 2].Value.ToString()) && x.id_car.id == 9);
                         if (traveling != null)
                         {
                             close_traveling form = new close_traveling(db, this, traveling);
@@ -377,12 +377,11 @@ namespace Mekus
                             if (xlSht.Cells[i, 6].Value != null)
                                 form.textBox12.Text = xlSht.Cells[i, 6].Value.ToString();
                             form.button1_Click(sender, e);
+                            if (traveling.number == 21841)
+                                break;
                         }
-                        if (traveling.number == 21841)
-                            break;
                     }
                     i++;
-
                 }
                 MessageBox.Show("Функция завершена!");
             }
