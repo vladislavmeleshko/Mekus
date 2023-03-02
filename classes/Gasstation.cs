@@ -255,7 +255,7 @@ namespace Mekus.classes
                     try
                     {
                         connect.Open();
-                        decimal sum_t_gas = 0;
+                        decimal sum_t_gas = 0.00m;
                         string query = string.Format("select sum(prev_t_gas) from History_gas where one_to_many = {0}", id_gasstation);
                         SqlCommand cmd = new SqlCommand(query, connect);
                         SqlDataReader reader = cmd.ExecuteReader();

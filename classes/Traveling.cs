@@ -178,13 +178,17 @@ namespace Mekus.classes
                     connect.Open();
                     int probeg = 0;
                     decimal gas = 0.00m;
-                    string query = string.Format("select top 1 e_gas_1, e_probeg_1 from Travelings where id_car={0} and date_traveling < '{1}' order by date_traveling desc", id_car, date.Date);
+                    string query = string.Format("select top 1 e_gas_1, e_gas_2, e_probeg_1, e_probeg_2 from Travelings where id_car={0} and date_traveling < '{1}' order by date_traveling desc", id_car, date.Date);
                     SqlCommand cmd = new SqlCommand(query, connect);
                     SqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
-                        gas = (decimal)reader[0];
-                        probeg = (int)reader[1];
+                        if((decimal)reader[1] != 0.00m)
+                            gas = (decimal)reader[1];
+                        else gas = (decimal)reader[0];
+                        if ((int)reader[3] != 0)
+                            probeg = (int)reader[3];
+                        else probeg = (int)reader[2];
                     }
                     reader.Close();
                     query = string.Format("update Cars set probeg={0}, gas={1} where id={2}", probeg, gas.ToString().Replace(",", "."), id_car);
