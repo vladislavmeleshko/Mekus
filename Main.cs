@@ -125,6 +125,9 @@ namespace Mekus
         public void set_values_table()
         {
             db.get_all_data();
+            comboBox1.Items.Clear();
+            for (int i = 0; i < db.cars.Count; i++)
+                comboBox1.Items.Add(db.cars[i].car);
             dataGridView1.Rows.Clear();
             for (int i = 0; i < db.gases.Count; i++)
                 dataGridView1.Rows.Add(db.gases[i].id, db.gases[i].gas, db.gases[i].Price);
@@ -388,6 +391,26 @@ namespace Mekus
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Gasstation gasstation = new Gasstation();
+                int id_gasstation = gasstation.get_last_gasstations(db.cars.Find(x => x.car == comboBox1.Text).id, dateTimePicker5.Value.Date, db.gasstations);
+                Traveling traveling = new Traveling();
+                traveling.editGasstation(id_gasstation, db.cars.Find(x => x.car == comboBox1.Text).id, dateTimePicker5.Value.Date);
+                gasstation.deleteGasstations(id_gasstation, db.cars.Find(x => x.car == comboBox1.Text).id);
+                gasstation.get_and_set_value_in_gastation(id_gasstation);
+                traveling.editCar(dateTimePicker5.Value.Date, db.cars.Find(x => x.car == comboBox1.Text).id);
+                set_values_table();
+                MessageBox.Show("Функция завершена!");
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

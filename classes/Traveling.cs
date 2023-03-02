@@ -144,6 +144,62 @@ namespace Mekus.classes
             }
         }
 
+        public void editGasstation(int id_gasstations, int id_car, DateTime date)
+        {
+            using (SqlConnection connect = new SqlConnection(str_connect))
+            {
+                try
+                {
+                    connect.Open();
+                    string query = string.Format("update Travelings set id_gasstation={0}, " +
+                                                    "s_probeg_1=0, e_probeg_1=0, t_probeg_1=0, s_probeg_2=0, e_probeg_2=0, t_probeg_2=0, t_probeg_all=0, " +
+                                                    "s_gas_1=0.00, e_gas_1=0.00, t_gas_1=0.00, r_gas_1=0.00, z_gas_1=0.00, p_gas_1=0.00, " +
+                                                    "s_gas_2=0.00, e_gas_2=0.00, t_gas_2=0.00, r_gas_2=0.00, z_gas_2=0.00, p_gas_2=0.00, t_gas_all=0.00, " +
+                                                    "p_traveling_1=0.00, p_traveling_2=0.00, p_traveling_all=0.00, status_traveling=0 " +
+                                                    "where id_car = {1} and date_traveling >= '{2}'", id_gasstations, id_car, date.Date);
+                    SqlCommand cmd = new SqlCommand(query, connect);
+                    cmd.ExecuteNonQuery();
+                    connect.Close();
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message);
+                    connect.Close();
+                }
+            }
+        }
+
+        public void editCar(DateTime date, int id_car)
+        {
+            using (SqlConnection connect = new SqlConnection(str_connect))
+            {
+                try
+                {
+                    connect.Open();
+                    int probeg = 0;
+                    decimal gas = 0.00m;
+                    string query = string.Format("select top 1 e_gas_1, e_probeg_1 from Travelings where id_car={0} and date_traveling < '{1}' order by date_traveling desc", id_car, date.Date);
+                    SqlCommand cmd = new SqlCommand(query, connect);
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        gas = (decimal)reader[0];
+                        probeg = (int)reader[1];
+                    }
+                    reader.Close();
+                    query = string.Format("update Cars set probeg={0}, gas={1} where id={2}", probeg, gas.ToString().Replace(",", "."), id_car);
+                    cmd = new SqlCommand(query, connect);
+                    cmd.ExecuteNonQuery();
+                    connect.Close();
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message);
+                    connect.Close();
+                }
+            }
+        }
+
         public void closeTraveling()
         {
             using (SqlConnection connect = new SqlConnection(str_connect))
