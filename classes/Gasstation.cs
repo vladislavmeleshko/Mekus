@@ -215,7 +215,7 @@ namespace Mekus.classes
             }
         }
 
-        public void deleteGasstations(int id_gasstation, int id_car)
+        public void deleteGasstations(int id_gasstation, int id_car, int id_gasstation2)
         {
             try
             {
@@ -225,7 +225,7 @@ namespace Mekus.classes
                     {
                         connect.Open();
                         string query = string.Format("delete History_gas where one_to_many >= {0} and id_traveling >= (select top 1 id from travelings where status_traveling=0 and id_car={1})" +
-                            " and id_car = {2}", id_gasstation, id_car, id_car);
+                            " and id_car = {2}", id_gasstation2, id_car, id_car);
                         SqlCommand cmd = new SqlCommand(query, connect);
                         cmd.ExecuteNonQuery();
                         query = string.Format("delete Gasstations where id > {0} and id_car = {1}", id_gasstation, id_car);
@@ -246,7 +246,7 @@ namespace Mekus.classes
             }
         }
 
-        public void get_and_set_value_in_gastation(int id_gasstation)
+        public void get_and_set_value_in_gastation(int id_gasstation, int id_car)
         {
             try
             {
@@ -263,6 +263,9 @@ namespace Mekus.classes
                             sum_t_gas = (decimal)reader[0];
                         reader.Close();
                         query = string.Format("update Gasstations set really_gas = {0} where id = {1}", sum_t_gas.ToString().Replace(",", "."), id_gasstation);
+                        cmd = new SqlCommand(query, connect);
+                        cmd.ExecuteNonQuery();
+                        query = string.Format("update Gasstations set really_gas = 0.00 where id > {0} and id_car={1}", id_gasstation, id_car);
                         cmd = new SqlCommand(query, connect);
                         cmd.ExecuteNonQuery();
                         connect.Close();

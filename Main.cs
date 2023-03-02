@@ -399,11 +399,12 @@ namespace Mekus
             try
             {
                 Gasstation gasstation = new Gasstation();
+                int id_gasstation2 = db.travelings.Find(x => x.date_traveling < dateTimePicker5.Value.Date && x.id_car.id == db.cars.Find(z => z.car == comboBox1.Text).id).id_gasstation.id;
                 int id_gasstation = gasstation.get_last_gasstations(db.cars.Find(x => x.car == comboBox1.Text).id, dateTimePicker5.Value.Date, db.gasstations);
                 Traveling traveling = new Traveling();
-                traveling.editGasstation(id_gasstation, db.cars.Find(x => x.car == comboBox1.Text).id, dateTimePicker5.Value.Date);
-                gasstation.deleteGasstations(id_gasstation, db.cars.Find(x => x.car == comboBox1.Text).id);
-                gasstation.get_and_set_value_in_gastation(id_gasstation);
+                traveling.editGasstation(id_gasstation2, db.cars.Find(x => x.car == comboBox1.Text).id, dateTimePicker5.Value.Date);
+                gasstation.deleteGasstations(id_gasstation, db.cars.Find(x => x.car == comboBox1.Text).id, id_gasstation2);
+                gasstation.get_and_set_value_in_gastation(id_gasstation2, db.cars.Find(x => x.car == comboBox1.Text).id);
                 traveling.editCar(dateTimePicker5.Value.Date, db.cars.Find(x => x.car == comboBox1.Text).id);
                 set_values_table();
                 MessageBox.Show("Функция завершена!");
