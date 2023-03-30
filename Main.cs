@@ -362,16 +362,16 @@ namespace Mekus
 
                 Excel.Application xlApp = new Excel.Application();
                 xlApp.Visible = true;
-                xlWB = xlApp.Workbooks.Open(Application.StartupPath + @"\АР 8312-7.xlsx");
+                xlWB = xlApp.Workbooks.Open(Application.StartupPath + @"\АР 8312-7.xlsx"); // ПОМЕТКА ФАЙЛА АВТО
                 xlSht = (Excel.Worksheet)xlApp.Worksheets.get_Item(3);
 
-                int i = 14;
+                int i = 14; // ПОМЕТКА С КАКОГО ПУТЕВОГО ЛИСТА НАЧИНАТЬ
 
                 while (true)
                 {
                     if(xlSht.Cells[i, 2].Value != null)
                     {
-                        Traveling traveling = db.travelings.Find(x => x.number == Convert.ToInt32(xlSht.Cells[i, 2].Value.ToString()) && x.id_car.id == 2);
+                        Traveling traveling = db.travelings.Find(x => x.number == Convert.ToInt32(xlSht.Cells[i, 2].Value.ToString()) && x.id_car.id == 2); // НОМЕР АВТО
                         if (traveling != null)
                         {
                             close_traveling form = new close_traveling(db, this, traveling);
@@ -382,7 +382,7 @@ namespace Mekus
                             if (xlSht.Cells[i, 6].Value != null)
                                 form.textBox12.Text = xlSht.Cells[i, 6].Value.ToString();
                             form.button1_Click(sender, e);
-                            if (traveling.number == 22054)
+                            if (traveling.number == 22054) // НОМЕР ПОСЛЕДНЕГО ПУТЕВОГО ЛИСТА
                                 break;
                         }
                     }
