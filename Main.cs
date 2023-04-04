@@ -362,25 +362,27 @@ namespace Mekus
 
                 Excel.Application xlApp = new Excel.Application();
                 xlApp.Visible = true;
-                xlWB = xlApp.Workbooks.Open(Application.StartupPath + @"\АО 2441-7.xlsx");
-                xlSht = (Excel.Worksheet)xlApp.Worksheets.get_Item(2);
+                xlWB = xlApp.Workbooks.Open(Application.StartupPath + @"\АР 8312-7.xlsx"); // ПОМЕТКА ФАЙЛА АВТО
+                xlSht = (Excel.Worksheet)xlApp.Worksheets.get_Item(3);
 
-                int i = 5;
+                int i = 14; // ПОМЕТКА С КАКОГО ПУТЕВОГО ЛИСТА НАЧИНАТЬ
 
                 while (true)
                 {
                     if(xlSht.Cells[i, 2].Value != null)
                     {
-                        Traveling traveling = db.travelings.Find(x => x.number == Convert.ToInt32(xlSht.Cells[i, 2].Value.ToString()) && x.id_car.id == 9);
+                        Traveling traveling = db.travelings.Find(x => x.number == Convert.ToInt32(xlSht.Cells[i, 2].Value.ToString()) && x.id_car.id == 2); // НОМЕР АВТО
                         if (traveling != null)
                         {
                             close_traveling form = new close_traveling(db, this, traveling);
+                            if (xlSht.Cells[i, 12].Value != null)
+                                form.textBox13.Text = xlSht.Cells[i, 12].Value.ToString();
                             form.textBox6.Text = xlSht.Cells[i, 5].Value.ToString();
                             form.textBox11.Text = xlSht.Cells[i, 7].Value.ToString();
                             if (xlSht.Cells[i, 6].Value != null)
                                 form.textBox12.Text = xlSht.Cells[i, 6].Value.ToString();
                             form.button1_Click(sender, e);
-                            if (traveling.number == 21841)
+                            if (traveling.number == 22054) // НОМЕР ПОСЛЕДНЕГО ПУТЕВОГО ЛИСТА
                                 break;
                         }
                     }
@@ -399,11 +401,12 @@ namespace Mekus
             try
             {
                 Gasstation gasstation = new Gasstation();
+                int id_gasstation2 = db.travelings.Find(x => x.date_traveling < dateTimePicker5.Value.Date && x.id_car.id == db.cars.Find(z => z.car == comboBox1.Text).id).id_gasstation.id;
                 int id_gasstation = gasstation.get_last_gasstations(db.cars.Find(x => x.car == comboBox1.Text).id, dateTimePicker5.Value.Date, db.gasstations);
                 Traveling traveling = new Traveling();
-                traveling.editGasstation(id_gasstation, db.cars.Find(x => x.car == comboBox1.Text).id, dateTimePicker5.Value.Date);
-                gasstation.deleteGasstations(id_gasstation, db.cars.Find(x => x.car == comboBox1.Text).id);
-                gasstation.get_and_set_value_in_gastation(id_gasstation);
+                traveling.editGasstation(id_gasstation2, db.cars.Find(x => x.car == comboBox1.Text).id, dateTimePicker5.Value.Date);
+                gasstation.deleteGasstations(id_gasstation, db.cars.Find(x => x.car == comboBox1.Text).id, id_gasstation2);
+                gasstation.get_and_set_value_in_gastation(id_gasstation2, db.cars.Find(x => x.car == comboBox1.Text).id);
                 traveling.editCar(dateTimePicker5.Value.Date, db.cars.Find(x => x.car == comboBox1.Text).id);
                 set_values_table();
                 MessageBox.Show("Функция завершена!");
