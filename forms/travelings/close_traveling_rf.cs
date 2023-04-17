@@ -290,11 +290,17 @@ namespace Mekus.forms.travelings
                     if (traveling.Z_gas_1 != 0)
                         traveling.id_gasstation.addGasstation(db, traveling.Z_gas_1, traveling.P_gas_1, traveling, false);
                     if (traveling.Z_gas_2 != 0)
-                        traveling.id_gasstation.addGasstation(db, traveling.Z_gas_2, traveling.P_gas_2, traveling, true);
-                    
+                    { 
+                        if (checkBox1.Checked == true)
+                            traveling.id_gasstation.addGasstation(db, traveling.Z_gas_2, traveling.P_gas_2, traveling, false);
+                        else traveling.id_gasstation.addGasstation(db, traveling.Z_gas_2, traveling.P_gas_2, traveling, true);
+                    }
+
                     traveling.P_traveling_1 = traveling.id_gasstation.get_price_traveling_test_2(db, traveling, traveling.T_gas_1, 0.00m);
 
-                    traveling.P_traveling_2 = traveling.id_gasstation.get_price_traveling_test_2(db, traveling, traveling.T_gas_2, 0.00m, true);
+                    if(checkBox1.Checked == false)
+                        traveling.P_traveling_2 = traveling.id_gasstation.get_price_traveling_test_2(db, traveling, traveling.T_gas_2, 0.00m, true);
+                    else traveling.P_traveling_2 = traveling.id_gasstation.get_price_traveling_test_2(db, traveling, traveling.T_gas_2, 0.00m);
 
                     traveling.P_traveling_all = traveling.P_traveling_1 + traveling.P_traveling_2;
                     traveling.id_car.editCar();
