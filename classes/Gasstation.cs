@@ -114,7 +114,7 @@ namespace Mekus.classes
             }
         }
 
-        public decimal get_price_traveling_test_2(Database db, Traveling traveling, decimal t_gas_all, decimal price_test)
+        public decimal get_price_traveling_test_2(Database db, Traveling traveling, decimal t_gas_all, decimal price_test, bool daygas = false)
         {
             using (SqlConnection connect = new SqlConnection(str_connect))
             {
@@ -132,7 +132,14 @@ namespace Mekus.classes
                             string query = string.Format("update Gasstations set really_gas = {0} where id = {1}", Really_gas.ToString().Replace(",", "."), id);
                             SqlCommand cmd = new SqlCommand(query, connect);
                             cmd.ExecuteNonQuery();
-                            query = string.Format("insert into History_gas (id_traveling, prev_t_gas, one_to_many, id_car) values ({0}, {1}, '{2}', {3})", traveling.id, t_gas_all.ToString().Replace(",", "."), id, traveling.id_car.id);
+                            if(daygas == false)
+                                query = string.Format("insert into History_gas (id_traveling, prev_t_gas, one_to_many, id_car, date_history)" +
+                                                        " values ({0}, {1}, '{2}', {3}, '{4}')", 
+                                                        traveling.id, t_gas_all.ToString().Replace(",", "."), id, traveling.id_car.id, traveling.date_traveling.ToString("yyyy-MM-dd"));
+                            else
+                                query = string.Format("insert into History_gas (id_traveling, prev_t_gas, one_to_many, id_car, date_history) " +
+                                                        "values ({0}, {1}, '{2}', {3}, '{4}')",
+                                                        traveling.id, t_gas_all.ToString().Replace(",", "."), id, traveling.id_car.id, traveling.date_traveling.AddDays(1).ToString("yyyy-MM-dd"));
                             cmd = new SqlCommand(query, connect);
                             cmd.ExecuteNonQuery();
                             price_test += t_gas_all * Price;
@@ -150,7 +157,14 @@ namespace Mekus.classes
                                 string query = string.Format("update Gasstations set really_gas = {0} where id = {1}", Enter_gas.ToString().Replace(",", "."), id);
                                 SqlCommand cmd = new SqlCommand(query, connect);
                                 cmd.ExecuteNonQuery();
-                                query = string.Format("insert into History_gas (id_traveling, prev_t_gas, one_to_many, id_car) values ({0}, {1}, '{2}', {3})", traveling.id, (Enter_gas - Really_gas).ToString().Replace(",", "."), id, traveling.id_car.id);
+                                if(daygas == false)
+                                    query = string.Format("insert into History_gas (id_traveling, prev_t_gas, one_to_many, id_car, date_history) " +
+                                                            "values ({0}, {1}, '{2}', {3}, '{4}')", 
+                                                            traveling.id, (Enter_gas - Really_gas).ToString().Replace(",", "."), id, traveling.id_car.id, traveling.date_traveling.ToString("yyyy-MM-dd"));
+                                else
+                                    query = string.Format("insert into History_gas (id_traveling, prev_t_gas, one_to_many, id_car, date_history) " +
+                                                            "values ({0}, {1}, '{2}', {3}, '{4}')", 
+                                                            traveling.id, (Enter_gas - Really_gas).ToString().Replace(",", "."), id, traveling.id_car.id, traveling.date_traveling.AddDays(1).ToString("yyyy-MM-dd"));
                                 cmd = new SqlCommand(query, connect);
                                 cmd.ExecuteNonQuery();
                                 t_gas_all -= Enter_gas - Really_gas;

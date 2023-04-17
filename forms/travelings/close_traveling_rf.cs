@@ -294,7 +294,7 @@ namespace Mekus.forms.travelings
                     
                     traveling.P_traveling_1 = traveling.id_gasstation.get_price_traveling_test_2(db, traveling, traveling.T_gas_1, 0.00m);
 
-                    traveling.P_traveling_2 = traveling.id_gasstation.get_price_traveling_test_2(db, traveling, traveling.T_gas_2, 0.00m);
+                    traveling.P_traveling_2 = traveling.id_gasstation.get_price_traveling_test_2(db, traveling, traveling.T_gas_2, 0.00m, true);
 
                     traveling.P_traveling_all = traveling.P_traveling_1 + traveling.P_traveling_2;
                     traveling.id_car.editCar();
