@@ -146,8 +146,8 @@ namespace Mekus.classes
                             t_gas_all -= t_gas_all;
                             connect.Close();
                             if(daygas == false)
-                                return get_price_traveling_test_2(db, traveling, t_gas_all, price_test);
-                            else return get_price_traveling_test_2(db, traveling, t_gas_all, price_test, true);
+                                return traveling.id_gasstation.get_price_traveling_test_2(db, traveling, t_gas_all, price_test);
+                            else return traveling.id_gasstation.get_price_traveling_test_2(db, traveling, t_gas_all, price_test, true);
                         }
                         else
                         {
@@ -178,15 +178,15 @@ namespace Mekus.classes
                                     cmd.ExecuteNonQuery();
                                     connect.Close();
                                     if (daygas == false)
-                                        return get_price_traveling_test_2(db, traveling, t_gas_all, price_test);
-                                    else return get_price_traveling_test_2(db, traveling, t_gas_all, price_test, true);
+                                        return traveling.id_gasstation.get_price_traveling_test_2(db, traveling, t_gas_all, price_test);
+                                    else return traveling.id_gasstation.get_price_traveling_test_2(db, traveling, t_gas_all, price_test, true);
                                 }
                                 else
                                 {
                                     connect.Close();
                                     if (daygas == false)
-                                        return get_price_traveling_test_2(db, traveling, t_gas_all, price_test);
-                                    else return get_price_traveling_test_2(db, traveling, t_gas_all, price_test, true);
+                                        return traveling.id_gasstation.get_price_traveling_test_2(db, traveling, t_gas_all, price_test);
+                                    else return traveling.id_gasstation.get_price_traveling_test_2(db, traveling, t_gas_all, price_test, true);
                                 }
                             }
                             else
@@ -204,8 +204,8 @@ namespace Mekus.classes
                                     traveling.id_gasstation = gasstation;
                                     connect.Close();
                                     if (daygas == false)
-                                        return get_price_traveling_test_2(db, traveling, t_gas_all, price_test);
-                                    else return get_price_traveling_test_2(db, traveling, t_gas_all, price_test, true);
+                                        return traveling.id_gasstation.get_price_traveling_test_2(db, traveling, t_gas_all, price_test);
+                                    else return traveling.id_gasstation.get_price_traveling_test_2(db, traveling, t_gas_all, price_test, true);
                                 }
                                 else
                                 {
