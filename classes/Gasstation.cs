@@ -145,7 +145,9 @@ namespace Mekus.classes
                             price_test += t_gas_all * Price;
                             t_gas_all -= t_gas_all;
                             connect.Close();
-                            return get_price_traveling_test_2(db, traveling, t_gas_all, price_test);
+                            if(daygas == false)
+                                return get_price_traveling_test_2(db, traveling, t_gas_all, price_test);
+                            else return get_price_traveling_test_2(db, traveling, t_gas_all, price_test, true);
                         }
                         else
                         {
@@ -175,12 +177,16 @@ namespace Mekus.classes
                                     cmd = new SqlCommand(query, connect);
                                     cmd.ExecuteNonQuery();
                                     connect.Close();
-                                    return traveling.id_gasstation.get_price_traveling_test_2(db, traveling, t_gas_all, price_test);
+                                    if (daygas == false)
+                                        return get_price_traveling_test_2(db, traveling, t_gas_all, price_test);
+                                    else return get_price_traveling_test_2(db, traveling, t_gas_all, price_test, true);
                                 }
                                 else
                                 {
                                     connect.Close();
-                                    return traveling.id_gasstation.get_price_traveling_test_2(db, traveling, t_gas_all, price_test);
+                                    if (daygas == false)
+                                        return get_price_traveling_test_2(db, traveling, t_gas_all, price_test);
+                                    else return get_price_traveling_test_2(db, traveling, t_gas_all, price_test, true);
                                 }
                             }
                             else
@@ -197,7 +203,9 @@ namespace Mekus.classes
                                     gasstation = db.gasstations.Find(x => x.id > id && x.Enter_gas != x.Really_gas && x.id_car.id == id_car.id);
                                     traveling.id_gasstation = gasstation;
                                     connect.Close();
-                                    return traveling.id_gasstation.get_price_traveling_test_2(db, traveling, t_gas_all, price_test);
+                                    if (daygas == false)
+                                        return get_price_traveling_test_2(db, traveling, t_gas_all, price_test);
+                                    else return get_price_traveling_test_2(db, traveling, t_gas_all, price_test, true);
                                 }
                                 else
                                 {
