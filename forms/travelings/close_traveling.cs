@@ -189,7 +189,11 @@ namespace Mekus.forms.travelings
                     traveling.id_car.Gas = traveling.E_gas_1;
 
                     if (traveling.Z_gas_1 != 0)
-                        traveling.id_gasstation.addGasstation(db, traveling.Z_gas_1, traveling.P_gas_1, traveling, false);
+                    { 
+                        if(textBox4.Text != "")
+                            traveling.id_gasstation.addGasstation(db, traveling.Z_gas_1, traveling.P_gas_1, traveling, false, textBox4.Text);
+                        else traveling.id_gasstation.addGasstation(db, traveling.Z_gas_1, traveling.P_gas_1, traveling, false);
+                    }
 
                     traveling.P_traveling_1 = traveling.id_gasstation.get_price_traveling_test_2(db, traveling, traveling.T_gas_1, 0.00m);
 
@@ -331,7 +335,7 @@ namespace Mekus.forms.travelings
                         dataGridView1.Rows.Clear();
                         for (int i = 0; i < api.cardList[0].issueRows.Length; i++)
                         {
-                            dataGridView1.Rows.Add(api.cardList[0].issueRows[i].dateTimeIssue, api.cardList[0].issueRows[i].productQuantity, 
+                            dataGridView1.Rows.Add(api.cardList[0].issueRows[i].dateTimeIssue, api.cardList[0].issueRows[i].productName, api.cardList[0].issueRows[i].productQuantity, 
                                                     api.cardList[0].issueRows[i].productUnitPrice, api.cardList[0].issueRows[i].productName);
                         }
                     }
