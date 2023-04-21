@@ -143,11 +143,11 @@ namespace Mekus.classes
                             SqlCommand cmd = new SqlCommand(query, connect);
                             cmd.ExecuteNonQuery();
                             if(daygas == false)
-                                query = string.Format("insert into History_gas (id_traveling, prev_t_gas, one_to_many, id_car, date_history)" +
+                                query = string.Format("insert into History_gas (id_traveling, prev_t_gas, id_gasstation, id_car, date_history)" +
                                                         " values ({0}, {1}, '{2}', {3}, '{4}')", 
                                                         traveling.id, t_gas_all.ToString().Replace(",", "."), id, traveling.id_car.id, traveling.date_traveling.ToString("yyyy-MM-dd"));
                             else
-                                query = string.Format("insert into History_gas (id_traveling, prev_t_gas, one_to_many, id_car, date_history) " +
+                                query = string.Format("insert into History_gas (id_traveling, prev_t_gas, id_gasstation, id_car, date_history) " +
                                                         "values ({0}, {1}, '{2}', {3}, '{4}')",
                                                         traveling.id, t_gas_all.ToString().Replace(",", "."), id, traveling.id_car.id, traveling.date_traveling.AddDays(1).ToString("yyyy-MM-dd"));
                             cmd = new SqlCommand(query, connect);
@@ -170,11 +170,11 @@ namespace Mekus.classes
                                 SqlCommand cmd = new SqlCommand(query, connect);
                                 cmd.ExecuteNonQuery();
                                 if(daygas == false)
-                                    query = string.Format("insert into History_gas (id_traveling, prev_t_gas, one_to_many, id_car, date_history) " +
+                                    query = string.Format("insert into History_gas (id_traveling, prev_t_gas, id_gasstation, id_car, date_history) " +
                                                             "values ({0}, {1}, '{2}', {3}, '{4}')", 
                                                             traveling.id, (Enter_gas - Really_gas).ToString().Replace(",", "."), id, traveling.id_car.id, traveling.date_traveling.ToString("yyyy-MM-dd"));
                                 else
-                                    query = string.Format("insert into History_gas (id_traveling, prev_t_gas, one_to_many, id_car, date_history) " +
+                                    query = string.Format("insert into History_gas (id_traveling, prev_t_gas, id_gasstation, id_car, date_history) " +
                                                             "values ({0}, {1}, '{2}', {3}, '{4}')", 
                                                             traveling.id, (Enter_gas - Really_gas).ToString().Replace(",", "."), id, traveling.id_car.id, traveling.date_traveling.AddDays(1).ToString("yyyy-MM-dd"));
                                 cmd = new SqlCommand(query, connect);
