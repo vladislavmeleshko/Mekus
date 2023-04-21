@@ -298,6 +298,12 @@ namespace Mekus.forms.travelings
                         { 
                             if (textBox25.Text != "")
                                 traveling.id_gasstation.addGasstation(db, traveling.Z_gas_2, traveling.P_gas_2, traveling, false, textBox25.Text);
+                            else traveling.id_gasstation.addGasstation(db, traveling.Z_gas_2, traveling.P_gas_2, traveling, false);
+                        }
+                        else
+                        {
+                            if (textBox25.Text != "")
+                                traveling.id_gasstation.addGasstation(db, traveling.Z_gas_2, traveling.P_gas_2, traveling, true, textBox25.Text);
                             else traveling.id_gasstation.addGasstation(db, traveling.Z_gas_2, traveling.P_gas_2, traveling, true);
                         }
                     }
