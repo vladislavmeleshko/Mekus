@@ -432,14 +432,14 @@ namespace Mekus
                             reportGases[i].car,
                             reportGases[i].name_gas,
                             reportGases[i].Price_gas,
-                            "null",
+                            reportGases[i].S_gas,
                             reportGases[i].Amount_really_gas,
                             reportGases[i].Amount_enter_gas,
                             reportGases[i].Price_enter_gasNDS,
                             reportGases[i].Price_enter_gas,
                             reportGases[i].Price_really_gasNDS,
                             reportGases[i].Price_really_gas,
-                            "null"
+                            reportGases[i].E_gas
                         );
                 }
             }
