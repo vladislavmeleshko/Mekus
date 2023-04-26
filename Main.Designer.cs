@@ -115,13 +115,13 @@
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.tabPage8 = new System.Windows.Forms.TabPage();
-            this.dateTimePicker6 = new System.Windows.Forms.DateTimePicker();
-            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.dataGridView7 = new System.Windows.Forms.DataGridView();
+            this.button12 = new System.Windows.Forms.Button();
+            this.button11 = new System.Windows.Forms.Button();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.dateTimePicker7 = new System.Windows.Forms.DateTimePicker();
-            this.button11 = new System.Windows.Forms.Button();
-            this.button12 = new System.Windows.Forms.Button();
-            this.dataGridView7 = new System.Windows.Forms.DataGridView();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.dateTimePicker6 = new System.Windows.Forms.DateTimePicker();
             this.Column42 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column31 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column32 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -129,10 +129,10 @@
             this.Column40 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column34 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column37 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column35 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column36 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column38 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column39 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column35 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column36 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column41 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -157,9 +157,9 @@
             this.groupBox7.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.tabPage8.SuspendLayout();
-            this.groupBox8.SuspendLayout();
-            this.groupBox9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView7)).BeginInit();
+            this.groupBox9.SuspendLayout();
+            this.groupBox8.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -927,22 +927,49 @@
             this.tabPage8.Text = "Отчет по топливу";
             this.tabPage8.UseVisualStyleBackColor = true;
             // 
-            // dateTimePicker6
+            // dataGridView7
             // 
-            this.dateTimePicker6.Location = new System.Drawing.Point(6, 19);
-            this.dateTimePicker6.Name = "dateTimePicker6";
-            this.dateTimePicker6.Size = new System.Drawing.Size(188, 20);
-            this.dateTimePicker6.TabIndex = 0;
+            this.dataGridView7.AllowUserToAddRows = false;
+            this.dataGridView7.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridView7.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.dataGridView7.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView7.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column42,
+            this.Column31,
+            this.Column32,
+            this.Column33,
+            this.Column40,
+            this.Column34,
+            this.Column37,
+            this.Column38,
+            this.Column39,
+            this.Column35,
+            this.Column36,
+            this.Column41});
+            this.dataGridView7.Location = new System.Drawing.Point(209, 3);
+            this.dataGridView7.Name = "dataGridView7";
+            this.dataGridView7.ReadOnly = true;
+            this.dataGridView7.Size = new System.Drawing.Size(1553, 757);
+            this.dataGridView7.TabIndex = 5;
             // 
-            // groupBox8
+            // button12
             // 
-            this.groupBox8.Controls.Add(this.dateTimePicker6);
-            this.groupBox8.Location = new System.Drawing.Point(3, 3);
-            this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(200, 50);
-            this.groupBox8.TabIndex = 1;
-            this.groupBox8.TabStop = false;
-            this.groupBox8.Text = "Период с";
+            this.button12.Location = new System.Drawing.Point(3, 145);
+            this.button12.Name = "button12";
+            this.button12.Size = new System.Drawing.Size(200, 23);
+            this.button12.TabIndex = 4;
+            this.button12.Text = "Сформировать отчет в Excel";
+            this.button12.UseVisualStyleBackColor = true;
+            // 
+            // button11
+            // 
+            this.button11.Location = new System.Drawing.Point(3, 116);
+            this.button11.Name = "button11";
+            this.button11.Size = new System.Drawing.Size(200, 23);
+            this.button11.TabIndex = 3;
+            this.button11.Text = "Сформировать отчет";
+            this.button11.UseVisualStyleBackColor = true;
+            this.button11.Click += new System.EventHandler(this.button11_Click);
             // 
             // groupBox9
             // 
@@ -961,49 +988,22 @@
             this.dateTimePicker7.Size = new System.Drawing.Size(188, 20);
             this.dateTimePicker7.TabIndex = 0;
             // 
-            // button11
+            // groupBox8
             // 
-            this.button11.Location = new System.Drawing.Point(3, 116);
-            this.button11.Name = "button11";
-            this.button11.Size = new System.Drawing.Size(200, 23);
-            this.button11.TabIndex = 3;
-            this.button11.Text = "Сформировать отчет";
-            this.button11.UseVisualStyleBackColor = true;
-            this.button11.Click += new System.EventHandler(this.button11_Click);
+            this.groupBox8.Controls.Add(this.dateTimePicker6);
+            this.groupBox8.Location = new System.Drawing.Point(3, 3);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(200, 50);
+            this.groupBox8.TabIndex = 1;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "Период с";
             // 
-            // button12
+            // dateTimePicker6
             // 
-            this.button12.Location = new System.Drawing.Point(3, 145);
-            this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(200, 23);
-            this.button12.TabIndex = 4;
-            this.button12.Text = "Сформировать отчет в Excel";
-            this.button12.UseVisualStyleBackColor = true;
-            // 
-            // dataGridView7
-            // 
-            this.dataGridView7.AllowUserToAddRows = false;
-            this.dataGridView7.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView7.BackgroundColor = System.Drawing.SystemColors.Control;
-            this.dataGridView7.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView7.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column42,
-            this.Column31,
-            this.Column32,
-            this.Column33,
-            this.Column40,
-            this.Column34,
-            this.Column37,
-            this.Column35,
-            this.Column36,
-            this.Column38,
-            this.Column39,
-            this.Column41});
-            this.dataGridView7.Location = new System.Drawing.Point(209, 3);
-            this.dataGridView7.Name = "dataGridView7";
-            this.dataGridView7.ReadOnly = true;
-            this.dataGridView7.Size = new System.Drawing.Size(1553, 757);
-            this.dataGridView7.TabIndex = 5;
+            this.dateTimePicker6.Location = new System.Drawing.Point(6, 19);
+            this.dateTimePicker6.Name = "dateTimePicker6";
+            this.dateTimePicker6.Size = new System.Drawing.Size(188, 20);
+            this.dateTimePicker6.TabIndex = 0;
             // 
             // Column42
             // 
@@ -1039,27 +1039,15 @@
             // 
             // Column34
             // 
-            this.Column34.HeaderText = "Кол-во израсходованного топлива, литров";
+            this.Column34.HeaderText = "Всего потрачено топлива, литров";
             this.Column34.Name = "Column34";
             this.Column34.ReadOnly = true;
             // 
             // Column37
             // 
-            this.Column37.HeaderText = "Кол-во заправленного топлива, литров";
+            this.Column37.HeaderText = "Всего заправлено топлива, литров";
             this.Column37.Name = "Column37";
             this.Column37.ReadOnly = true;
-            // 
-            // Column35
-            // 
-            this.Column35.HeaderText = "Стоимость израсходованного топлива, рублей";
-            this.Column35.Name = "Column35";
-            this.Column35.ReadOnly = true;
-            // 
-            // Column36
-            // 
-            this.Column36.HeaderText = "Стоимость израсходованного топлива (без НДС), рублей";
-            this.Column36.Name = "Column36";
-            this.Column36.ReadOnly = true;
             // 
             // Column38
             // 
@@ -1072,6 +1060,18 @@
             this.Column39.HeaderText = "Стоимость заправленного топлива (без НДС), рублей";
             this.Column39.Name = "Column39";
             this.Column39.ReadOnly = true;
+            // 
+            // Column35
+            // 
+            this.Column35.HeaderText = "Стоимость израсходованного топлива, рублей";
+            this.Column35.Name = "Column35";
+            this.Column35.ReadOnly = true;
+            // 
+            // Column36
+            // 
+            this.Column36.HeaderText = "Стоимость израсходованного топлива (без НДС), рублей";
+            this.Column36.Name = "Column36";
+            this.Column36.ReadOnly = true;
             // 
             // Column41
             // 
@@ -1113,9 +1113,9 @@
             this.groupBox7.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
             this.tabPage8.ResumeLayout(false);
-            this.groupBox8.ResumeLayout(false);
-            this.groupBox9.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView7)).EndInit();
+            this.groupBox9.ResumeLayout(false);
+            this.groupBox8.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1223,10 +1223,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column40;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column34;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column37;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column35;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column36;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column38;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column39;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column35;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column36;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column41;
     }
 }

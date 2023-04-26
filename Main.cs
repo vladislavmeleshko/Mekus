@@ -435,10 +435,10 @@ namespace Mekus
                             "null",
                             reportGases[i].Amount_really_gas,
                             reportGases[i].Amount_enter_gas,
-                            reportGases[i].Price_really_gasNDS,
-                            reportGases[i].Price_really_gas,
                             reportGases[i].Price_enter_gasNDS,
                             reportGases[i].Price_enter_gas,
+                            reportGases[i].Price_really_gasNDS,
+                            reportGases[i].Price_really_gas,
                             "null"
                         );
                 }
