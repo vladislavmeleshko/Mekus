@@ -193,6 +193,89 @@ namespace Mekus.classes
             }
         }
 
+        public List<ReportGases> reportGases(DateTime date1, DateTime date2)
+        {
+            using (SqlConnection connect = new SqlConnection(str_connect))
+            { 
+                try
+                {
+                    List<ReportGases> reportGases = new List<ReportGases>();
+                    connect.Open();
+                    string query = string.Format("select Cars.car 'Автомобиль',\r\nGasstations.name_gas 'Вид топлива',\r\nGasstations.price 'Стоимость'," +
+                                                    "\r\nsum(prev_t_gas) 'Кол-во израсходованного топлива',\r\nGasstations.price * sum(prev_t_gas) 'Стоимость израсходованного топлива'," +
+                                                    "\r\nGasstations.price * sum(prev_t_gas) / 1.2 'Стоимость израсходованного топлива (без НДС)'\r\nfrom History_gas, Cars, Travelings, Gasstations, Models, Gases" +
+                                                    "\r\nwhere History_gas.id_traveling = Travelings.id and\r\nHistory_gas.id_gasstation = Gasstations.id and \r\nHistory_gas.id_car = Cars.id and " +
+                                                    "\r\ndate_history >= '{0}' and date_history <= '{1}' and\r\nCars.id_model = Models.id and\r\nModels.id_gas = Gases.id\r\ngroup by Cars.id," +
+                                                    " Cars.car, Gasstations.price, Gases.gas, Gasstations.name_gas\r\norder by Cars.id", date1.ToString("yyyy-MM-dd"), date2.ToString("yyyy-MM-dd"));
+                    SqlCommand cmd = new SqlCommand(query, connect);
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        while(reader.Read())
+                        {
+                            ReportGases report = new ReportGases
+                            ( 
+                                (string)reader.GetValue(0),
+                                (string)reader.GetValue(1),
+                                (decimal)reader.GetValue(2),
+                                (decimal)reader.GetValue(3),
+                                (decimal)reader.GetValue(4),
+                                (decimal)reader.GetValue(5)
+                            );
+                            reportGases.Add(report);
+                        }
+                    }
+                    reader.Close();
+                    query = string.Format("select Cars.car 'Автомобиль',\r\nGasstations.name_gas 'Вид топлива',\r\nprice 'Стоимость',\r\nsum(enter_gas) 'Кол-во заправленного топлива'," +
+                                            "\r\nsum(enter_gas*price) 'Стоимость заправленного топлива',\r\nsum(enter_gas*price / 1.2) 'Стоимость заправленного топлива (без НДС)'\r\nfrom Gasstations, Cars" +
+                                            "\r\nwhere Gasstations.id_car = Cars.id and\r\ndate_gas >= '{0}' and date_gas <= '{1}'\r\ngroup by Cars.id, Cars.car, price, Gasstations.name_gas\r\norder by Cars.id",
+                                            date1.ToString("yyyy-MM-dd"), date2.ToString("yyyy-MM-dd"));
+                    cmd = new SqlCommand(query, connect);
+                    reader = cmd.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        while(reader.Read()) 
+                        {
+                            bool check = false;
+                            for (int i = 0; i < reportGases.Count; i++)
+                            {
+                                if (reportGases[i].car == (string)reader.GetValue(0) && reportGases[i].name_gas == (string)reader.GetValue(1) && reportGases[i].Price_gas == (decimal)reader.GetValue(2))
+                                {
+                                    reportGases[i].Amount_enter_gas = (decimal)reader.GetValue(3);
+                                    reportGases[i].Price_enter_gasNDS = (decimal)reader.GetValue(4);
+                                    reportGases[i].Price_enter_gas = (decimal)reader.GetValue(5);
+                                    check = true;
+                                    break;
+                                } 
+                            }
+                            if(check == false)
+                            {
+                                ReportGases report = new ReportGases
+                                (
+                                    (string)reader.GetValue(0),
+                                    (string)reader.GetValue(1),
+                                    (decimal)reader.GetValue(2),
+                                    (decimal)reader.GetValue(3),
+                                    (decimal)reader.GetValue(4),
+                                    (decimal)reader.GetValue(5),
+                                    1
+                                );
+                                reportGases.Add(report);
+                            }
+                        }
+                    }
+                    reader.Close();
+                    connect.Close();
+                    return reportGases;
+                }
+                catch
+                {
+                    connect.Close();
+                    return null;
+                }
+            }
+        }
+
         public void get_all_data()
         {
             get_gases();

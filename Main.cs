@@ -418,6 +418,36 @@ namespace Mekus
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                dataGridView7.Rows.Clear();
+                List<ReportGases> reportGases = db.reportGases(dateTimePicker6.Value.Date, dateTimePicker7.Value.Date);
+                for(int i = 0; i < reportGases.Count; i++)
+                {
+                    dataGridView7.Rows.Add(
+                            (int)i + 1,
+                            reportGases[i].car,
+                            reportGases[i].name_gas,
+                            reportGases[i].Price_gas,
+                            "null",
+                            reportGases[i].Amount_really_gas,
+                            reportGases[i].Amount_enter_gas,
+                            reportGases[i].Price_really_gasNDS,
+                            reportGases[i].Price_really_gas,
+                            reportGases[i].Price_enter_gasNDS,
+                            reportGases[i].Price_enter_gas,
+                            "null"
+                        );
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }
 

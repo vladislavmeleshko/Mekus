@@ -94,6 +94,7 @@
     <Compile Include="classes\Gas.cs" />
     <Compile Include="classes\Gasstation.cs" />
     <Compile Include="classes\Model.cs" />
+    <Compile Include="classes\ReportGases.cs" />
     <Compile Include="classes\Traveling.cs" />
     <Compile Include="forms\cars\crud_cars.cs">
       <SubType>Form</SubType>
