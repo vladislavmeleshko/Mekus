@@ -256,7 +256,7 @@ namespace Mekus.classes
                     try
                     {
                         connect.Open();
-                        string query = string.Format("delete History_gas where one_to_many >= {0} and id_traveling >= (select top 1 id from travelings where status_traveling=0 and id_car={1})" +
+                        string query = string.Format("delete History_gas where id_gasstation >= {0} and id_traveling >= (select top 1 id from travelings where status_traveling=0 and id_car={1})" +
                             " and id_car = {2}", id_gasstation2, id_car, id_car);
                         SqlCommand cmd = new SqlCommand(query, connect);
                         cmd.ExecuteNonQuery();
@@ -288,7 +288,7 @@ namespace Mekus.classes
                     {
                         connect.Open();
                         decimal sum_t_gas = 0.00m;
-                        string query = string.Format("select sum(prev_t_gas) from History_gas where one_to_many = {0}", id_gasstation);
+                        string query = string.Format("select sum(prev_t_gas) from History_gas where id_gasstation = {0}", id_gasstation);
                         SqlCommand cmd = new SqlCommand(query, connect);
                         SqlDataReader reader = cmd.ExecuteReader();
                         while(reader.Read())

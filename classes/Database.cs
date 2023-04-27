@@ -196,7 +196,7 @@ namespace Mekus.classes
         public List<ReportGases> reportGases(DateTime date1, DateTime date2)
         {
             using (SqlConnection connect = new SqlConnection(str_connect))
-            { 
+            {
                 try
                 {
                     List<ReportGases> reportGases = new List<ReportGases>();
@@ -212,10 +212,10 @@ namespace Mekus.classes
                     SqlDataReader reader = cmd.ExecuteReader();
                     if (reader.HasRows)
                     {
-                        while(reader.Read())
+                        while (reader.Read())
                         {
                             ReportGases report = new ReportGases
-                            ( 
+                            (
                                 (string)reader.GetValue(0),
                                 (string)reader.GetValue(1),
                                 (decimal)reader.GetValue(2),
@@ -235,7 +235,7 @@ namespace Mekus.classes
                     reader = cmd.ExecuteReader();
                     if (reader.HasRows)
                     {
-                        while(reader.Read()) 
+                        while (reader.Read())
                         {
                             bool check = false;
                             for (int i = 0; i < reportGases.Count; i++)
@@ -247,9 +247,9 @@ namespace Mekus.classes
                                     reportGases[i].Price_enter_gas = (decimal)reader.GetValue(5);
                                     check = true;
                                     break;
-                                } 
+                                }
                             }
-                            if(check == false)
+                            if (check == false)
                             {
                                 ReportGases report = new ReportGases
                                 (
@@ -266,14 +266,7 @@ namespace Mekus.classes
                         }
                     }
                     reader.Close();
-                    connect.Close();
-                    for(int i = 0; i < reportGases.Count; i++)
-                    {
-                        if (reportGases[i].Amount_really_gas - reportGases[i].Amount_enter_gas > 0)
-                            reportGases[i].S_gas = reportGases[i].Amount_really_gas - reportGases[i].Amount_enter_gas;
-                        if (reportGases[i].Amount_really_gas < reportGases[i].Amount_enter_gas)
-                            reportGases[i].E_gas = reportGases[i].Amount_enter_gas - reportGases[i].Amount_really_gas;
-                    }
+                    connect.Close();        
                     return reportGases;
                 }
                 catch
