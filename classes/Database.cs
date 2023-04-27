@@ -344,8 +344,7 @@ namespace Mekus.classes
                         }
                     }
                     reader.Close();
-
-                    connect.Close();        
+                    connect.Close();
                     return reportGases;
                 }
                 catch
