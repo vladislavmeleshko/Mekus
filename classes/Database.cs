@@ -266,6 +266,85 @@ namespace Mekus.classes
                         }
                     }
                     reader.Close();
+
+                    query = string.Format("select\r\nCars.car,\r\nsum(enter_gas) 'Заправлено',\r\nprice 'Стоимость'," +
+                                            "\r\nname_gas 'Вид'\r\nfrom Gasstations, Cars\r\nwhere \r\ndate_gas <= '{0}'" +
+                                            " and\r\nGasstations.id_car = Cars.id\r\ngroup by Cars.car, Cars.id, name_gas, price" +
+                                            "\r\norder by Cars.id", date2.ToString("yyyy-MM-dd"));
+                    cmd = new SqlCommand(query, connect);
+                    reader = cmd.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            for(int i = 0; i < reportGases.Count; i++)
+                            {
+                                if (reportGases[i].car == (string)reader.GetValue(0) && reportGases[i].name_gas == (string)reader.GetValue(3) && reportGases[i].Price_gas == (decimal)reader.GetValue(2))
+                                    reportGases[i].E_gas = (decimal)reader.GetValue(1);
+                            }
+                        }
+                    }
+                    reader.Close();
+
+                    query = string.Format("select\r\nCars.car,\r\nsum(prev_t_gas) 'Потрачено',\r\nprice 'Стоимость'," +
+                                            "\r\nname_gas 'Вид'\r\nfrom History_gas, Cars, Gasstations\r\nwhere\r\n" +
+                                            "date_history <= '{0}' and\r\nHistory_gas.id_car = Cars.id and\r\n" +
+                                            "History_gas.id_gasstation = Gasstations.id and\r\nGasstations.id_car = Cars.id" +
+                                            "\r\ngroup by Cars.car, Cars.id, name_gas, price\r\norder by Cars.id", date2.ToString("yyyy-MM-dd"));
+                    cmd = new SqlCommand(query, connect);
+                    reader = cmd.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            for (int i = 0; i < reportGases.Count; i++)
+                            {
+                                if (reportGases[i].car == (string)reader.GetValue(0) && reportGases[i].name_gas == (string)reader.GetValue(3) && reportGases[i].Price_gas == (decimal)reader.GetValue(2))
+                                    reportGases[i].E_gas -= (decimal)reader.GetValue(1);
+                            }
+                        }
+                    }
+                    reader.Close();
+
+                    query = string.Format("select\r\nCars.car,\r\nsum(enter_gas) 'Заправлено',\r\nprice 'Стоимость'," +
+                                            "\r\nname_gas 'Вид'\r\nfrom Gasstations, Cars\r\nwhere \r\ndate_gas < '{0}'" +
+                                            " and\r\nGasstations.id_car = Cars.id\r\ngroup by Cars.car, Cars.id, name_gas, price" +
+                                            "\r\norder by Cars.id", date1.ToString("yyyy-MM-dd"));
+                    cmd = new SqlCommand(query, connect);
+                    reader = cmd.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            for (int i = 0; i < reportGases.Count; i++)
+                            {
+                                if (reportGases[i].car == (string)reader.GetValue(0) && reportGases[i].name_gas == (string)reader.GetValue(3) && reportGases[i].Price_gas == (decimal)reader.GetValue(2))
+                                    reportGases[i].S_gas = (decimal)reader.GetValue(1);
+                            }
+                        }
+                    }
+                    reader.Close();
+
+                    query = string.Format("select\r\nCars.car,\r\nsum(prev_t_gas) 'Потрачено',\r\nprice 'Стоимость'," +
+                                            "\r\nname_gas 'Вид'\r\nfrom History_gas, Cars, Gasstations\r\nwhere\r\n" +
+                                            "date_history < '{0}' and\r\nHistory_gas.id_car = Cars.id and\r\n" +
+                                            "History_gas.id_gasstation = Gasstations.id and\r\nGasstations.id_car = Cars.id" +
+                                            "\r\ngroup by Cars.car, Cars.id, name_gas, price\r\norder by Cars.id", date1.ToString("yyyy-MM-dd"));
+                    cmd = new SqlCommand(query, connect);
+                    reader = cmd.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            for (int i = 0; i < reportGases.Count; i++)
+                            {
+                                if (reportGases[i].car == (string)reader.GetValue(0) && reportGases[i].name_gas == (string)reader.GetValue(3) && reportGases[i].Price_gas == (decimal)reader.GetValue(2))
+                                    reportGases[i].S_gas -= (decimal)reader.GetValue(1);
+                            }
+                        }
+                    }
+                    reader.Close();
+
                     connect.Close();        
                     return reportGases;
                 }
