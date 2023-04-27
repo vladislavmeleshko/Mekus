@@ -266,6 +266,13 @@ namespace Mekus.classes
                     }
                     reader.Close();
                     connect.Close();
+                    for(int i = 0; i < reportGases.Count; i++)
+                    {
+                        if (reportGases[i].Amount_really_gas - reportGases[i].Amount_enter_gas > 0)
+                            reportGases[i].S_gas = reportGases[i].Amount_really_gas - reportGases[i].Amount_enter_gas;
+                        if (reportGases[i].Amount_really_gas < reportGases[i].Amount_enter_gas)
+                            reportGases[i].E_gas = reportGases[i].Amount_enter_gas - reportGases[i].Amount_really_gas;
+                    }
                     return reportGases;
                 }
                 catch
