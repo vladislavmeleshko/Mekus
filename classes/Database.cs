@@ -203,7 +203,8 @@ namespace Mekus.classes
                     connect.Open();
                     string query = string.Format("select Cars.car 'Автомобиль',\r\nGasstations.name_gas 'Вид топлива',\r\nGasstations.price 'Стоимость'," +
                                                     "\r\nsum(prev_t_gas) 'Кол-во израсходованного топлива',\r\nGasstations.price * sum(prev_t_gas) 'Стоимость израсходованного топлива'," +
-                                                    "\r\nGasstations.price * sum(prev_t_gas) / 1.2 'Стоимость израсходованного топлива (без НДС)'\r\nfrom History_gas, Cars, Travelings, Gasstations, Models, Gases" +
+                                                    "\r\nGasstations.price * sum(prev_t_gas) / 1.2 'Стоимость израсходованного топлива (без НДС)'" +
+                                                    "\r\nfrom History_gas, Cars, Travelings, Gasstations, Models, Gases" +
                                                     "\r\nwhere History_gas.id_traveling = Travelings.id and\r\nHistory_gas.id_gasstation = Gasstations.id and \r\nHistory_gas.id_car = Cars.id and " +
                                                     "\r\ndate_history >= '{0}' and date_history <= '{1}' and\r\nCars.id_model = Models.id and\r\nModels.id_gas = Gases.id\r\ngroup by Cars.id," +
                                                     " Cars.car, Gasstations.price, Gases.gas, Gasstations.name_gas\r\norder by Cars.id", date1.ToString("yyyy-MM-dd"), date2.ToString("yyyy-MM-dd"));
