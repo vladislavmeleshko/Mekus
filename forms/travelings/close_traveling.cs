@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Security.Policy;
 using Mekus.belarusneft;
+using System.Linq;
 
 namespace Mekus.forms.travelings
 {
@@ -30,8 +31,6 @@ namespace Mekus.forms.travelings
 
         public close_traveling(Database db, Main main, Traveling traveling)
         {
-            InitializeComponent();
-
             this.db = db;
             this.main = main;
 
@@ -40,6 +39,8 @@ namespace Mekus.forms.travelings
 
             db.cars = db.get_cars();
             this.traveling.id_car = db.cars.Find(x => x.id == traveling.id_car.id);
+
+            InitializeComponent();
 
             for (int i = 0; i < db.cars.Count; i++)
                 comboBox1.Items.Add(db.cars[i].car);
@@ -55,10 +56,6 @@ namespace Mekus.forms.travelings
                 textBox8.Text = Convert.ToString(traveling.id_car.Gas);
                 this.traveling.S_gas_1 = traveling.id_car.Gas;
                 textBox11.Text = Convert.ToString(traveling.id_car.id_model.Rasxod);
-                textBox12.Text = Convert.ToString(traveling.Z_gas_1);
-                textBox13.Text = Convert.ToString(traveling.id_car.id_model.id_gas.Price);
-
-                GetRequestInNavBy(traveling.date_traveling, traveling.date_traveling, traveling.id_car.nav_id_object);
 
                 edit_traveling = true;
             }
@@ -75,13 +72,17 @@ namespace Mekus.forms.travelings
                 textBox8.Text = Convert.ToString(traveling.S_gas_1);
                 textBox9.Text = Convert.ToString(traveling.E_gas_1);
                 textBox10.Text = Convert.ToString(traveling.T_gas_1);
-                textBox14.Text = Convert.ToString(traveling.t_probeg_all);
-                textBox15.Text = Convert.ToString(traveling.Z_gas_1);
                 textBox11.Text = Convert.ToString(traveling.R_gas_1);
-                textBox12.Text = Convert.ToString(traveling.Z_gas_1);
-                textBox13.Text = Convert.ToString(traveling.P_gas_1);
 
-                GetRequestInNavBy(traveling.date_traveling, traveling.date_traveling, traveling.id_car.nav_id_object);
+                for (int i = 0; i < traveling.listGasstations.Count; i++)
+                { 
+                    dataGridView2.Rows.Add(
+                            traveling.listGasstations[i].date_gas,
+                            traveling.listGasstations[i].name_gas,
+                            traveling.listGasstations[i].Enter_gas,
+                            traveling.listGasstations[i].Price
+                        );
+                }
 
                 button1.Enabled = false;
                 button2.Enabled = false;
@@ -134,40 +135,6 @@ namespace Mekus.forms.travelings
             }
         }
 
-        private void textBox12_TextChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                if(read_traveling == false)
-                {
-                    traveling.Z_gas_1 = Convert.ToDecimal(textBox12.Text);
-                    if (textBox6.Text.Length != 0)
-                        textBox6_TextChanged(sender, e);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-        private void textBox13_TextChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                if (read_traveling == false)
-                {
-                    traveling.P_gas_1 = Convert.ToDecimal(textBox13.Text);
-                    if (textBox6.Text.Length != 0 && read_traveling == false)
-                        textBox6_TextChanged(sender, e);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
         public void button1_Click(object sender, EventArgs e)
         {
             try
@@ -189,10 +156,22 @@ namespace Mekus.forms.travelings
                     traveling.id_car.Gas = traveling.E_gas_1;
 
                     if (traveling.Z_gas_1 != 0)
-                    { 
-                        if(textBox4.Text != "")
-                            traveling.id_gasstation.addGasstation(db, traveling.Z_gas_1, traveling.P_gas_1, traveling, false, textBox4.Text);
-                        else traveling.id_gasstation.addGasstation(db, traveling.Z_gas_1, traveling.P_gas_1, traveling, false);
+                    {
+                        //if (textBox4.Text != "")
+                        //    traveling.id_gasstation.addGasstation(db, traveling.Z_gas_1, traveling.P_gas_1, traveling, false, textBox4.Text);
+                        //else traveling.id_gasstation.addGasstation(db, traveling.Z_gas_1, traveling.P_gas_1, traveling, false);
+                        for(int i = 0; i < traveling.listGasstations.Count; i++)
+                        {
+                            traveling.id_gasstation.addGasstation(
+                                        db,
+                                        traveling.listGasstations[i].Enter_gas,
+                                        traveling.listGasstations[i].Price,
+                                        traveling,
+                                        traveling.listGasstations[i].date_gas,
+                                        traveling.listGasstations[i].name_gas
+                                    );
+                            traveling.listGasstations[i].id = db.gasstations.FindLast(x => x.id_car == traveling.id_car).id;
+                        }
                     }
 
                     traveling.P_traveling_1 = traveling.id_gasstation.get_price_traveling_test_2(db, traveling, traveling.T_gas_1, 0.00m);
@@ -211,56 +190,6 @@ namespace Mekus.forms.travelings
                         Close();
                     }
                 }
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-        public void GetRequestInNavBy(DateTime from, DateTime to, int nav_id_object)
-        {
-            try
-            {
-                if (nav_id_object != 5716630 && nav_id_object != 5431279)
-                {
-                    string url = @"https://api.nav.by/info/integration.php?type=OBJECT_STAT_DATA&token=613ce8ea-8506-49a6-bf76-279a635601ce&from="
-                            + from.Date.ToString("yyyy-MM-dd") + " 00:00:00&to=" + to.Date.ToString("yyyy-MM-dd") + " 23:59:00&object_id=" + nav_id_object;
-
-                    WebRequest request = WebRequest.Create(url);
-                    HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-                    Stream dataStream = response.GetResponseStream();
-                    StreamReader reader = new StreamReader(dataStream);
-                    string responseFromServer = reader.ReadToEnd();
-
-                    JSONParser parser = new JSONParser();
-                    parser = JsonSerializer.Deserialize<JSONParser>(responseFromServer);
-
-
-                    if (parser.root.result.items[0].distance_can != 0)
-                        textBox14.Text = Convert.ToString(Convert.ToDecimal(decimal.Round((decimal)parser.root.result.items[0].distance_can, 3, MidpointRounding.AwayFromZero) / 1000));
-                    else
-                        textBox14.Text = Convert.ToString(Convert.ToDecimal(decimal.Round((decimal)parser.root.result.items[0].distance_gps, 3, MidpointRounding.AwayFromZero) / 1000));
-
-                    if (parser.root.result.items[0].fuel_in_list.Length > 0)
-                    {
-                        if (parser.root.result.items[0].fuel_in_list.Length == 1)
-                            if (parser.root.result.items[0].fuel_in_list[0].value > 0)
-                                textBox15.Text += Convert.ToString(parser.root.result.items[0].fuel_in_list[0].value);
-                            else
-                                textBox15.Text += "0";
-                    }
-
-                    if (parser.root.result.items[0].odom_start != 0)
-                        textBox16.Text = Convert.ToString(parser.root.result.items[0].odom_start);
-                    else
-                        textBox16.Text = "0";
-
-                    if (parser.root.result.items[0].odom_finish != 0)
-                        textBox17.Text = Convert.ToString(parser.root.result.items[0].odom_finish);
-                    else
-                        textBox17.Text = "0";
-                }   
             }
             catch(Exception ex)
             {
@@ -359,6 +288,57 @@ namespace Mekus.forms.travelings
             {
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                dataGridView2.Rows.Add(
+                        dateTimePicker3.Value.Date.ToString("dd.MM.yyyy"), "", "", traveling.id_car.id_model.id_gas.Price
+                    );
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void raschetGas()
+        {
+            try
+            {
+                traveling.listGasstations = new List<Gasstation>();
+                for(int i = 0; i <  dataGridView2.Rows.Count; i++)
+                {
+                    if (dataGridView2.Rows[i].Cells[0].Value.ToString() == "") throw new Exception("Укажите дату заправки");
+                    if (dataGridView2.Rows[i].Cells[2].Value.ToString() == "") throw new Exception("Укажите количество заправленного топлива");
+                    if (dataGridView2.Rows[i].Cells[3].Value.ToString() == "") throw new Exception("Укажите количество стоимость топлива");
+                    traveling.listGasstations.Add(new Gasstation(
+                            Convert.ToDateTime(dataGridView2.Rows[i].Cells[0].Value.ToString()),
+                            Convert.ToDecimal(dataGridView2.Rows[i].Cells[2].Value.ToString()),
+                            Convert.ToDecimal(dataGridView2.Rows[i].Cells[3].Value.ToString()),
+                            dataGridView2.Rows[i].Cells[1].Value.ToString()
+                        ));
+                }
+                traveling.Z_gas_1 = traveling.listGasstations.Sum(x => x.Enter_gas);
+                traveling.E_gas_1 = traveling.S_gas_1 - traveling.T_gas_1 + traveling.Z_gas_1;
+                textBox9.Text = Convert.ToString(traveling.E_gas_1);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void dataGridView2_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            raschetGas();
+        }
+
+        private void dataGridView2_UserDeletedRow(object sender, DataGridViewRowEventArgs e)
+        {
+            raschetGas();
         }
     }
 }

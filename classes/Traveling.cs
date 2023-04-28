@@ -17,6 +17,7 @@ namespace Mekus.classes
         public Car id_car { get; set; }
         public Courier id_courier { get; set; }
         public Gasstation id_gasstation { get; set; }
+        public List<Gasstation> listGasstations { get; set; }
         public int s_probeg_1 { get; set; }
         public int e_probeg_1 { get; set; }
         public int t_probeg_1 { get; set; }
@@ -68,7 +69,7 @@ namespace Mekus.classes
 
         }
 
-        public Traveling(int id, int number, DateTime date_traveling, Car id_car, Courier id_courier, Gasstation id_gasstation, int s_probeg_1, int e_probeg_1, int t_probeg_1, int s_probeg_2, int e_probeg_2, int t_probeg_2, int t_probeg_all, decimal s_gas_1, decimal e_gas_1, decimal t_gas_1, decimal r_gas_1, decimal z_gas_1, decimal p_gas_1, decimal s_gas_2, decimal e_gas_2, decimal t_gas_2, decimal r_gas_2, decimal z_gas_2, decimal p_gas_2, decimal t_gas_all, decimal p_traveling_1, decimal p_traveling_2, decimal p_traveling_all, int status_traveling, int status_inRf)
+        public Traveling(int id, int number, DateTime date_traveling, Car id_car, Courier id_courier, Gasstation id_gasstation, int s_probeg_1, int e_probeg_1, int t_probeg_1, int s_probeg_2, int e_probeg_2, int t_probeg_2, int t_probeg_all, decimal s_gas_1, decimal e_gas_1, decimal t_gas_1, decimal r_gas_1, decimal z_gas_1, decimal p_gas_1, decimal s_gas_2, decimal e_gas_2, decimal t_gas_2, decimal r_gas_2, decimal z_gas_2, decimal p_gas_2, decimal t_gas_all, decimal p_traveling_1, decimal p_traveling_2, decimal p_traveling_all, int status_traveling, int status_inRf, List<Gasstation> list)
         {
             this.id = id;
             this.number = number;
@@ -101,6 +102,7 @@ namespace Mekus.classes
             P_traveling_all = p_traveling_all;
             this.status_traveling = status_traveling;
             this.status_inRf = status_inRf;
+            this.listGasstations = list;
         }
 
         public void createTraveling(int status_inRf)
@@ -211,12 +213,20 @@ namespace Mekus.classes
                 try
                 {
                     connect.Open();
+                    string list = "";
+                    for (int i = 0; i < listGasstations.Count; i++)
+                    {
+                        if (i != listGasstations.Count - 1)
+                            list += listGasstations[i].id + ",";
+                        else list += listGasstations[i].id;
+                    }
                     string query = string.Format("update Travelings set s_probeg_1={0}, e_probeg_1={1}, t_probeg_1={2}, s_probeg_2={3}, e_probeg_2={4}, t_probeg_2={5}, t_probeg_all={6}," +
                                                     "s_gas_1=@s_gas_1, e_gas_1=@e_gas_1, t_gas_1=@t_gas_1, r_gas_1=@r_gas_1, z_gas_1=@z_gas_1, p_gas_1=@p_gas_1," +
                                                     "s_gas_2=@s_gas_2, e_gas_2=@e_gas_2, t_gas_2=@t_gas_2, r_gas_2=@r_gas_2, z_gas_2=@z_gas_2, p_gas_2=@p_gas_2," +
                                                     "t_gas_all=@t_gas_all, p_traveling_1=@p_traveling_1, p_traveling_2=@p_traveling_2, p_traveling_all=@p_traveling_all," +
-                                                    "status_traveling=1, id_car={7}, id_gasstation={8} where id={9}", s_probeg_1, e_probeg_1, t_probeg_1, s_probeg_2, e_probeg_2, t_probeg_2, t_probeg_all, id_car.id, id_gasstation.id,
-                                                    id);
+                                                    "status_traveling=1, id_car={7}, id_gasstation={8}, list_gasstations='{9}' where id={10}", s_probeg_1, 
+                                                    e_probeg_1, t_probeg_1, s_probeg_2, e_probeg_2, t_probeg_2, t_probeg_all, id_car.id, id_gasstation.id,
+                                                    list, id);
                     SqlCommand cmd = new SqlCommand(query, connect);
                     SqlParameter param = new SqlParameter("@s_gas_1", S_gas_1);
                     cmd.Parameters.Add(param);

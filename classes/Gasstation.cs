@@ -33,7 +33,7 @@ namespace Mekus.classes
 
         }
 
-        public Gasstation(int id, decimal enter_gas, decimal really_gas, decimal price, Car id_car, DateTime date_gas)
+        public Gasstation(int id, decimal enter_gas, decimal really_gas, decimal price, Car id_car, DateTime date_gas, string name_gas)
         {
             this.id = id;
             Enter_gas = enter_gas;
@@ -41,6 +41,7 @@ namespace Mekus.classes
             Price = price;
             this.id_car = id_car;
             this.date_gas = date_gas;
+            this.name_gas = name_gas;
         }
 
         public Gasstation(decimal enter_gas, decimal really_gas, decimal price, Car id_car, DateTime date_gas)
@@ -50,6 +51,14 @@ namespace Mekus.classes
             Price = price;
             this.id_car = id_car;
             this.date_gas = date_gas;
+        }
+
+        public Gasstation(DateTime? date_gas, decimal enter_gas, decimal price, string name_gas)
+        {
+            this.date_gas = date_gas;
+            Enter_gas = enter_gas;
+            Price = price;
+            this.name_gas = name_gas;
         }
 
         public Gasstation get_gasstation(Database db, Traveling traveling)
@@ -96,7 +105,7 @@ namespace Mekus.classes
                     connect.Open();
                     string query;
                     if (name_gas == "")
-                    { 
+                    {
                         if (traveling.id_car.id_model.id == 1)
                             name_gas = "АИ-95";
                         else if (traveling.id_car.id_model.id == 2)
@@ -107,6 +116,40 @@ namespace Mekus.classes
                         query = string.Format("insert into Gasstations (enter_gas, really_gas, id_car, price, date_gas, name_gas) values (@enter_gas, 0, {0}, @price, '{1}', '{2}')", traveling.id_car.id, traveling.date_traveling, name_gas);
                     else
                         query = string.Format("insert into Gasstations (enter_gas, really_gas, id_car, price, date_gas, name_gas) values (@enter_gas, 0, {0}, @price, '{1}', '{2}')", traveling.id_car.id, traveling.date_traveling.AddDays(1), name_gas);
+                    SqlCommand cmd = new SqlCommand(query, connect);
+                    SqlParameter param = new SqlParameter("@enter_gas", enter_gas);
+                    cmd.Parameters.Add(param);
+                    param = new SqlParameter("@price", price);
+                    cmd.Parameters.Add(param);
+                    cmd.ExecuteNonQuery();
+                    db.gasstations = db.get_gasstations();
+                    connect.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    connect.Close();
+                }
+            }
+        }
+
+        public void addGasstation(Database db, decimal enter_gas, decimal price, Traveling traveling, DateTime? date, string name_gas = "")
+        {
+            using (SqlConnection connect = new SqlConnection(str_connect))
+            {
+                try
+                {
+                    connect.Open();
+                    string query;
+                    if (name_gas == "")
+                    { 
+                        if (traveling.id_car.id_model.id == 1)
+                            name_gas = "АИ-95";
+                        else if (traveling.id_car.id_model.id == 2)
+                            name_gas = "ДТЕвро5";
+                        else name_gas = "ДТ";
+                    }
+                    query = string.Format("insert into Gasstations (enter_gas, really_gas, id_car, price, date_gas, name_gas) values (@enter_gas, 0, {0}, @price, '{1}', '{2}')", traveling.id_car.id, date, name_gas);
                     SqlCommand cmd = new SqlCommand(query, connect);
                     SqlParameter param = new SqlParameter("@enter_gas", enter_gas);
                     cmd.Parameters.Add(param);

@@ -375,14 +375,10 @@ namespace Mekus
                         if (traveling != null)
                         {
                             close_traveling form = new close_traveling(db, this, traveling);
-                            if (xlSht.Cells[i, 12].Value != null)
-                                form.textBox13.Text = xlSht.Cells[i, 12].Value.ToString();
                             if (xlSht.Cells[i, 5].Value != null)
                                 form.textBox6.Text = xlSht.Cells[i, 5].Value.ToString();
                             if (xlSht.Cells[i, 7].Value != null)
                                 form.textBox11.Text = xlSht.Cells[i, 7].Value.ToString();
-                            if (xlSht.Cells[i, 6].Value != null)
-                                form.textBox12.Text = xlSht.Cells[i, 6].Value.ToString();
                             form.button1_Click(sender, e);
                             if (traveling.number == 22054) // НОМЕР ПОСЛЕДНЕГО ПУТЕВОГО ЛИСТА
                                 break;

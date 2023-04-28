@@ -145,7 +145,8 @@ namespace Mekus.classes
                     SqlDataReader reader = cmd.ExecuteReader();
                     if (reader.HasRows)
                         while (reader.Read())
-                            gasstations.Add(new Gasstation((int)reader["id"], (decimal)reader["enter_gas"], (decimal)reader["really_gas"], (decimal)reader["price"], cars.Find(x => x.id == (int)reader["id_car"]), (DateTime)reader["date_gas"]));
+                            gasstations.Add(new Gasstation((int)reader["id"], (decimal)reader["enter_gas"], (decimal)reader["really_gas"], (decimal)reader["price"],
+                                                            cars.Find(x => x.id == (int)reader["id_car"]), (DateTime)reader["date_gas"], (string)reader["name_gas"]));
                     reader.Close();
                     connect.Close();
                     return gasstations;
@@ -171,7 +172,18 @@ namespace Mekus.classes
                     SqlCommand cmd = new SqlCommand(query, connect);
                     SqlDataReader reader = cmd.ExecuteReader();
                     if (reader.HasRows)
+                    { 
                         while (reader.Read())
+                        {
+                            string[] id_gasstations = reader["list_gasstations"].ToString().Split(',');
+                            List<Gasstation> list_gasstations = new List<Gasstation>();
+                            for(int i = 0; i < id_gasstations.Length; i++)
+                            { 
+                                if(id_gasstations[i] != "")
+                                {
+                                    list_gasstations.Add(gasstations.Find(x => x.id == Convert.ToInt32(id_gasstations[i])));
+                                }
+                            }
                             travelings.Add(new Traveling((int)reader["id"], (int)reader["number"], (DateTime)reader["date_traveling"], cars.Find(x => x.id == (int)reader["id_car"]), 
                                             couriers.Find(x => x.id == (int)reader["id_courier"]), gasstations.Find(x => x.id == (int)reader["id_gasstation"]),
                                             (int)reader["s_probeg_1"], (int)reader["e_probeg_1"], (int)reader["t_probeg_1"],
@@ -179,7 +191,9 @@ namespace Mekus.classes
                                             (decimal)reader["s_gas_1"], (decimal)reader["e_gas_1"], (decimal)reader["t_gas_1"], (decimal)reader["r_gas_1"], (decimal)reader["z_gas_1"], (decimal)reader["p_gas_1"],
                                             (decimal)reader["s_gas_2"], (decimal)reader["e_gas_2"], (decimal)reader["t_gas_2"], (decimal)reader["r_gas_2"], (decimal)reader["z_gas_2"], (decimal)reader["p_gas_2"],
                                             (decimal)reader["t_gas_all"], (decimal)reader["p_traveling_1"], (decimal)reader["p_traveling_2"], (decimal)reader["p_traveling_all"], (int)reader["status_traveling"],
-                                            (int)reader["status_inRf"]));
+                                            (int)reader["status_inRf"], list_gasstations));
+                        }
+                    }
                     reader.Close();
                     connect.Close();
                     return travelings;
