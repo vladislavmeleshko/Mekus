@@ -90,6 +90,8 @@
             this.button4 = new System.Windows.Forms.Button();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
             this.dateTimePicker3 = new System.Windows.Forms.DateTimePicker();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -659,6 +661,8 @@
             // 
             // groupBox12
             // 
+            this.groupBox12.Controls.Add(this.button6);
+            this.groupBox12.Controls.Add(this.button5);
             this.groupBox12.Controls.Add(this.dateTimePicker3);
             this.groupBox12.Location = new System.Drawing.Point(7, 19);
             this.groupBox12.Name = "groupBox12";
@@ -671,8 +675,28 @@
             // 
             this.dateTimePicker3.Location = new System.Drawing.Point(6, 19);
             this.dateTimePicker3.Name = "dateTimePicker3";
-            this.dateTimePicker3.Size = new System.Drawing.Size(188, 20);
+            this.dateTimePicker3.Size = new System.Drawing.Size(130, 20);
             this.dateTimePicker3.TabIndex = 2;
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(142, 18);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(23, 23);
+            this.button5.TabIndex = 20;
+            this.button5.Text = "+";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(171, 18);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(23, 23);
+            this.button6.TabIndex = 21;
+            this.button6.Text = "-";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // close_traveling_rf
             // 
@@ -819,5 +843,7 @@
         public System.Windows.Forms.Button button4;
         private System.Windows.Forms.GroupBox groupBox12;
         private System.Windows.Forms.DateTimePicker dateTimePicker3;
+        public System.Windows.Forms.Button button6;
+        public System.Windows.Forms.Button button5;
     }
 }

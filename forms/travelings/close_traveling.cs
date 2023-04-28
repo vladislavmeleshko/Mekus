@@ -78,7 +78,7 @@ namespace Mekus.forms.travelings
                 for (int i = 0; i < traveling.listGasstations.Count; i++)
                 { 
                     dataGridView2.Rows.Add(
-                            traveling.listGasstations[i].date_gas,
+                            traveling.listGasstations[i].date_gas.Value.ToString("dd MMMM yyyy"),
                             traveling.listGasstations[i].name_gas,
                             traveling.listGasstations[i].Enter_gas,
                             traveling.listGasstations[i].Price
@@ -142,10 +142,10 @@ namespace Mekus.forms.travelings
             {
                 DialogResult dialogResult = new DialogResult();
 
-                if (traveling.E_gas_1 < 0)
+                if (traveling.E_gas_1 <= 0)
                     dialogResult = MessageBox.Show("Остаток топлива по пути туда получается отрицательный, вы желаете продолжить?", "Отрицательный остаток топлива", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
 
-                if(dialogResult == DialogResult.OK || traveling.E_gas_1 >= 0)
+                if(dialogResult == DialogResult.OK || traveling.E_gas_1 > 0)
                 {
                     if (editcar == true)
                     {
@@ -159,9 +159,6 @@ namespace Mekus.forms.travelings
                     if (raschetGas(true) == -1) throw new Exception("Проверьте таблицу заправок!");
                     if (traveling.Z_gas_1 != 0)
                     {
-                        //if (textBox4.Text != "")
-                        //    traveling.id_gasstation.addGasstation(db, traveling.Z_gas_1, traveling.P_gas_1, traveling, false, textBox4.Text);
-                        //else traveling.id_gasstation.addGasstation(db, traveling.Z_gas_1, traveling.P_gas_1, traveling, false);
                         for (int i = 0; i < traveling.listGasstations.Count; i++)
                         {
                             traveling.id_gasstation.addGasstation(
@@ -187,7 +184,6 @@ namespace Mekus.forms.travelings
                         traveling.closeTraveling();
 
                         main.set_value_table(traveling, 0);
-                        //main.set_values_table();
 
                         Close();
                     }

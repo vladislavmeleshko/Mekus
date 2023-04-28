@@ -88,7 +88,7 @@ namespace Mekus.forms.travelings
 
                 for (int i = 0; i < traveling.listGasstations.Count; i++)
                     dataGridView2.Rows.Add(
-                            traveling.listGasstations[i].date_gas,
+                            traveling.listGasstations[i].date_gas.Value.ToString("dd MMMM yyyy"),
                             traveling.listGasstations[i].name_gas,
                             traveling.listGasstations[i].Enter_gas,
                             traveling.listGasstations[i].Price
@@ -201,12 +201,12 @@ namespace Mekus.forms.travelings
             {
                 DialogResult dialogResult = new DialogResult();
 
-                if (traveling.E_gas_1 < 0)
+                if (traveling.E_gas_1 <= 0)
                     dialogResult = MessageBox.Show("Остаток топлива по пути туда получается отрицательный, вы желаете продолжить?", "Отрицательный остаток топлива", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
-                else if (traveling.E_gas_2 < 0)
+                else if (traveling.E_gas_2 <= 0)
                     dialogResult = MessageBox.Show("Остаток топлива по пути обратно получается отрицательный, вы желаете продолжить?", "Отрицательный остаток топлива", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
 
-                if (dialogResult == DialogResult.OK || (traveling.E_gas_1 >= 0 && traveling.E_gas_2 >= 0))
+                if (dialogResult == DialogResult.OK || (traveling.E_gas_1 > 0 && traveling.E_gas_2 > 0))
                 {
                     traveling.id_car.probeg = traveling.e_probeg_2;
                     traveling.id_car.Gas = traveling.E_gas_2;
@@ -221,9 +221,6 @@ namespace Mekus.forms.travelings
                     
                     if (traveling.Z_gas_1 != 0 || traveling.Z_gas_2 != 0)
                     {
-                        //if (textBox4.Text != "")
-                        //    traveling.id_gasstation.addGasstation(db, traveling.Z_gas_1, traveling.P_gas_1, traveling, false, textBox4.Text);
-                        //else traveling.id_gasstation.addGasstation(db, traveling.Z_gas_1, traveling.P_gas_1, traveling, false);
                         for (int i = 0; i < traveling.listGasstations.Count; i++)
                         {
 
@@ -238,21 +235,6 @@ namespace Mekus.forms.travelings
                             traveling.listGasstations[i].id = db.gasstations.FindLast(x => x.id_car == traveling.id_car).id;
                         }
                     }
-                    //if (traveling.Z_gas_2 != 0)
-                    //{
-                    //    if (checkBox1.Checked == true)
-                    //    {
-                    //        if (textBox25.Text != "")
-                    //            traveling.id_gasstation.addGasstation(db, traveling.Z_gas_2, traveling.P_gas_2, traveling, false, textBox25.Text);
-                    //        else traveling.id_gasstation.addGasstation(db, traveling.Z_gas_2, traveling.P_gas_2, traveling, false);
-                    //    }
-                    //    else
-                    //    {
-                    //        if (textBox25.Text != "")
-                    //            traveling.id_gasstation.addGasstation(db, traveling.Z_gas_2, traveling.P_gas_2, traveling, true, textBox25.Text);
-                    //        else traveling.id_gasstation.addGasstation(db, traveling.Z_gas_2, traveling.P_gas_2, traveling, true);
-                    //    }
-                    //}
 
                     traveling.P_traveling_1 = traveling.id_gasstation.get_price_traveling_test_2(db, traveling, traveling.T_gas_1, 0.00m);
 
@@ -260,15 +242,16 @@ namespace Mekus.forms.travelings
                         traveling.P_traveling_2 = traveling.id_gasstation.get_price_traveling_test_2(db, traveling, traveling.T_gas_2, 0.00m, true);
                     else traveling.P_traveling_2 = traveling.id_gasstation.get_price_traveling_test_2(db, traveling, traveling.T_gas_2, 0.00m);
 
-                    traveling.P_traveling_all = traveling.P_traveling_1 + traveling.P_traveling_2;
-                    traveling.id_car.editCar();
-                    traveling.closeTraveling();
+                    if (traveling.P_traveling_1 != -1 && traveling.P_traveling_2 != -1)
+                    {
+                        traveling.P_traveling_all = traveling.P_traveling_1 + traveling.P_traveling_2;
+                        traveling.id_car.editCar();
+                        traveling.closeTraveling();
 
-                    main.set_value_table(traveling, 1);
+                        main.set_value_table(traveling, 1);
 
-                    // main.set_values_table();
-
-                    Close();
+                        Close();
+                    }
                 }
             }
             catch (Exception ex)
@@ -452,6 +435,16 @@ namespace Mekus.forms.travelings
         private void dataGridView2_UserDeletedRow(object sender, DataGridViewRowEventArgs e)
         {
             raschetGas();
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            dateTimePicker3.Value = dateTimePicker3.Value.Date.AddDays(1);
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            dateTimePicker3.Value = dateTimePicker3.Value.Date.AddDays(-1);
         }
     }
 }
