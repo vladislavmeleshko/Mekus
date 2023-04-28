@@ -12,6 +12,7 @@ using System.Net.Http;
 using System.Security.Policy;
 using Mekus.belarusneft;
 using System.Linq;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolTip;
 
 namespace Mekus.forms.travelings
 {
@@ -155,12 +156,13 @@ namespace Mekus.forms.travelings
                     traveling.id_car.probeg = traveling.e_probeg_1;
                     traveling.id_car.Gas = traveling.E_gas_1;
 
+                    if (raschetGas(true) == -1) throw new Exception("Проверьте таблицу заправок!");
                     if (traveling.Z_gas_1 != 0)
                     {
                         //if (textBox4.Text != "")
                         //    traveling.id_gasstation.addGasstation(db, traveling.Z_gas_1, traveling.P_gas_1, traveling, false, textBox4.Text);
                         //else traveling.id_gasstation.addGasstation(db, traveling.Z_gas_1, traveling.P_gas_1, traveling, false);
-                        for(int i = 0; i < traveling.listGasstations.Count; i++)
+                        for (int i = 0; i < traveling.listGasstations.Count; i++)
                         {
                             traveling.id_gasstation.addGasstation(
                                         db,
@@ -304,16 +306,19 @@ namespace Mekus.forms.travelings
             }
         }
 
-        private void raschetGas()
+        private int raschetGas(bool isClose = false)
         {
             try
             {
                 traveling.listGasstations = new List<Gasstation>();
                 for(int i = 0; i <  dataGridView2.Rows.Count; i++)
                 {
-                    if (dataGridView2.Rows[i].Cells[0].Value.ToString() == "") throw new Exception("Укажите дату заправки");
-                    if (dataGridView2.Rows[i].Cells[2].Value.ToString() == "") throw new Exception("Укажите количество заправленного топлива");
-                    if (dataGridView2.Rows[i].Cells[3].Value.ToString() == "") throw new Exception("Укажите количество стоимость топлива");
+                    if (isClose != false)
+                    {
+                        if (dataGridView2.Rows[i].Cells[0].Value.ToString() == "") throw new Exception("Укажите дату заправки");
+                        if (dataGridView2.Rows[i].Cells[2].Value.ToString() == "") throw new Exception("Укажите количество заправленного топлива");
+                        if (dataGridView2.Rows[i].Cells[3].Value.ToString() == "") throw new Exception("Укажите количество стоимость топлива");
+                    }
                     traveling.listGasstations.Add(new Gasstation(
                             Convert.ToDateTime(dataGridView2.Rows[i].Cells[0].Value.ToString()),
                             Convert.ToDecimal(dataGridView2.Rows[i].Cells[2].Value.ToString()),
@@ -324,10 +329,12 @@ namespace Mekus.forms.travelings
                 traveling.Z_gas_1 = traveling.listGasstations.Sum(x => x.Enter_gas);
                 traveling.E_gas_1 = traveling.S_gas_1 - traveling.T_gas_1 + traveling.Z_gas_1;
                 textBox9.Text = Convert.ToString(traveling.E_gas_1);
+                return 0;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return -1;
             }
         }
 

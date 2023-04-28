@@ -216,6 +216,9 @@ namespace Mekus.forms.travelings
                         traveling.id_gasstation = traveling.id_gasstation.get_gasstation(db, traveling);
                         traveling.editCar();
                     }
+                    
+                    if(raschetGas(true) == -1) throw new Exception("Проверьте таблицу заправок!");
+                    
                     if (traveling.Z_gas_1 != 0 || traveling.Z_gas_2 != 0)
                     {
                         //if (textBox4.Text != "")
@@ -384,16 +387,19 @@ namespace Mekus.forms.travelings
             }
         }
 
-        private void raschetGas()
+        private int raschetGas(bool isClose = false)
         {
             try
             {
                 traveling.listGasstations = new List<Gasstation>();
                 for (int i = 0; i < dataGridView2.Rows.Count; i++)
                 {
-                    if (dataGridView2.Rows[i].Cells[0].Value.ToString() == "") throw new Exception("Укажите дату заправки");
-                    if (dataGridView2.Rows[i].Cells[2].Value.ToString() == "") throw new Exception("Укажите количество заправленного топлива");
-                    if (dataGridView2.Rows[i].Cells[3].Value.ToString() == "") throw new Exception("Укажите количество стоимость топлива");
+                    if(isClose != false)
+                    { 
+                        if (dataGridView2.Rows[i].Cells[0].Value.ToString() == "") throw new Exception("Укажите дату заправки");
+                        if (dataGridView2.Rows[i].Cells[2].Value.ToString() == "") throw new Exception("Укажите количество заправленного топлива");
+                        if (dataGridView2.Rows[i].Cells[3].Value.ToString() == "") throw new Exception("Укажите количество стоимость топлива");
+                    }
                     traveling.listGasstations.Add(new Gasstation(
                             Convert.ToDateTime(dataGridView2.Rows[i].Cells[0].Value.ToString()),
                             Convert.ToDecimal(dataGridView2.Rows[i].Cells[2].Value.ToString()),
@@ -415,10 +421,12 @@ namespace Mekus.forms.travelings
                         traveling.Z_gas_2 += traveling.listGasstations[i].Enter_gas;
                 traveling.E_gas_2 = traveling.S_gas_2 - traveling.T_gas_2 + traveling.Z_gas_2;
                 textBox21.Text = Convert.ToString(traveling.E_gas_2);
+                return 0;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return -1;
             }
         }
 
