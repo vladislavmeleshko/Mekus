@@ -343,5 +343,15 @@ namespace Mekus.forms.travelings
         {
             raschetGas();
         }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            dateTimePicker3.Value = dateTimePicker3.Value.Date.AddDays(1);
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            dateTimePicker3.Value = dateTimePicker3.Value.Date.AddDays(-1);
+        }
     }
 }
