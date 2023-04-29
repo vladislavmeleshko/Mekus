@@ -98,6 +98,8 @@ namespace Mekus.forms.travelings
                 button2.Enabled = false;
                 comboBox1.Enabled = false;
             }
+
+            dateTimePicker3.Value = traveling.date_traveling;
         }
 
         private void textBox6_TextChanged(object sender, EventArgs e)
