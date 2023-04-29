@@ -28,15 +28,15 @@ namespace Mekus.forms.travelings
             this.db = db;
             this.main = main;
             for (int i = 0; i < db.couriers.Count; i++)
-                comboBox1.Items.Add(db.couriers[i].courier);
+                comboBox2.Items.Add(db.couriers[i].courier);
             for (int i = 0; i < db.cars.Count; i++)
-                comboBox2.Items.Add(db.cars[i].car);
+                comboBox3.Items.Add(db.cars[i].car);
             if (db.travelings.Count == 0)
                 textBox1.Text = "1";
             else textBox1.Text = Convert.ToString(db.travelings[0].number + 1);
             traveling.date_traveling = dateTimePicker1.Value.Date;
             traveling.id_gasstation = new Gasstation();
-            comboBox3.SelectedIndex = 0;
+            comboBox1.SelectedIndex = 0;
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -67,8 +67,8 @@ namespace Mekus.forms.travelings
         {
             try
             {
-                traveling.id_courier = db.couriers.Find(x => x.courier == comboBox1.Text);
-                comboBox2.Text = traveling.id_courier.id_car.car;
+                traveling.id_courier = db.couriers.Find(x => x.courier == comboBox2.Text);
+                comboBox3.Text = traveling.id_courier.id_car.car;
             }
             catch (Exception ex)
             {
@@ -80,7 +80,7 @@ namespace Mekus.forms.travelings
         {
             try
             {
-                traveling.id_car = db.cars.Find(x => x.car == comboBox2.Text);
+                traveling.id_car = db.cars.Find(x => x.car == comboBox3.Text);
             }
             catch (Exception ex)
             {
@@ -106,9 +106,9 @@ namespace Mekus.forms.travelings
 
         private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboBox3.SelectedIndex == 0)
+            if (comboBox1.SelectedIndex == 0)
                 traveling.status_inRf = 0;
-            else if (comboBox3.SelectedIndex == 1)
+            else if (comboBox1.SelectedIndex == 1)
                 traveling.status_inRf = 1;
             else
                 traveling.status_inRf = 2;
