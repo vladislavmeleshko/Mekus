@@ -131,6 +131,11 @@ namespace Mekus.classes
                 try
                 {
                     db.gasstations = db.get_gasstations();
+                    if (id_car != traveling.id_car)
+                    { 
+                        traveling.id_gasstation = get_gasstation(db, traveling);
+                        traveling.id_gasstation.get_price_traveling_test_2(db, traveling, t_gas_all, price_test, daygas);
+                    }
                     if (t_gas_all == 0.00m)
                         return price_test;
                     else
