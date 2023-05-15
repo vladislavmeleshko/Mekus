@@ -129,7 +129,9 @@ namespace Mekus.forms.travelings
                     traveling.S_gas_2 = traveling.E_gas_1;
                     textBox17.Text = Convert.ToString(traveling.S_gas_2);
 
-                    if(textBox15.Text.Length != 0)
+                    raschetGas(true);
+
+                    if (textBox15.Text.Length != 0)
                         textBox15_TextChanged(sender, e);
                 }
             }
@@ -177,6 +179,7 @@ namespace Mekus.forms.travelings
 
                     traveling.T_gas_all = traveling.T_gas_1 + traveling.T_gas_2;
                     textBox24.Text = Convert.ToString(traveling.T_gas_all);
+                    raschetGas(true);
                 }
             }
             catch (Exception ex)
