@@ -40,6 +40,9 @@ namespace Mekus.forms.travelings
             this.traveling.id_car = db.cars.Find(x => x.id == traveling.id_car.id);
 
             InitializeComponent();
+
+            if(traveling.date_traveling.DayOfWeek == DayOfWeek.Sunday)
+                checkBox1.Checked = true;
             
             for (int i = 0; i < db.cars.Count; i++)
                 comboBox1.Items.Add(db.cars[i].car);
@@ -348,6 +351,9 @@ namespace Mekus.forms.travelings
                         {
                             dataGridView1.Rows.Add(api.cardList[0].issueRows[i].dateTimeIssue, api.cardList[0].issueRows[i].productName, api.cardList[0].issueRows[i].productQuantity,
                                                     api.cardList[0].issueRows[i].productUnitPrice);
+                            if(traveling.status_traveling == 0)
+                                dataGridView2.Rows.Add(api.cardList[0].issueRows[i].dateTimeIssue, api.cardList[0].issueRows[i].productName, api.cardList[0].issueRows[i].productQuantity,
+                                                    api.cardList[0].issueRows[i].productUnitPrice);
                         }
                     }
                 }
@@ -447,6 +453,46 @@ namespace Mekus.forms.travelings
         private void button6_Click(object sender, EventArgs e)
         {
             dateTimePicker3.Value = dateTimePicker3.Value.Date.AddDays(-1);
+        }
+
+        private void textBox16_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (read_traveling == false)
+                {
+                    traveling.t_probeg_2 = Convert.ToInt32(textBox16.Text);
+                    textBox15.Text = Convert.ToString(traveling.t_probeg_2 + traveling.s_probeg_2);
+                    if (textBox15.Text.Length != 0)
+                        textBox15_TextChanged(sender, e);
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void close_traveling_rf_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyValue == 27)
+                this.Close();
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (traveling.editTypeTraveling(0) == 1)
+                {
+                    main.set_values_table();
+                    Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

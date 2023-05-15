@@ -382,5 +382,27 @@ namespace Mekus.forms.travelings
         {
             dateTimePicker3.Value = dateTimePicker3.Value.Date.AddDays(-1);
         }
+
+        private void close_traveling_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyValue == 27)
+                this.Close();
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if(traveling.editTypeTraveling(1) == 1)
+                {
+                    main.set_values_table();
+                    Close();
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }

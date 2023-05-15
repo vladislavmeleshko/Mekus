@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -126,6 +127,27 @@ namespace Mekus.classes
             }
         }
 
+        public int editTypeTraveling(int typeTraveling)
+        {
+            using (SqlConnection connect = new SqlConnection(str_connect))
+            {
+                try
+                {
+                    connect.Open();
+                    string query = string.Format("update Travelings set status_inRf = {0} where id = {1}", typeTraveling, id);
+                    SqlCommand cmd = new SqlCommand(query, connect);
+                    cmd.ExecuteNonQuery();
+                    connect.Close();
+                    return 1;
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message);
+                    connect.Close();
+                    return 0;
+                }
+            }
+        }
         public void editCar()
         {
             using (SqlConnection connect = new SqlConnection(str_connect))

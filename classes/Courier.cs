@@ -15,18 +15,20 @@ namespace Mekus.classes
         public string courier { get; set; }
         public string prava { get; set; }
         public Car id_car { get; set; }
+        public int is_active { get; set; }
 
         public Courier()
         {
 
         }
 
-        public Courier(int id, string courier, string prava, Car id_car)
+        public Courier(int id, string courier, string prava, Car id_car, int is_active)
         {
             this.id = id;
             this.courier = courier;
             this.prava = prava;
             this.id_car = id_car;
+            this.is_active = is_active;
         }
 
         public Courier(string courier, string prava, Car id_car)
@@ -43,7 +45,7 @@ namespace Mekus.classes
                 try
                 {
                     connect.Open();
-                    string query = string.Format("insert into Couriers (courier, prava, id_car) values ('{0}', '{1}', {2})", courier, prava, id_car.id);
+                    string query = string.Format("insert into Couriers (courier, prava, id_car, is_active) values ('{0}', '{1}', {2}, 1)", courier, prava, id_car.id);
                     SqlCommand cmd = new SqlCommand(query, connect);
                     cmd.ExecuteNonQuery();
                     connect.Close();
@@ -63,7 +65,7 @@ namespace Mekus.classes
                 try
                 {
                     connect.Open();
-                    string query = string.Format("update Couriers set courier='{0}', prava='{1}', id_car={2} where id={3}", courier, prava, id_car.id, id);
+                    string query = string.Format("update Couriers set courier='{0}', prava='{1}', id_car={2}, is_active={3} where id={4}", courier, prava, id_car.id, is_active, id);
                     SqlCommand cmd = new SqlCommand(query, connect);
                     cmd.ExecuteNonQuery();
                     connect.Close();

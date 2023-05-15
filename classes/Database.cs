@@ -118,7 +118,7 @@ namespace Mekus.classes
                     SqlDataReader reader = cmd.ExecuteReader();
                     if (reader.HasRows)
                         while (reader.Read())
-                            couriers.Add(new Courier((int)reader["id"], (string)reader["courier"], (string)reader["prava"], cars.Find(x => x.id == (int)reader["id_car"])));
+                            couriers.Add(new Courier((int)reader["id"], (string)reader["courier"], (string)reader["prava"], cars.Find(x => x.id == (int)reader["id_car"]), (int)reader["is_active"]));
                     reader.Close();
                     connect.Close();
                     return couriers;

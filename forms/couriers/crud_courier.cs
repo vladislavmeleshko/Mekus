@@ -57,6 +57,7 @@ namespace Mekus.forms.couriers
                 if (textBox1.Text.Length == 0) throw new Exception("Введите имя курьера!");
                 if (textBox2.Text.Length == 0) throw new Exception("Введите номер прав курьера!");
                 if (comboBox2.Text.Length == 0) throw new Exception("Выберите автомобиль курьера!");
+                if (comboBox3.Text.Length == 0) throw new Exception("Выберите видимость курьера!");
                 if (comboBox1.Text.Length == 0) throw new Exception("Выберите курьера!");
                 courier.editCourier();
                 main.set_values_table();
@@ -91,6 +92,8 @@ namespace Mekus.forms.couriers
                 textBox1.Text = courier.courier;
                 textBox2.Text = courier.prava;
                 comboBox2.Text = courier.id_car.car;
+                comboBox3.SelectedIndex = courier.is_active;
+                comboBox3.SelectedItem = courier.is_active;
             }
             catch (Exception ex)
             {
@@ -127,6 +130,18 @@ namespace Mekus.forms.couriers
             try
             {
                 courier.prava = textBox2.Text;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                courier.is_active = comboBox3.SelectedIndex;
             }
             catch (Exception ex)
             {

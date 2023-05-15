@@ -28,7 +28,8 @@ namespace Mekus.forms.travelings
             this.db = db;
             this.main = main;
             for (int i = 0; i < db.couriers.Count; i++)
-                comboBox2.Items.Add(db.couriers[i].courier);
+                if (db.couriers[i].is_active == 1)
+                    comboBox2.Items.Add(db.couriers[i].courier);
             for (int i = 0; i < db.cars.Count; i++)
                 comboBox3.Items.Add(db.cars[i].car);
             if (db.travelings.Count == 0)

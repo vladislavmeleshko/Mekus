@@ -139,7 +139,8 @@ namespace Mekus
                 dataGridView3.Rows.Add(db.cars[i].id, db.cars[i].id_model.model + " " + db.cars[i].car, db.cars[i].probeg, db.cars[i].Gas);
             dataGridView4.Rows.Clear();
             for (int i = 0; i < db.couriers.Count; i++)
-                dataGridView4.Rows.Add(db.couriers[i].id, db.couriers[i].courier, db.couriers[i].prava, db.couriers[i].id_car.id_model.model + " " + db.couriers[i].id_car.car);
+                if (db.couriers[i].is_active == 1)
+                    dataGridView4.Rows.Add(db.couriers[i].id, db.couriers[i].courier, db.couriers[i].prava, db.couriers[i].id_car.id_model.model + " " + db.couriers[i].id_car.car);
             dataGridView5.Rows.Clear();
             for (int i = 0; i < db.travelings.Count; i++)
             {
