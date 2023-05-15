@@ -106,6 +106,7 @@ namespace Mekus.forms.travelings
                         textBox10.Text = Convert.ToString(traveling.T_gas_all);
 
                         traveling.E_gas_1 = traveling.S_gas_1 - traveling.T_gas_all + traveling.Z_gas_1;
+                        raschetGas(true);
                         textBox9.Text = Convert.ToString(traveling.E_gas_1);
                     }
                 }
@@ -242,14 +243,22 @@ namespace Mekus.forms.travelings
             HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, url);
             HttpResponseMessage response = await httpClient.SendAsync(request);
             string content = await response.Content.ReadAsStringAsync();
-            Berlio[] berlio = System.Text.Json.JsonSerializer.Deserialize<Berlio[]>(content);
-            if(berlio.Length > 0)
+            if (Convert.ToInt32(response.StatusCode) == 200)
             {
-                for (int i = 0; i < berlio.Length; i++)
+                Berlio[] berlio = System.Text.Json.JsonSerializer.Deserialize<Berlio[]>(content);
+                if (berlio.Length > 0)
                 {
-                    if (Convert.ToDateTime(berlio[i].RealisationDate).Date.ToString() == traveling.date_traveling.ToString())
-                        dataGridView1.Rows.Add(Convert.ToDateTime(berlio[i].RealisationDate).ToString("dd MMMM yyyy"), berlio[i].RealisationProductName,
-                                                berlio[i].RealisationQuantity, berlio[i].RealisationRoznPrice, berlio[i].RealisationProductName);
+                    for (int i = 0; i < berlio.Length; i++)
+                    {
+                        if (Convert.ToDateTime(berlio[i].RealisationDate).Date.ToString() == traveling.date_traveling.ToString())
+                        {
+                            dataGridView1.Rows.Add(Convert.ToDateTime(berlio[i].RealisationDate).ToString("dd MMMM yyyy"), berlio[i].RealisationProductName,
+                                                    berlio[i].RealisationQuantity, berlio[i].RealisationRoznPrice, berlio[i].RealisationProductName);
+                            if (traveling.status_traveling == 0)
+                                dataGridView2.Rows.Add(Convert.ToDateTime(berlio[i].RealisationDate).ToString("dd MMMM yyyy"), berlio[i].RealisationProductName,
+                                                    berlio[i].RealisationQuantity, berlio[i].RealisationRoznPrice);
+                        }
+                    }
                 }
             }
         }
@@ -282,7 +291,7 @@ namespace Mekus.forms.travelings
                         for (int i = 0; i < api.cardList[0].issueRows.Length; i++)
                         {
                             dataGridView1.Rows.Add(api.cardList[0].issueRows[i].dateTimeIssue, api.cardList[0].issueRows[i].productName, api.cardList[0].issueRows[i].productQuantity, 
-                                                    api.cardList[0].issueRows[i].productUnitPrice, api.cardList[0].issueRows[i].productName);
+                                                    api.cardList[0].issueRows[i].productUnitPrice);
                         }
                     }
                 }
