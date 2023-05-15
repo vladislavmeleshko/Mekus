@@ -99,6 +99,8 @@ namespace Mekus.forms.travelings
 
                 button1.Enabled = false;
                 button2.Enabled = false;
+                button4.Enabled = false;
+                button7.Enabled = false;
                 comboBox1.Enabled = false;
             }
 
