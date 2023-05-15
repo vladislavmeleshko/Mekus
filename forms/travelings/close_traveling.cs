@@ -1,18 +1,13 @@
 ﻿using Mekus.classes;
 using System;
 using System.Windows.Forms;
-using Mekus.nav;
-using System.Net;
-using System.IO;
-using System.Text.Json;
-using System.Reflection.Emit;
-using Microsoft.Office.Interop.Excel;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Security.Policy;
+using Mekus.berlio;
+using System.Text.Json;
 using Mekus.belarusneft;
 using System.Linq;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolTip;
+using Newtonsoft.Json;
 
 namespace Mekus.forms.travelings
 {
@@ -237,6 +232,28 @@ namespace Mekus.forms.travelings
             db.get_all_data();
         }
 
+        public async void get_gas_berlio()
+        {
+            HttpClient httpClient = new HttpClient();
+            string card = Convert.ToString(traveling.id_car.cardCode);
+            string dateFrom = traveling.date_traveling.Date.ToString("yyyy-MM-dd");
+            string dateTo = traveling.date_traveling.Date.AddDays(1).ToString("yyyy-MM-dd");
+            string url = "https://api.cardcenter.by/api/Cards/GetCardRealisations?cardNumber="+card+"&dateFrom="+dateFrom+"&dateTo="+dateTo;
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, url);
+            HttpResponseMessage response = await httpClient.SendAsync(request);
+            string content = await response.Content.ReadAsStringAsync();
+            Berlio[] berlio = System.Text.Json.JsonSerializer.Deserialize<Berlio[]>(content);
+            if(berlio.Length > 0)
+            {
+                for (int i = 0; i < berlio.Length; i++)
+                {
+                    if (Convert.ToDateTime(berlio[i].RealisationDate).Date.ToString() == traveling.date_traveling.ToString())
+                        dataGridView1.Rows.Add(Convert.ToDateTime(berlio[i].RealisationDate).ToString("dd MMMM yyyy"), berlio[i].RealisationProductName,
+                                                berlio[i].RealisationQuantity, berlio[i].RealisationRoznPrice, berlio[i].RealisationProductName);
+                }
+            }
+        }
+
         private async void button3_Click(object sender, EventArgs e)
         {
             try
@@ -283,6 +300,7 @@ namespace Mekus.forms.travelings
                 dateTimePicker1.Value = traveling.date_traveling.Date;
                 dateTimePicker2.Value = traveling.date_traveling.Date;
                 button3_Click(sender, e);
+                get_gas_berlio();
             }
             catch (Exception ex)
             {

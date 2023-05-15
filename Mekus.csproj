@@ -88,6 +88,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="belarusneft\Belarusneft.cs" />
+    <Compile Include="berlio\Berlio.cs" />
     <Compile Include="classes\Car.cs" />
     <Compile Include="classes\Courier.cs" />
     <Compile Include="classes\Database.cs" />
