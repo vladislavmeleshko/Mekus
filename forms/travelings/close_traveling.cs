@@ -294,6 +294,9 @@ namespace Mekus.forms.travelings
                         {
                             dataGridView1.Rows.Add(api.cardList[0].issueRows[i].dateTimeIssue, api.cardList[0].issueRows[i].productName, api.cardList[0].issueRows[i].productQuantity, 
                                                     api.cardList[0].issueRows[i].productUnitPrice);
+                            if(traveling.status_traveling == 0)
+                                dataGridView2.Rows.Add(api.cardList[0].issueRows[i].dateTimeIssue, api.cardList[0].issueRows[i].productName, api.cardList[0].issueRows[i].productQuantity,
+                                                    api.cardList[0].issueRows[i].productUnitPrice);
                         }
                     }
                 }
