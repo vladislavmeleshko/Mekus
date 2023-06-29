@@ -430,16 +430,16 @@ namespace Mekus
                             reportGases[i].name_gas,
                             reportGases[i].Price_gas,
                             reportGases[i].S_gas,
-                            decimal.Round(decimal.Round(reportGases[i].Price_gas * reportGases[i].S_gas, 2, MidpointRounding.AwayFromZero), 2, MidpointRounding.AwayFromZero),
+                            //decimal.Round(decimal.Round(reportGases[i].Price_gas * reportGases[i].S_gas, 2, MidpointRounding.AwayFromZero), 2, MidpointRounding.AwayFromZero),
                             decimal.Round(decimal.Round(reportGases[i].Price_gas * reportGases[i].S_gas, 2, MidpointRounding.AwayFromZero) / (decimal)1.2, 2, MidpointRounding.AwayFromZero),
                             reportGases[i].Amount_really_gas,
                             reportGases[i].Amount_enter_gas,
-                            reportGases[i].Price_enter_gasNDS,
+                            //reportGases[i].Price_enter_gasNDS,
                             reportGases[i].Price_enter_gas,
-                            reportGases[i].Price_really_gasNDS,
+                            //reportGases[i].Price_really_gasNDS,
                             reportGases[i].Price_really_gas,
                             reportGases[i].E_gas,
-                            decimal.Round(decimal.Round(reportGases[i].Price_gas * reportGases[i].E_gas, 2, MidpointRounding.AwayFromZero), 2, MidpointRounding.AwayFromZero),
+                            //decimal.Round(decimal.Round(reportGases[i].Price_gas * reportGases[i].E_gas, 2, MidpointRounding.AwayFromZero), 2, MidpointRounding.AwayFromZero),
                             decimal.Round(decimal.Round(reportGases[i].Price_gas * reportGases[i].E_gas, 2, MidpointRounding.AwayFromZero) / (decimal)1.2, 2, MidpointRounding.AwayFromZero)
                         );
                 }
