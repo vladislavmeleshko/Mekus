@@ -39,7 +39,7 @@ namespace Mekus
                     {
                         dataGridView5.Rows.Add(db.travelings[i].number, db.travelings[i].date_traveling.ToString("dd MMMM yyyy"), db.travelings[i].id_courier.courier, db.travelings[i].id_car.id_model.model + " " + db.travelings[i].id_car.car,
                                             db.travelings[i].s_probeg_1, db.travelings[i].e_probeg_1, db.travelings[i].t_probeg_all, db.travelings[i].S_gas_1, db.travelings[i].E_gas_1,
-                                            db.travelings[i].T_gas_all, db.travelings[i].R_gas_1, db.travelings[i].Z_gas_1, db.travelings[i].P_gas_1, db.travelings[i].P_traveling_all);
+                                            db.travelings[i].T_gas_all, db.travelings[i].R_gas_1, db.travelings[i].P_traveling_all);
                     }
                 }
             }
@@ -51,8 +51,8 @@ namespace Mekus
                     if (db.travelings[i].status_inRf == status_inRf && db.travelings[i].date_traveling.Date >= dateTimePicker4.Value.Date && db.travelings[i].date_traveling.Date <= dateTimePicker3.Value.Date)
                     {
                         dataGridView6.Rows.Add(db.travelings[i].number, db.travelings[i].date_traveling.ToString("dd MMMM yyyy"), db.travelings[i].id_courier.courier, db.travelings[i].id_car.id_model.model + " " + db.travelings[i].id_car.car,
-                                        db.travelings[i].s_probeg_1, db.travelings[i].e_probeg_1, db.travelings[i].S_gas_1, db.travelings[i].E_gas_1, db.travelings[i].R_gas_1, db.travelings[i].Z_gas_1,
-                                        db.travelings[i].s_probeg_2, db.travelings[i].e_probeg_2, db.travelings[i].S_gas_2, db.travelings[i].E_gas_2, db.travelings[i].R_gas_2, db.travelings[i].Z_gas_2,
+                                        db.travelings[i].s_probeg_1, db.travelings[i].e_probeg_1, db.travelings[i].t_probeg_1, db.travelings[i].S_gas_1, db.travelings[i].E_gas_1, db.travelings[i].T_gas_1, db.travelings[i].R_gas_1,
+                                        db.travelings[i].s_probeg_2, db.travelings[i].e_probeg_2, db.travelings[i].t_probeg_2, db.travelings[i].S_gas_2, db.travelings[i].E_gas_2, db.travelings[i].T_gas_2, db.travelings[i].R_gas_2,
                                         db.travelings[i].t_probeg_all, db.travelings[i].T_gas_all, db.travelings[i].P_traveling_all);
                     }
                 }
@@ -81,8 +81,6 @@ namespace Mekus
                             dataGridView5.Rows[i].Cells[8].Value = Convert.ToString(traveling.E_gas_1);
                             dataGridView5.Rows[i].Cells[9].Value = Convert.ToString(traveling.T_gas_1);
                             dataGridView5.Rows[i].Cells[10].Value = Convert.ToString(traveling.R_gas_1);
-                            dataGridView5.Rows[i].Cells[11].Value = Convert.ToString(traveling.Z_gas_1);
-                            dataGridView5.Rows[i].Cells[12].Value = Convert.ToString(traveling.id_gasstation.Price);
                             dataGridView5.Rows[i].Cells[13].Value = Convert.ToString(traveling.P_traveling_all);
                         }
                     }
@@ -96,19 +94,21 @@ namespace Mekus
                             dataGridView6.Rows[i].Cells[3].Value = Convert.ToString(traveling.id_car.id_model.model + " " + traveling.id_car.car);
                             dataGridView6.Rows[i].Cells[4].Value = Convert.ToString(traveling.s_probeg_1);
                             dataGridView6.Rows[i].Cells[5].Value = Convert.ToString(traveling.e_probeg_1);
-                            dataGridView6.Rows[i].Cells[6].Value = Convert.ToString(traveling.S_gas_1);
-                            dataGridView6.Rows[i].Cells[7].Value = Convert.ToString(traveling.E_gas_1);
-                            dataGridView6.Rows[i].Cells[8].Value = Convert.ToString(traveling.R_gas_1);
-                            dataGridView6.Rows[i].Cells[9].Value = Convert.ToString(traveling.Z_gas_1);
-                            dataGridView6.Rows[i].Cells[10].Value = Convert.ToString(traveling.s_probeg_2);
-                            dataGridView6.Rows[i].Cells[11].Value = Convert.ToString(traveling.e_probeg_2);
-                            dataGridView6.Rows[i].Cells[12].Value = Convert.ToString(traveling.S_gas_2);
-                            dataGridView6.Rows[i].Cells[13].Value = Convert.ToString(traveling.E_gas_2);
-                            dataGridView6.Rows[i].Cells[14].Value = Convert.ToString(traveling.R_gas_2);
-                            dataGridView6.Rows[i].Cells[15].Value = Convert.ToString(traveling.Z_gas_2);
-                            dataGridView6.Rows[i].Cells[16].Value = Convert.ToString(traveling.t_probeg_all);
-                            dataGridView6.Rows[i].Cells[17].Value = Convert.ToString(traveling.T_gas_all);
-                            dataGridView6.Rows[i].Cells[18].Value = Convert.ToString(traveling.P_traveling_all);
+                            dataGridView6.Rows[i].Cells[6].Value = Convert.ToString(traveling.t_probeg_1);
+                            dataGridView6.Rows[i].Cells[7].Value = Convert.ToString(traveling.S_gas_1);
+                            dataGridView6.Rows[i].Cells[8].Value = Convert.ToString(traveling.E_gas_1);
+                            dataGridView6.Rows[i].Cells[9].Value = Convert.ToString(traveling.T_gas_1);
+                            dataGridView6.Rows[i].Cells[10].Value = Convert.ToString(traveling.R_gas_1);
+                            dataGridView6.Rows[i].Cells[11].Value = Convert.ToString(traveling.s_probeg_2);
+                            dataGridView6.Rows[i].Cells[12].Value = Convert.ToString(traveling.e_probeg_2);
+                            dataGridView6.Rows[i].Cells[13].Value = Convert.ToString(traveling.t_probeg_2);
+                            dataGridView6.Rows[i].Cells[14].Value = Convert.ToString(traveling.S_gas_2);
+                            dataGridView6.Rows[i].Cells[15].Value = Convert.ToString(traveling.E_gas_2);
+                            dataGridView6.Rows[i].Cells[16].Value = Convert.ToString(traveling.T_gas_2);
+                            dataGridView6.Rows[i].Cells[17].Value = Convert.ToString(traveling.R_gas_2);
+                            dataGridView6.Rows[i].Cells[18].Value = Convert.ToString(traveling.t_probeg_all);
+                            dataGridView6.Rows[i].Cells[19].Value = Convert.ToString(traveling.T_gas_all);
+                            dataGridView6.Rows[i].Cells[20].Value = Convert.ToString(traveling.P_traveling_all);
                         }
                     }
                 }
@@ -148,7 +148,7 @@ namespace Mekus
                 {
                     dataGridView5.Rows.Add(db.travelings[i].number, db.travelings[i].date_traveling.ToString("dd MMMM yyyy"), db.travelings[i].id_courier.courier, db.travelings[i].id_car.id_model.model + " " + db.travelings[i].id_car.car,
                                         db.travelings[i].s_probeg_1, db.travelings[i].e_probeg_1, db.travelings[i].t_probeg_all, db.travelings[i].S_gas_1, db.travelings[i].E_gas_1,
-                                        db.travelings[i].T_gas_all, db.travelings[i].R_gas_1, db.travelings[i].Z_gas_1, db.travelings[i].P_gas_1, db.travelings[i].P_traveling_all);
+                                        db.travelings[i].T_gas_all, db.travelings[i].R_gas_1, db.travelings[i].P_traveling_all);
                 }
             }
             dataGridView6.Rows.Clear();
@@ -157,8 +157,8 @@ namespace Mekus
                 if (db.travelings[i].status_inRf == 1 && db.travelings[i].date_traveling.Date >= dateTimePicker4.Value.Date && db.travelings[i].date_traveling.Date <= dateTimePicker3.Value.Date)
                 { 
                     dataGridView6.Rows.Add(db.travelings[i].number, db.travelings[i].date_traveling.ToString("dd MMMM yyyy"), db.travelings[i].id_courier.courier, db.travelings[i].id_car.id_model.model + " " + db.travelings[i].id_car.car,
-                                        db.travelings[i].s_probeg_1, db.travelings[i].e_probeg_1, db.travelings[i].S_gas_1, db.travelings[i].E_gas_1, db.travelings[i].R_gas_1, db.travelings[i].Z_gas_1,
-                                        db.travelings[i].s_probeg_2, db.travelings[i].e_probeg_2, db.travelings[i].S_gas_2, db.travelings[i].E_gas_2, db.travelings[i].R_gas_2, db.travelings[i].Z_gas_2,
+                                        db.travelings[i].s_probeg_1, db.travelings[i].e_probeg_1, db.travelings[i].t_probeg_1, db.travelings[i].S_gas_1, db.travelings[i].E_gas_1, db.travelings[i].T_gas_1, db.travelings[i].R_gas_1,
+                                        db.travelings[i].s_probeg_2, db.travelings[i].e_probeg_2, db.travelings[i].t_probeg_2, db.travelings[i].S_gas_2, db.travelings[i].E_gas_2, db.travelings[i].T_gas_2, db.travelings[i].R_gas_2,
                                         db.travelings[i].t_probeg_all, db.travelings[i].T_gas_all, db.travelings[i].P_traveling_all);
                 
                 }
