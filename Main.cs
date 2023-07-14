@@ -81,7 +81,7 @@ namespace Mekus
                             dataGridView5.Rows[i].Cells[8].Value = Convert.ToString(traveling.E_gas_1);
                             dataGridView5.Rows[i].Cells[9].Value = Convert.ToString(traveling.T_gas_1);
                             dataGridView5.Rows[i].Cells[10].Value = Convert.ToString(traveling.R_gas_1);
-                            dataGridView5.Rows[i].Cells[13].Value = Convert.ToString(traveling.P_traveling_all);
+                            dataGridView5.Rows[i].Cells[11].Value = Convert.ToString(traveling.P_traveling_all);
                         }
                     }
                 }
