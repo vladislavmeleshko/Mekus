@@ -28,18 +28,34 @@ namespace Mekus
             set_values_table();
         }
 
-        public void update_gridviewtravelingslist(int status_inRf)
+        public void update_gridviewtravelingslist(int status_inRf, int id_car = -1)
         {
             if (status_inRf == 0) 
             {
                 dataGridView5.Rows.Clear();
-                for (int i = 0; i < db.travelings.Count; i++)
+                if(id_car == -1)
                 {
-                    if (db.travelings[i].status_inRf == status_inRf && db.travelings[i].date_traveling.Date >= dateTimePicker1.Value.Date && db.travelings[i].date_traveling.Date <= dateTimePicker2.Value.Date)
+                    for (int i = 0; i < db.travelings.Count; i++)
                     {
-                        dataGridView5.Rows.Add(db.travelings[i].number, db.travelings[i].date_traveling.ToString("dd MMMM yyyy"), db.travelings[i].id_courier.courier, db.travelings[i].id_car.id_model.model + " " + db.travelings[i].id_car.car,
-                                            db.travelings[i].s_probeg_1, db.travelings[i].e_probeg_1, db.travelings[i].t_probeg_all, db.travelings[i].S_gas_1, db.travelings[i].E_gas_1,
-                                            db.travelings[i].T_gas_all, db.travelings[i].R_gas_1, db.travelings[i].P_traveling_all);
+                        if ((db.travelings[i].status_inRf == status_inRf || db.travelings[i].status_inRf == 2) && db.travelings[i].date_traveling.Date >= dateTimePicker1.Value.Date && db.travelings[i].date_traveling.Date <= dateTimePicker2.Value.Date)
+                        {
+                            dataGridView5.Rows.Add(db.travelings[i].number, db.travelings[i].date_traveling.ToString("dd.MM.yyyy"), db.travelings[i].id_courier.courier, db.travelings[i].id_car.id_model.model + " " + db.travelings[i].id_car.car,
+                                                db.travelings[i].s_probeg_1, db.travelings[i].e_probeg_1, db.travelings[i].t_probeg_all, db.travelings[i].S_gas_1, db.travelings[i].E_gas_1,
+                                                db.travelings[i].T_gas_all, db.travelings[i].R_gas_1, db.travelings[i].P_traveling_all);
+                        }
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < db.travelings.Count; i++)
+                    {
+                        if ((db.travelings[i].status_inRf == status_inRf || db.travelings[i].status_inRf == 2) && 
+                            db.travelings[i].date_traveling.Date >= dateTimePicker1.Value.Date && db.travelings[i].date_traveling.Date <= dateTimePicker2.Value.Date && db.travelings[i].id_car.id == id_car)
+                        {
+                            dataGridView5.Rows.Add(db.travelings[i].number, db.travelings[i].date_traveling.ToString("dd.MM.yyyy"), db.travelings[i].id_courier.courier, db.travelings[i].id_car.id_model.model + " " + db.travelings[i].id_car.car,
+                                                db.travelings[i].s_probeg_1, db.travelings[i].e_probeg_1, db.travelings[i].t_probeg_all, db.travelings[i].S_gas_1, db.travelings[i].E_gas_1,
+                                                db.travelings[i].T_gas_all, db.travelings[i].R_gas_1, db.travelings[i].P_traveling_all);
+                        }
                     }
                 }
             }
@@ -50,7 +66,7 @@ namespace Mekus
                 {
                     if (db.travelings[i].status_inRf == status_inRf && db.travelings[i].date_traveling.Date >= dateTimePicker4.Value.Date && db.travelings[i].date_traveling.Date <= dateTimePicker3.Value.Date)
                     {
-                        dataGridView6.Rows.Add(db.travelings[i].number, db.travelings[i].date_traveling.ToString("dd MMMM yyyy"), db.travelings[i].id_courier.courier, db.travelings[i].id_car.id_model.model + " " + db.travelings[i].id_car.car,
+                        dataGridView6.Rows.Add(db.travelings[i].number, db.travelings[i].date_traveling.ToString("dd.MM.yyyy"), db.travelings[i].id_courier.courier, db.travelings[i].id_car.id_model.model + " " + db.travelings[i].id_car.car,
                                         db.travelings[i].s_probeg_1, db.travelings[i].e_probeg_1, db.travelings[i].t_probeg_1, db.travelings[i].S_gas_1, db.travelings[i].E_gas_1, db.travelings[i].T_gas_1, db.travelings[i].R_gas_1,
                                         db.travelings[i].s_probeg_2, db.travelings[i].e_probeg_2, db.travelings[i].t_probeg_2, db.travelings[i].S_gas_2, db.travelings[i].E_gas_2, db.travelings[i].T_gas_2, db.travelings[i].R_gas_2,
                                         db.travelings[i].t_probeg_all, db.travelings[i].T_gas_all, db.travelings[i].P_traveling_all);
@@ -71,7 +87,7 @@ namespace Mekus
                 {
                     for (int i = 0; i < dataGridView5.Rows.Count; i++)
                     {
-                        if (dataGridView5.Rows[i].Cells[0].Value.ToString() == Convert.ToString(traveling.number))
+                        if (dataGridView5.Rows[i].Cells[0].Value.ToString() == traveling.number)
                         {
                             dataGridView5.Rows[i].Cells[3].Value = Convert.ToString(traveling.id_car.id_model.model + " " + traveling.id_car.car);
                             dataGridView5.Rows[i].Cells[4].Value = Convert.ToString(traveling.s_probeg_1);
@@ -89,7 +105,7 @@ namespace Mekus
                 {
                     for (int i = 0; i < dataGridView6.Rows.Count; i++)
                     {
-                        if (dataGridView6.Rows[i].Cells[0].Value.ToString() == Convert.ToString(traveling.number))
+                        if (dataGridView6.Rows[i].Cells[0].Value.ToString() == traveling.number)
                         {
                             dataGridView6.Rows[i].Cells[3].Value = Convert.ToString(traveling.id_car.id_model.model + " " + traveling.id_car.car);
                             dataGridView6.Rows[i].Cells[4].Value = Convert.ToString(traveling.s_probeg_1);
@@ -125,9 +141,16 @@ namespace Mekus
         public void set_values_table()
         {
             db.get_all_data();
+            comboBox2.SelectedIndex = 0;
+            comboBox2.SelectedItem = 0;
             comboBox1.Items.Clear();
+            comboBox2.Items.Clear();
+            comboBox2.Items.Add("Все автомобили");
             for (int i = 0; i < db.cars.Count; i++)
+            {
                 comboBox1.Items.Add(db.cars[i].car);
+                comboBox2.Items.Add(db.cars[i].car);
+            }
             dataGridView1.Rows.Clear();
             for (int i = 0; i < db.gases.Count; i++)
                 dataGridView1.Rows.Add(db.gases[i].id, db.gases[i].gas, db.gases[i].Price);
@@ -144,9 +167,9 @@ namespace Mekus
             dataGridView5.Rows.Clear();
             for (int i = 0; i < db.travelings.Count; i++)
             {
-                if (db.travelings[i].status_inRf == 0 && db.travelings[i].date_traveling.Date >= dateTimePicker1.Value.Date && db.travelings[i].date_traveling.Date <= dateTimePicker2.Value.Date)
+                if ((db.travelings[i].status_inRf == 0 || db.travelings[i].status_inRf == 2) && db.travelings[i].date_traveling.Date >= dateTimePicker1.Value.Date && db.travelings[i].date_traveling.Date <= dateTimePicker2.Value.Date)
                 {
-                    dataGridView5.Rows.Add(db.travelings[i].number, db.travelings[i].date_traveling.ToString("dd MMMM yyyy"), db.travelings[i].id_courier.courier, db.travelings[i].id_car.id_model.model + " " + db.travelings[i].id_car.car,
+                    dataGridView5.Rows.Add(db.travelings[i].number, db.travelings[i].date_traveling.ToString("dd.MM.yyyy"), db.travelings[i].id_courier.courier, db.travelings[i].id_car.id_model.model + " " + db.travelings[i].id_car.car,
                                         db.travelings[i].s_probeg_1, db.travelings[i].e_probeg_1, db.travelings[i].t_probeg_all, db.travelings[i].S_gas_1, db.travelings[i].E_gas_1,
                                         db.travelings[i].T_gas_all, db.travelings[i].R_gas_1, db.travelings[i].P_traveling_all);
                 }
@@ -156,7 +179,7 @@ namespace Mekus
             {
                 if (db.travelings[i].status_inRf == 1 && db.travelings[i].date_traveling.Date >= dateTimePicker4.Value.Date && db.travelings[i].date_traveling.Date <= dateTimePicker3.Value.Date)
                 { 
-                    dataGridView6.Rows.Add(db.travelings[i].number, db.travelings[i].date_traveling.ToString("dd MMMM yyyy"), db.travelings[i].id_courier.courier, db.travelings[i].id_car.id_model.model + " " + db.travelings[i].id_car.car,
+                    dataGridView6.Rows.Add(db.travelings[i].number, db.travelings[i].date_traveling.ToString("dd.MM.yyyy"), db.travelings[i].id_courier.courier, db.travelings[i].id_car.id_model.model + " " + db.travelings[i].id_car.car,
                                         db.travelings[i].s_probeg_1, db.travelings[i].e_probeg_1, db.travelings[i].t_probeg_1, db.travelings[i].S_gas_1, db.travelings[i].E_gas_1, db.travelings[i].T_gas_1, db.travelings[i].R_gas_1,
                                         db.travelings[i].s_probeg_2, db.travelings[i].e_probeg_2, db.travelings[i].t_probeg_2, db.travelings[i].S_gas_2, db.travelings[i].E_gas_2, db.travelings[i].T_gas_2, db.travelings[i].R_gas_2,
                                         db.travelings[i].t_probeg_all, db.travelings[i].T_gas_all, db.travelings[i].P_traveling_all);
@@ -205,7 +228,7 @@ namespace Mekus
         {
             try
             {
-                Traveling traveling = db.travelings.Find(x => x.number == (int)dataGridView5.CurrentRow.Cells[0].Value);
+                Traveling traveling = db.travelings.Find(x => x.number == (string)dataGridView5.CurrentRow.Cells[0].Value);
                 close_traveling form = new close_traveling(db, this, traveling);
                 form.Show();
             }
@@ -219,7 +242,7 @@ namespace Mekus
         {
             try
             {
-                Traveling traveling = db.travelings.Find(x => x.number == (int)dataGridView6.CurrentRow.Cells[0].Value);
+                Traveling traveling = db.travelings.Find(x => x.number == (string)dataGridView6.CurrentRow.Cells[0].Value);
                 close_traveling_rf form = new close_traveling_rf(db, this, traveling);
                 form.Show();
             }
@@ -233,7 +256,7 @@ namespace Mekus
         {
             try
             {
-                Traveling traveling = db.travelings.Find(x => x.number == (int)dataGridView5.CurrentRow.Cells[0].Value);
+                Traveling traveling = db.travelings.Find(x => x.number == (string)dataGridView5.CurrentRow.Cells[0].Value);
 
                 Excel.Workbook xlWB;
                 Excel.Worksheet xlSht;
@@ -304,7 +327,7 @@ namespace Mekus
         {
             try
             {
-                Traveling traveling = db.travelings.Find(x => x.number == (int)dataGridView6.CurrentRow.Cells[0].Value);
+                Traveling traveling = db.travelings.Find(x => x.number == (string)dataGridView6.CurrentRow.Cells[0].Value);
 
                 Excel.Workbook xlWB;
                 Excel.Worksheet xlSht;
@@ -372,7 +395,7 @@ namespace Mekus
                 {
                     if(xlSht.Cells[i, 2].Value != null)
                     {
-                        Traveling traveling = db.travelings.Find(x => x.number == Convert.ToInt32(xlSht.Cells[i, 2].Value.ToString()) && x.id_car.id == 2); // НОМЕР АВТО
+                        Traveling traveling = db.travelings.Find(x => x.number == xlSht.Cells[i, 2].Value.ToString() && x.id_car.id == 2); // НОМЕР АВТО
                         if (traveling != null)
                         {
                             close_traveling form = new close_traveling(db, this, traveling);
@@ -381,7 +404,7 @@ namespace Mekus
                             if (xlSht.Cells[i, 7].Value != null)
                                 form.textBox11.Text = xlSht.Cells[i, 7].Value.ToString();
                             form.button1_Click(sender, e);
-                            if (traveling.number == 22054) // НОМЕР ПОСЛЕДНЕГО ПУТЕВОГО ЛИСТА
+                            if (traveling.number == "22054") // НОМЕР ПОСЛЕДНЕГО ПУТЕВОГО ЛИСТА
                                 break;
                         }
                     }
@@ -444,6 +467,15 @@ namespace Mekus
             {
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Car car = db.cars.Find(x => x.car == comboBox2.Text);
+            if(car != null)
+                update_gridviewtravelingslist(0, car.id);
+            else
+                update_gridviewtravelingslist(0);
         }
     }
 }

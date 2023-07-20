@@ -73,7 +73,7 @@ namespace Mekus.classes
                     if (gasstation == null)
                     {
                         gasstation = new Gasstation();
-                        string query = string.Format("insert into Gasstations (enter_gas, really_gas, price, id_car, date_gas) values (@enter_gas, 0, @price, {0}, '{1}')", traveling.id_car.id, traveling.date_traveling.Date);
+                        string query = string.Format("insert into Gasstations (enter_gas, really_gas, price, id_car, date_gas, name_gas) values (@enter_gas, 0, @price, {0}, '{1}', '{2}')", traveling.id_car.id, traveling.date_traveling.Date, "АИ-95-К5 FLAGMAN");
                         SqlCommand cmd = new SqlCommand(query, connect);
                         SqlParameter param = new SqlParameter("@enter_gas", traveling.id_car.Gas);
                         cmd.Parameters.Add(param);

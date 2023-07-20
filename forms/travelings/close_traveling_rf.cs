@@ -49,7 +49,7 @@ namespace Mekus.forms.travelings
 
             if (this.traveling.status_traveling == 0)
             {
-                textBox1.Text = Convert.ToString(traveling.number);
+                textBox1.Text = traveling.number;
                 textBox2.Text = Convert.ToString(traveling.date_traveling.Date.ToString("dd MMMM yyyy"));
                 textBox3.Text = Convert.ToString(traveling.id_courier.courier);
                 comboBox1.Text = Convert.ToString(traveling.id_car.car);
@@ -68,7 +68,7 @@ namespace Mekus.forms.travelings
             {
                 read_traveling = true;
 
-                textBox1.Text = Convert.ToString(traveling.number);
+                textBox1.Text = traveling.number;
                 textBox2.Text = Convert.ToString(traveling.date_traveling.Date.ToString("dd MMMM yyyy"));
                 textBox3.Text = Convert.ToString(traveling.id_courier.courier);
                 comboBox1.Text = Convert.ToString(traveling.id_car.car);

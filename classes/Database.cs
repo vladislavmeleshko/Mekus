@@ -184,7 +184,7 @@ namespace Mekus.classes
                                     list_gasstations.Add(gasstations.Find(x => x.id == Convert.ToInt32(id_gasstations[i])));
                                 }
                             }
-                            travelings.Add(new Traveling((int)reader["id"], (int)reader["number"], (DateTime)reader["date_traveling"], cars.Find(x => x.id == (int)reader["id_car"]), 
+                            travelings.Add(new Traveling((int)reader["id"], (string)reader["number"], (DateTime)reader["date_traveling"], cars.Find(x => x.id == (int)reader["id_car"]), 
                                             couriers.Find(x => x.id == (int)reader["id_courier"]), gasstations.Find(x => x.id == (int)reader["id_gasstation"]),
                                             (int)reader["s_probeg_1"], (int)reader["e_probeg_1"], (int)reader["t_probeg_1"],
                                             (int)reader["s_probeg_2"], (int)reader["e_probeg_2"], (int)reader["t_probeg_2"], (int)reader["t_probeg_all"],

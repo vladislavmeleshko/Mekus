@@ -13,7 +13,7 @@ namespace Mekus.classes
     {
         public static string str_connect = @"Data Source=.\SQLEXPRESS;Database=Mekus;AttachDbFilename=|DataDirectory|\Mekus.mdf;Integrated Security=True;Connect Timeout=30";
         public int id { get; set; }
-        public int number { get; set; }
+        public string number { get; set; }
         public DateTime date_traveling { get; set; }
         public Car id_car { get; set; }
         public Courier id_courier { get; set; }
@@ -70,7 +70,7 @@ namespace Mekus.classes
 
         }
 
-        public Traveling(int id, int number, DateTime date_traveling, Car id_car, Courier id_courier, Gasstation id_gasstation, int s_probeg_1, int e_probeg_1, int t_probeg_1, int s_probeg_2, int e_probeg_2, int t_probeg_2, int t_probeg_all, decimal s_gas_1, decimal e_gas_1, decimal t_gas_1, decimal r_gas_1, decimal z_gas_1, decimal p_gas_1, decimal s_gas_2, decimal e_gas_2, decimal t_gas_2, decimal r_gas_2, decimal z_gas_2, decimal p_gas_2, decimal t_gas_all, decimal p_traveling_1, decimal p_traveling_2, decimal p_traveling_all, int status_traveling, int status_inRf, List<Gasstation> list)
+        public Traveling(int id, string number, DateTime date_traveling, Car id_car, Courier id_courier, Gasstation id_gasstation, int s_probeg_1, int e_probeg_1, int t_probeg_1, int s_probeg_2, int e_probeg_2, int t_probeg_2, int t_probeg_all, decimal s_gas_1, decimal e_gas_1, decimal t_gas_1, decimal r_gas_1, decimal z_gas_1, decimal p_gas_1, decimal s_gas_2, decimal e_gas_2, decimal t_gas_2, decimal r_gas_2, decimal z_gas_2, decimal p_gas_2, decimal t_gas_all, decimal p_traveling_1, decimal p_traveling_2, decimal p_traveling_all, int status_traveling, int status_inRf, List<Gasstation> list)
         {
             this.id = id;
             this.number = number;
@@ -113,7 +113,7 @@ namespace Mekus.classes
                 try
                 {
                     connect.Open();
-                    string query = string.Format("insert into Travelings (number, date_traveling, id_courier, id_car, id_gasstation, status_inRf) values ({0}, '{1}', {2}, {3}, {4}, {5})",
+                    string query = string.Format("insert into Travelings (number, date_traveling, id_courier, id_car, id_gasstation, status_inRf) values ('{0}', '{1}', {2}, {3}, {4}, {5})",
                                                     number, date_traveling.Date, id_courier.id, id_car.id, id_gasstation.id, status_inRf);
                     SqlCommand cmd = new SqlCommand(query, connect);
                     cmd.ExecuteNonQuery();

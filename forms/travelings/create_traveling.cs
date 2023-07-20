@@ -34,7 +34,7 @@ namespace Mekus.forms.travelings
                 comboBox3.Items.Add(db.cars[i].car);
             if (db.travelings.Count == 0)
                 textBox1.Text = "1";
-            else textBox1.Text = Convert.ToString(db.travelings[0].number + 1);
+            else textBox1.Text = get_number_traveling();
             traveling.date_traveling = dateTimePicker1.Value.Date;
             traveling.id_gasstation = new Gasstation();
             comboBox1.SelectedIndex = 0;
@@ -44,7 +44,7 @@ namespace Mekus.forms.travelings
         {
             try
             {
-                traveling.number = Convert.ToInt32(textBox1.Text);
+                traveling.number = textBox1.Text;
             }
             catch(Exception ex)
             {
@@ -96,8 +96,10 @@ namespace Mekus.forms.travelings
                 traveling.id_gasstation = traveling.id_gasstation.get_gasstation(db, traveling);
                 traveling.createTraveling(traveling.status_inRf);
                 main.set_values_table();
-                // Close();
-                textBox1.Text = Convert.ToString(Convert.ToInt32(textBox1.Text) + 1);
+                if (comboBox1.SelectedIndex == 0 || comboBox1.SelectedIndex == 1)
+                    textBox1.Text = get_number_traveling();
+                else
+                    textBox1.Text = get_number_traveling_in_gomel();
             }
             catch (Exception ex)
             {
@@ -108,11 +110,45 @@ namespace Mekus.forms.travelings
         private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (comboBox1.SelectedIndex == 0)
+            { 
                 traveling.status_inRf = 0;
+                textBox1.Text = get_number_traveling();
+            }
             else if (comboBox1.SelectedIndex == 1)
+            { 
                 traveling.status_inRf = 1;
+                textBox1.Text = get_number_traveling();
+            }
             else
+            { 
                 traveling.status_inRf = 2;
+                textBox1.Text = get_number_traveling_in_gomel();
+            }
+        }
+
+        public string get_number_traveling()
+        {
+            string number = db.travelings.Find(x => x.status_inRf != 2).number;
+            if (number != null)
+                return Convert.ToString(Convert.ToInt32(number) + 1);
+            else
+                return "1";
+        }
+
+        public string get_number_traveling_in_gomel()
+        {
+            try
+            {
+                Traveling traveling = null;
+                if ((traveling = db.travelings.Find(x => x.status_inRf == 2)) != null)
+                    return "ГО" + Convert.ToString(Convert.ToInt32(traveling.number.Substring(2)) + 1);
+                else
+                    return "ГО230";
+            }
+            catch(NullReferenceException)
+            {
+                return null;
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
