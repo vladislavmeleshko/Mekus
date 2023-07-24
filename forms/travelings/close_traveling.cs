@@ -125,7 +125,7 @@ namespace Mekus.forms.travelings
             {
                 if (read_traveling == false)
                 {
-                    traveling.R_gas_1 = Convert.ToDecimal(textBox11.Text);
+                    traveling.R_gas_1 = Convert.ToDecimal(textBox11.Text.Replace('.', ','));
                     if (textBox6.Text.Length != 0 && read_traveling == false)
                         textBox6_TextChanged(sender, e);
                 }

@@ -147,7 +147,7 @@ namespace Mekus.forms.travelings
             {
                 if(read_traveling == false)
                 {
-                    traveling.R_gas_1 = Convert.ToDecimal(textBox11.Text);
+                    traveling.R_gas_1 = Convert.ToDecimal(textBox11.Text.Replace('.', ','));
                     if (textBox6.Text.Length != 0)
                         textBox6_TextChanged(sender, e);
                 }
@@ -194,7 +194,7 @@ namespace Mekus.forms.travelings
             {
                 if (read_traveling == false)
                 {
-                    traveling.R_gas_2 = Convert.ToDecimal(textBox18.Text);
+                    traveling.R_gas_2 = Convert.ToDecimal(textBox18.Text.Replace('.', ','));
                     if (textBox15.Text.Length != 0)
                         textBox15_TextChanged(sender, e);
                 }
