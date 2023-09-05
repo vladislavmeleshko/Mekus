@@ -263,7 +263,8 @@ namespace Mekus.forms.travelings
                     }
                 }
             }
-            else MessageBox.Show("Ответ от BERLIO не получен, проверьте заправки!");
+            else if(Convert.ToInt32(response.StatusCode) != 200 && traveling.id_car.id < 9)
+                MessageBox.Show("Ответ от BERLIO не получен, проверьте заправки!");
         }
 
         private async void button3_Click(object sender, EventArgs e)
