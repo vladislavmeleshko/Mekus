@@ -263,6 +263,7 @@ namespace Mekus.forms.travelings
                     }
                 }
             }
+            else MessageBox.Show("Ответ от BERLIO не получен, проверьте заправки!");
         }
 
         private async void button3_Click(object sender, EventArgs e)
