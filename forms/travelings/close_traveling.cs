@@ -237,34 +237,37 @@ namespace Mekus.forms.travelings
 
         public async void get_gas_berlio()
         {
-            HttpClient httpClient = new HttpClient();
-            string card = Convert.ToString(traveling.id_car.cardCode);
-            string dateFrom = traveling.date_traveling.Date.ToString("yyyy-MM-dd");
-            string dateTo = traveling.date_traveling.Date.AddDays(1).ToString("yyyy-MM-dd");
-            string url = "https://api.cardcenter.by/api/Cards/GetCardRealisations?cardNumber="+card+"&dateFrom="+dateFrom+"&dateTo="+dateTo;
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, url);
-            HttpResponseMessage response = await httpClient.SendAsync(request);
-            string content = await response.Content.ReadAsStringAsync();
-            if (Convert.ToInt32(response.StatusCode) == 200)
-            {
-                Berlio[] berlio = System.Text.Json.JsonSerializer.Deserialize<Berlio[]>(content);
-                if (berlio.Length > 0)
+            HttpMessageHandler handler = new HttpClientHandler();
+            using (var httpClient = new HttpClient(handler, false))
+            { 
+                string card = Convert.ToString(traveling.id_car.cardCode);
+                string dateFrom = traveling.date_traveling.Date.ToString("yyyy-MM-dd");
+                string dateTo = traveling.date_traveling.Date.AddDays(1).ToString("yyyy-MM-dd");
+                string url = "https://api.cardcenter.by/api/Cards/GetCardRealisations?cardNumber="+card+"&dateFrom="+dateFrom+"&dateTo="+dateTo;
+                /*HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, url);*/
+                HttpResponseMessage response = await httpClient.GetAsync(url); // SendAsync(request)
+                string content = await response.Content.ReadAsStringAsync();
+                if (Convert.ToInt32(response.StatusCode) == 200)
                 {
-                    for (int i = 0; i < berlio.Length; i++)
+                    Berlio[] berlio = System.Text.Json.JsonSerializer.Deserialize<Berlio[]>(content);
+                    if (berlio.Length > 0)
                     {
-                        if (Convert.ToDateTime(berlio[i].RealisationDate).Date.ToString() == traveling.date_traveling.ToString())
+                        for (int i = 0; i < berlio.Length; i++)
                         {
-                            dataGridView1.Rows.Add(Convert.ToDateTime(berlio[i].RealisationDate).ToString("dd MMMM yyyy"), berlio[i].RealisationProductName,
-                                                    berlio[i].RealisationQuantity, berlio[i].RealisationRoznPrice, berlio[i].RealisationProductName);
-                            if (traveling.status_traveling == 0)
-                                dataGridView2.Rows.Add(Convert.ToDateTime(berlio[i].RealisationDate).ToString("dd MMMM yyyy"), berlio[i].RealisationProductName,
-                                                    berlio[i].RealisationQuantity, berlio[i].RealisationRoznPrice);
+                            if (Convert.ToDateTime(berlio[i].RealisationDate).Date.ToString() == traveling.date_traveling.ToString())
+                            {
+                                dataGridView1.Rows.Add(Convert.ToDateTime(berlio[i].RealisationDate).ToString("dd MMMM yyyy"), berlio[i].RealisationProductName,
+                                                        berlio[i].RealisationQuantity, berlio[i].RealisationRoznPrice, berlio[i].RealisationProductName);
+                                if (traveling.status_traveling == 0)
+                                    dataGridView2.Rows.Add(Convert.ToDateTime(berlio[i].RealisationDate).ToString("dd MMMM yyyy"), berlio[i].RealisationProductName,
+                                                        berlio[i].RealisationQuantity, berlio[i].RealisationRoznPrice);
+                            }
                         }
                     }
                 }
+                else if(Convert.ToInt32(response.StatusCode) != 200 && traveling.id_car.id < 8)
+                    MessageBox.Show("Ответ от BERLIO не получен, проверьте заправки!");
             }
-            else if(Convert.ToInt32(response.StatusCode) != 200 && traveling.id_car.id < 9)
-                MessageBox.Show("Ответ от BERLIO не получен, проверьте заправки!");
         }
 
         private async void button3_Click(object sender, EventArgs e)
