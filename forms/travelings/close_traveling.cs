@@ -265,7 +265,7 @@ namespace Mekus.forms.travelings
                         }
                     }
                 }
-                else if(Convert.ToInt32(response.StatusCode) != 200 && traveling.id_car.id < 8)
+                else if(Convert.ToInt32(response.StatusCode) != 200 && traveling.id_car.id < 8 && traveling.id_car.id != 6)
                     MessageBox.Show("Ответ от BERLIO не получен, проверьте заправки!");
             }
         }
