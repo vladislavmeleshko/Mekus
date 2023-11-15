@@ -459,7 +459,8 @@ namespace Mekus
                             reportGases[i].Amount_really_gas,
                             reportGases[i].Price_really_gas,
                             reportGases[i].E_gas,
-                            decimal.Round(decimal.Round(reportGases[i].Price_gas * reportGases[i].E_gas, 2, MidpointRounding.AwayFromZero) / (decimal)1.2, 2, MidpointRounding.AwayFromZero)
+                            decimal.Round(decimal.Round(reportGases[i].Price_gas * reportGases[i].E_gas, 2, MidpointRounding.AwayFromZero) / (decimal)1.2, 2, MidpointRounding.AwayFromZero),
+                            reportGases[i].name_azs
                         );
                 }
             }

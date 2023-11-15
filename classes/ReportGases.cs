@@ -20,6 +20,7 @@ namespace Mekus.classes
         public decimal Price_enter_gasNDS { get => price_enter_gasNDS; set => price_enter_gasNDS = decimal.Round(value, 2, MidpointRounding.AwayFromZero); }
         public decimal S_gas { get => s_gas; set => s_gas = decimal.Round(value, 2, MidpointRounding.AwayFromZero); }
         public decimal E_gas { get => e_gas; set => e_gas = decimal.Round(value, 2, MidpointRounding.AwayFromZero); }
+        public string name_azs { get; set; }
 
         private decimal price_gas;
         private decimal amount_really_gas;

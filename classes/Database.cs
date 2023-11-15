@@ -358,6 +358,17 @@ namespace Mekus.classes
                         }
                     }
                     reader.Close();
+                    for (int i = 0; i < reportGases.Count; i++)
+                    {
+                        query = string.Format("select name_azs from Cars where car = '{0}'", reportGases[i].car);
+                        cmd = new SqlCommand(query, connect);
+                        reader = cmd.ExecuteReader();
+                        while (reader.Read())
+                        {
+                            reportGases[i].name_azs = (string)reader.GetValue(0);
+                        }
+                        reader.Close();
+                    }
                     connect.Close();
                     return reportGases;
                 }
