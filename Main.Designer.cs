@@ -1081,25 +1081,25 @@
             // 
             // Column34
             // 
-            this.Column34.HeaderText = "Всего потрачено топлива, литров";
+            this.Column34.HeaderText = "Всего заправлено топлива, литров";
             this.Column34.Name = "Column34";
             this.Column34.ReadOnly = true;
             // 
             // Column37
             // 
-            this.Column37.HeaderText = "Всего заправлено топлива, литров";
+            this.Column37.HeaderText = "Всего заправлено топлива, рублей (без НДС)";
             this.Column37.Name = "Column37";
             this.Column37.ReadOnly = true;
             // 
             // Column39
             // 
-            this.Column39.HeaderText = "Стоимость заправленного топлива (без НДС), рублей";
+            this.Column39.HeaderText = "Всего потрачено топлива, литров";
             this.Column39.Name = "Column39";
             this.Column39.ReadOnly = true;
             // 
             // Column36
             // 
-            this.Column36.HeaderText = "Стоимость израсходованного топлива (без НДС), рублей";
+            this.Column36.HeaderText = "Стоимость израсходованного топлива, рублей (без НДС)";
             this.Column36.Name = "Column36";
             this.Column36.ReadOnly = true;
             // 
