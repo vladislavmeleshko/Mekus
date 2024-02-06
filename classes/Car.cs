@@ -56,7 +56,7 @@ namespace Mekus.classes
                 try
                 {
                     connect.Open();
-                    string query = string.Format("insert into Cars (car, probeg, gas, id_model) values ('{0}', {1}, @gas, {2})", car, probeg, id_model.id);
+                    string query = string.Format("insert into Cars (car, probeg, gas, id_model, cardCode, nav_id_object, name_azs) values ('{0}', {1}, @gas, {2}, {3}, 0, 'test')", car, probeg, id_model.id, cardCode);
                     SqlCommand cmd = new SqlCommand(query, connect);
                     SqlParameter param = new SqlParameter("@gas", Gas);
                     cmd.Parameters.Add(param);

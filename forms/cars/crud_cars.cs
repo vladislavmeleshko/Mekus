@@ -42,6 +42,7 @@ namespace Mekus.forms.cars
                 if (textBox2.Text.Length == 0) throw new Exception("Введите пробег автомобиля!");
                 if (textBox3.Text.Length == 0) throw new Exception("Введите остаток топлива автомобиля!");
                 if (comboBox2.Text.Length == 0) throw new Exception("Укажите модель автомобиля!");
+                if (textBox4.Text.Length == 0) throw new Exception("Введите номер топливной карты автомобиля!");
                 car.addCar();
                 main.set_values_table();
                 Close();
@@ -143,6 +144,18 @@ namespace Mekus.forms.cars
             try
             {
                 car.Gas = Convert.ToDecimal(textBox3.Text);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void textBox4_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                car.cardCode = Convert.ToInt32(textBox4.Text);
             }
             catch (Exception ex)
             {

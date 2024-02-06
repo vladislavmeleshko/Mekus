@@ -167,6 +167,26 @@ namespace Mekus.classes
             }
         }
 
+        public void editGasstation()
+        {
+            using (SqlConnection connect = new SqlConnection(str_connect))
+            {
+                try
+                {
+                    connect.Open();
+                    string query = string.Format("update Gasstations set name_gas = '{0}', enter_gas = {1}, price = {2} where id = {3}", name_gas, Enter_gas.ToString().Replace(',', '.'), Price.ToString().Replace(',', '.'), id);
+                    SqlCommand cmd = new SqlCommand(query, connect);
+                    cmd.ExecuteNonQuery();
+                    connect.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    connect.Close();
+                }
+            }
+        }
+
         public decimal get_price_traveling_test_2(Database db, Traveling traveling, decimal t_gas_all, decimal price_test, bool daygas = false)
         {
             using (SqlConnection connect = new SqlConnection(str_connect))

@@ -41,16 +41,19 @@
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.textBox4 = new System.Windows.Forms.TextBox();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox5.SuspendLayout();
+            this.groupBox6.SuspendLayout();
             this.SuspendLayout();
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(12, 350);
+            this.button3.Location = new System.Drawing.Point(12, 406);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(302, 23);
             this.button3.TabIndex = 12;
@@ -60,7 +63,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(12, 321);
+            this.button2.Location = new System.Drawing.Point(12, 377);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(302, 23);
             this.button2.TabIndex = 13;
@@ -70,7 +73,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(12, 292);
+            this.button1.Location = new System.Drawing.Point(12, 348);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(302, 23);
             this.button1.TabIndex = 14;
@@ -170,11 +173,30 @@
             this.textBox3.TabIndex = 0;
             this.textBox3.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
             // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.textBox4);
+            this.groupBox6.Location = new System.Drawing.Point(12, 292);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(302, 50);
+            this.groupBox6.TabIndex = 15;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Номер топливной карты";
+            // 
+            // textBox4
+            // 
+            this.textBox4.Location = new System.Drawing.Point(7, 19);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(289, 20);
+            this.textBox4.TabIndex = 0;
+            this.textBox4.TextChanged += new System.EventHandler(this.textBox4_TextChanged);
+            // 
             // crud_cars
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(329, 381);
+            this.ClientSize = new System.Drawing.Size(329, 439);
+            this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
@@ -194,6 +216,8 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -213,5 +237,7 @@
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.TextBox textBox4;
     }
 }

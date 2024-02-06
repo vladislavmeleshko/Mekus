@@ -75,6 +75,22 @@ namespace Mekus
             }
         }
 
+        public void updateListGasstations()
+        {
+            try
+            {
+                dataGridView8.Rows.Clear();
+                for (int i = db.gasstations.Count - 1; i >= 0; i--)
+                {
+                    dataGridView8.Rows.Add(db.gasstations[i].id, db.gasstations[i].id_car.car, db.gasstations[i].id_car.id_model.model, db.gasstations[i].Enter_gas, db.gasstations[i].name_gas, db.gasstations[i].Price);
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         // Пробная функция
 
         public void set_value_table(Traveling traveling, int id)
@@ -128,6 +144,7 @@ namespace Mekus
                         }
                     }
                 }
+                updateListGasstations();
             }
             catch(Exception e) 
             {
@@ -186,6 +203,7 @@ namespace Mekus
                 
                 }
             }
+            updateListGasstations();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -477,6 +495,25 @@ namespace Mekus
                 update_gridviewtravelingslist(0, car.id);
             else
                 update_gridviewtravelingslist(0);
+        }
+
+        private void dataGridView8_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            Gasstation gasstation = db.gasstations.Find(x => x.id == (int)dataGridView8.CurrentRow.Cells[0].Value);
+            textBox1.Text = gasstation.Enter_gas.ToString();
+            textBox2.Text = gasstation.name_gas.ToString();
+            textBox3.Text = gasstation.Price.ToString();
+            textBox4.Text = gasstation.id.ToString();
+        }
+
+        private void button13_Click(object sender, EventArgs e)
+        {
+            Gasstation gasstation = db.gasstations.Find(x => x.id == (int)dataGridView8.CurrentRow.Cells[0].Value);
+            gasstation.Enter_gas = Convert.ToDecimal(textBox1.Text);
+            gasstation.name_gas = textBox2.Text;
+            gasstation.Price = Convert.ToDecimal(textBox3.Text);
+            gasstation.editGasstation();
+            updateListGasstations();
         }
     }
 }
