@@ -31,6 +31,7 @@ namespace Mekus.forms.cars
                 comboBox1.Items.Add(db.cars[i].car);
             for (int i = 0; i < db.models.Count; i++)
                 comboBox2.Items.Add(db.models[i].model);
+            comboBox3.SelectedIndex = 0;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -96,6 +97,12 @@ namespace Mekus.forms.cars
                 textBox2.Text = Convert.ToString(car.probeg);
                 textBox3.Text = Convert.ToString(car.Gas);
                 comboBox2.Text = car.id_model.model;
+                comboBox3.Text = Convert.ToString(car.name_azs);
+                if(car.name_azs == "ОДО \"АСТОТРЕЙДИНГ\"")
+                    comboBox3.SelectedIndex = 0;
+                else
+                    comboBox3.SelectedIndex = 1;
+                textBox4.Text = Convert.ToString(car.cardCode);
             }
             catch (Exception ex)
             {
@@ -156,6 +163,18 @@ namespace Mekus.forms.cars
             try
             {
                 car.cardCode = Convert.ToInt32(textBox4.Text);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                car.name_azs = comboBox3.Text;
             }
             catch (Exception ex)
             {

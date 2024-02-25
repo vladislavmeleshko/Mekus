@@ -43,17 +43,20 @@
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.textBox4 = new System.Windows.Forms.TextBox();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.comboBox3 = new System.Windows.Forms.ComboBox();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox6.SuspendLayout();
+            this.groupBox7.SuspendLayout();
             this.SuspendLayout();
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(12, 406);
+            this.button3.Location = new System.Drawing.Point(12, 462);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(302, 23);
             this.button3.TabIndex = 12;
@@ -63,7 +66,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(12, 377);
+            this.button2.Location = new System.Drawing.Point(12, 433);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(302, 23);
             this.button2.TabIndex = 13;
@@ -73,7 +76,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(12, 348);
+            this.button1.Location = new System.Drawing.Point(12, 404);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(302, 23);
             this.button1.TabIndex = 14;
@@ -191,11 +194,34 @@
             this.textBox4.TabIndex = 0;
             this.textBox4.TextChanged += new System.EventHandler(this.textBox4_TextChanged);
             // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.comboBox3);
+            this.groupBox7.Location = new System.Drawing.Point(12, 348);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(302, 50);
+            this.groupBox7.TabIndex = 16;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "Заправка";
+            // 
+            // comboBox3
+            // 
+            this.comboBox3.FormattingEnabled = true;
+            this.comboBox3.Items.AddRange(new object[] {
+            "ОДО \"АСТОТРЕЙДИНГ\"",
+            "РУП \"Белоруснефть-Минскавтозаправка\""});
+            this.comboBox3.Location = new System.Drawing.Point(7, 20);
+            this.comboBox3.Name = "comboBox3";
+            this.comboBox3.Size = new System.Drawing.Size(289, 21);
+            this.comboBox3.TabIndex = 0;
+            this.comboBox3.SelectedIndexChanged += new System.EventHandler(this.comboBox3_SelectedIndexChanged);
+            // 
             // crud_cars
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(329, 439);
+            this.ClientSize = new System.Drawing.Size(329, 495);
+            this.Controls.Add(this.groupBox7);
             this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
@@ -218,6 +244,7 @@
             this.groupBox5.PerformLayout();
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
+            this.groupBox7.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -239,5 +266,7 @@
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.GroupBox groupBox7;
+        private System.Windows.Forms.ComboBox comboBox3;
     }
 }

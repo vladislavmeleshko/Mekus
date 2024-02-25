@@ -37,7 +37,7 @@ namespace Mekus
                 {
                     for (int i = 0; i < db.travelings.Count; i++)
                     {
-                        if ((db.travelings[i].status_inRf == status_inRf || db.travelings[i].status_inRf == 2) && db.travelings[i].date_traveling.Date >= dateTimePicker1.Value.Date && db.travelings[i].date_traveling.Date <= dateTimePicker2.Value.Date)
+                        if ((db.travelings[i].status_inRf == status_inRf || db.travelings[i].status_inRf != 1) && db.travelings[i].date_traveling.Date >= dateTimePicker1.Value.Date && db.travelings[i].date_traveling.Date <= dateTimePicker2.Value.Date)
                         {
                             dataGridView5.Rows.Add(db.travelings[i].number, db.travelings[i].date_traveling.ToString("dd.MM.yyyy"), db.travelings[i].id_courier.courier, db.travelings[i].id_car.id_model.model + " " + db.travelings[i].id_car.car,
                                                 db.travelings[i].s_probeg_1, db.travelings[i].e_probeg_1, db.travelings[i].t_probeg_all, db.travelings[i].S_gas_1, db.travelings[i].E_gas_1,
@@ -49,7 +49,7 @@ namespace Mekus
                 {
                     for (int i = 0; i < db.travelings.Count; i++)
                     {
-                        if ((db.travelings[i].status_inRf == status_inRf || db.travelings[i].status_inRf == 2) && 
+                        if ((db.travelings[i].status_inRf == status_inRf || db.travelings[i].status_inRf != 1) && 
                             db.travelings[i].date_traveling.Date >= dateTimePicker1.Value.Date && db.travelings[i].date_traveling.Date <= dateTimePicker2.Value.Date && db.travelings[i].id_car.id == id_car)
                         {
                             dataGridView5.Rows.Add(db.travelings[i].number, db.travelings[i].date_traveling.ToString("dd.MM.yyyy"), db.travelings[i].id_courier.courier, db.travelings[i].id_car.id_model.model + " " + db.travelings[i].id_car.car,
@@ -184,7 +184,7 @@ namespace Mekus
             dataGridView5.Rows.Clear();
             for (int i = 0; i < db.travelings.Count; i++)
             {
-                if ((db.travelings[i].status_inRf == 0 || db.travelings[i].status_inRf == 2) && db.travelings[i].date_traveling.Date >= dateTimePicker1.Value.Date && db.travelings[i].date_traveling.Date <= dateTimePicker2.Value.Date)
+                if ((db.travelings[i].status_inRf != 1) && db.travelings[i].date_traveling.Date >= dateTimePicker1.Value.Date && db.travelings[i].date_traveling.Date <= dateTimePicker2.Value.Date)
                 {
                     dataGridView5.Rows.Add(db.travelings[i].number, db.travelings[i].date_traveling.ToString("dd.MM.yyyy"), db.travelings[i].id_courier.courier, db.travelings[i].id_car.id_model.model + " " + db.travelings[i].id_car.car,
                                         db.travelings[i].s_probeg_1, db.travelings[i].e_probeg_1, db.travelings[i].t_probeg_all, db.travelings[i].S_gas_1, db.travelings[i].E_gas_1,

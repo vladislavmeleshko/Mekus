@@ -91,7 +91,7 @@ namespace Mekus.classes
                     SqlDataReader reader = cmd.ExecuteReader();
                     if (reader.HasRows)
                         while (reader.Read())
-                            cars.Add(new Car((int)reader["id"], (string)reader["car"], (int)reader["probeg"], (decimal)reader["gas"], models.Find(x => x.id == (int)reader["id_model"]), (int)reader["nav_id_object"], (int)reader["cardCode"]));
+                            cars.Add(new Car((int)reader["id"], (string)reader["car"], (int)reader["probeg"], (decimal)reader["gas"], models.Find(x => x.id == (int)reader["id_model"]), (int)reader["nav_id_object"], (int)reader["cardCode"], (string)reader["name_azs"]));
                     reader.Close();
                     connect.Close();
                     return cars;

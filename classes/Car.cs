@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Windows.Forms;
 
 namespace Mekus.classes
@@ -24,13 +25,14 @@ namespace Mekus.classes
         public int nav_id_object { get; set; }
 
         public int cardCode { get; set; }
+        public string name_azs { get; set; }
 
         public Car()
         {
 
         }
 
-        public Car(int id, string car, int probeg, decimal gas, Model id_model, int nav_id_object, int cardCode)
+        public Car(int id, string car, int probeg, decimal gas, Model id_model, int nav_id_object, int cardCode, string name_azs)
         {
             this.id = id;
             this.car = car;
@@ -39,6 +41,7 @@ namespace Mekus.classes
             this.id_model = id_model;
             this.nav_id_object = nav_id_object;
             this.cardCode = cardCode;
+            this.name_azs = name_azs;
         }
 
         public Car(string car, int probeg, decimal gas, Model id_model)
@@ -56,7 +59,7 @@ namespace Mekus.classes
                 try
                 {
                     connect.Open();
-                    string query = string.Format("insert into Cars (car, probeg, gas, id_model, cardCode, nav_id_object, name_azs) values ('{0}', {1}, @gas, {2}, {3}, 0, 'test')", car, probeg, id_model.id, cardCode);
+                    string query = string.Format("insert into Cars (car, probeg, gas, id_model, cardCode, nav_id_object, name_azs) values ('{0}', {1}, @gas, {2}, {3}, 0, '{4}')", car, probeg, id_model.id, cardCode, name_azs);
                     SqlCommand cmd = new SqlCommand(query, connect);
                     SqlParameter param = new SqlParameter("@gas", Gas);
                     cmd.Parameters.Add(param);
@@ -78,7 +81,7 @@ namespace Mekus.classes
                 try
                 {
                     connect.Open();
-                    string query = string.Format("update Cars set car='{0}', probeg={1}, gas=@gas, id_model={2} where id={3}", car, probeg, id_model.id, id);
+                    string query = string.Format("update Cars set car='{0}', probeg={1}, gas=@gas, id_model={2}, cardCode={3}, name_azs='{4}' where id={5}", car, probeg, id_model.id, cardCode, name_azs, id);
                     SqlCommand cmd = new SqlCommand(query, connect);
                     SqlParameter param = new SqlParameter("@gas", Gas);
                     cmd.Parameters.Add(param);
@@ -87,7 +90,7 @@ namespace Mekus.classes
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Ошибка БД (обновление модели)! " + ex.Message);
+                    MessageBox.Show("Ошибка БД (обновление модели)!" + ex.Message);
                     connect.Close();
                 }
             }
